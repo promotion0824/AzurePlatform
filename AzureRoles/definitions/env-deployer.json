@@ -1,0 +1,46 @@
+{
+    "assignableScopes": [
+        "/subscriptions/249312a0-4c83-4d73-b164-18c5e72bf219",
+        "/subscriptions/7dab7b5a-d968-43a5-a50f-9509244c297b",
+        "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+        "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de",
+        "/subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b"
+    ],
+    "description": "Allow environment deployer to create and delete resources and assign roles",
+    "permissions": [
+      {
+        "actions": [
+          "Microsoft.Authorization/roleAssignments/read",
+          "Microsoft.Authorization/roleAssignments/Write",
+          "Microsoft.Authorization/roleAssignments/Delete",
+          "Microsoft.Authorization/roleDefinitions/read",
+          "Microsoft.ManagedIdentity/userAssignedIdentities/*",
+          "Microsoft.Resources/deployments/*",
+          "Microsoft.Resources/subscriptions/resourceGroups/*",
+          "Microsoft.Network/frontDoors/*",
+          "Microsoft.DocumentDB/*",
+          "Microsoft.ServiceBus/*",
+          "Microsoft.AppConfiguration/*",
+          "Microsoft.KeyVault/*",
+          "Microsoft.Insights/*",
+          "Microsoft.DigitalTwins/*",
+          "Microsoft.ApiManagement/*",
+          "Microsoft.Storage/storageAccounts/*",
+          "Microsoft.Sql/servers/*",
+          "Microsoft.Kusto/clusters/*"
+        ],
+        "dataActions": [],
+        "notActions": [
+          "Microsoft.Authorization/elevateAccess/Action",
+          "Microsoft.Blueprint/blueprintAssignments/write",
+          "Microsoft.Blueprint/blueprintAssignments/delete",
+          "Microsoft.Compute/galleries/share/action"
+        ],
+        "notDataActions": []
+      }
+    ],
+    "roleName": "EnvironmentDeployer",
+    "name": "EnvironmentDeployer",
+    "roleType": "CustomRole",
+    "type": "Microsoft.Authorization/roleDefinitions"
+  }

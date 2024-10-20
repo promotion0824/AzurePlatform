@@ -1,0 +1,1276 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Signin information for non user based logins",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 13632,
+  "graphTooltip": 0,
+  "id": 17,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 20,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^count_$/",
+          "values": true
+        },
+        "text": {
+          "valueSize": 40
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType == 0\n| extend Type = case(Type == \"AADServicePrincipalSignInLogs\", \"SvcPrincipal\", Type == \"AADManagedIdentitySignInLogs\", \"ManagedId\", Type)\n| summarize count() by Type",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Total Logins",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^count_$/",
+          "values": true
+        },
+        "text": {
+          "valueSize": 40
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType == 0\n| extend Type = case(Type == \"AADServicePrincipalSignInLogs\", \"SvcPrincipal\", Type == \"AADManagedIdentitySignInLogs\", \"ManagedId\", Type)\n| summarize by ServicePrincipalId, Type\n| summarize count() by Type",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Unique Successful",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "None",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^count_$/",
+          "values": true
+        },
+        "text": {
+          "valueSize": 40
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType != 0\n| extend Type = case(Type == \"AADServicePrincipalSignInLogs\", \"SvcPrincipal\", Type == \"AADManagedIdentitySignInLogs\", \"ManagedId\", Type)\n| summarize count() by Type",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Total Fail",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "None",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^count_$/",
+          "values": true
+        },
+        "text": {
+          "valueSize": 40
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType != 0\n| extend Type = case(Type == \"AADServicePrincipalSignInLogs\", \"SvcPrincipal\", Type == \"AADManagedIdentitySignInLogs\", \"ManagedId\", Type)\n| summarize by ServicePrincipalId, Type\n| summarize count() by Type",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Unique Failing",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "dark-orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "id": 21,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType == 0\n| summarize Count=count() by ResourceDisplayName\n| order by Count\n| take 10",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Top 10 Logins By Resource",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      "id": 26,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType != 0\n| summarize Count=count() by ResourceDisplayName\n| order by Count\n| take 10",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Top 10 Failed Logins By Resource",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType == 0\n| summarize Success=count() by TimeGenerated = bin(TimeGenerated, $__interval)\n| order by TimeGenerated",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        },
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \nAADServicePrincipalSignInLogs,\nAADManagedIdentitySignInLogs\n| where $__timeFilter(TimeGenerated)   \n| where ResultType != 0\n| summarize Fail=count() by TimeGenerated = bin(TimeGenerated, $__interval)\n| order by TimeGenerated",
+            "resource": "$Workspace",
+            "resultFormat": "time_series",
+            "workspace": "/subscriptions/0659c76d-fcbf-4e58-8bce-960b9e0cd100/resourcegroups/t2-wil-ncp-lda-shr-aue1-mgt-rsg/providers/microsoft.operationalinsights/workspaces/wil-ncp-lda-shr-aue1-dia"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "B",
+          "subscription": "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Logins",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 18,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Details",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Country"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "City"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 96
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "latitude"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 69
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "longitude"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 78
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "UserDisplayName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 138
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TimeGenerated"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Location"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 316
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AppId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 355
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CountryOrRegion"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 129
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FailureReason"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 485
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Code"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Type"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 10,
+      "maxDataPoints": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "union \r\nAADServicePrincipalSignInLogs,\r\nAADManagedIdentitySignInLogs\r\n| where $__timeFilter(TimeGenerated) and ResultType != 0\r\n| extend Type = case(Type == \"AADServicePrincipalSignInLogs\", \"SvcPrincipal\", Type == \"AADManagedIdentitySignInLogs\", \"ManagedId\", Type)\r\n| extend FailureReason = case(ResultType == 0, \"Success\", \r\n                       ResultType == 7000215, \"Invalid client secret is provided.\",\r\n                       ResultType == 7000222, \"The provided client secret keys are expired.\", \r\n                       ResultType == 7000227, \"No Federated Identity Credential policy found on application that matched the presented credential.\",\r\n                      ResultType == 700016, \"Application  was not found in the directory\",\r\n                       ResultType == 700027, \"Client assertion failed signature validation.\",\r\n                       ResultType == 90025, \"Request processing has exceeded gateway allowance.\",\r\n                       tostring(ResultType))\r\n| extend CodeDetails = strcat(\"https://accounts.accesscontrol.windows.net/error?code=\", ResultType)\r\n| summarize by TimeGenerated, Type, Code=ResultType, FailureReason, Identity=ServicePrincipalName, ServicePrincipalId, ResourceDisplayName, ResourceIdentity, CodeDetails\r\n| order by TimeGenerated desc",
+            "resource": "$Workspace",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggOptions": [],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "metricDefinition": "select",
+            "metricName": "select",
+            "metricNamespace": "select",
+            "resourceGroup": "select",
+            "resourceName": "select",
+            "timeGrain": "auto",
+            "timeGrains": [],
+            "top": "10"
+          },
+          "azureResourceGraph": {
+            "resultFormat": "table"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "B",
+          "subscription": "9360e0f6-3be4-48b0-8cc4-e9a3dfeb4b5f",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Failures Details",
+      "type": "table"
+    }
+  ],
+  "refresh": "1d",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["Azure", "Ad", "Active Directory"],
+  "templating": {
+    "list": [
+      {
+        "hide": 2,
+        "name": "Workspace",
+        "query": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Identities",
+  "uid": "YHJLKTAGk",
+  "version": 1,
+  "weekStart": ""
+}

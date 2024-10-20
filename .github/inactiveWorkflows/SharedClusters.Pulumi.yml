@@ -1,0 +1,89 @@
+name: SharedClusters.Pulumi
+
+on:
+  workflow_call:
+    secrets:
+      CLIENT_ID:
+        required: true
+      TENANT_ID:
+        required: true
+      CLIENT_SECRET:
+        required: true
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'SharedClusters/Pulumi/**'
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  issues: read
+  checks: write
+
+jobs:
+  Preview:
+    runs-on: ubuntu-latest
+    environment: NonProd
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set version
+        uses: WillowInc/.github/.github/actions/generate-versions@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: '[pulumi] login local for tests'
+        run: |
+          [ ! -x "$(command -v pulumi)" ] && curl -fsSL https://get.pulumi.com | sh
+          pulumi login --local
+
+      - uses: WillowInc/AzurePlatform/.github/actions/dotnet-restore-build-test@main ## main
+        with:
+          path: SharedClusters/Pulumi/
+          restore_path: SharedClusters/Pulumi/
+          restore_parameters: '--locked-mode'
+          test_path: SharedClusters/Pulumi/
+          version: ${{ env.GitVersion_NuGetVersionV2 }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          test_filter: Category!=Manual
+
+      - name: AKS Login
+        uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+          cluster_resource_group: internal-devservices
+          cluster_name: internal-devservices-aks
+
+      # - name: pulumi preview
+      #   shell: pwsh
+      #   run: |
+      #     $env:DEFINITION_LOCATION="${{ parameters.definitionLocation }}"
+      #     $env:DEFINITION_NAME="${{ parameters.definitionName }}"
+      #     $env:DEFINITION_ID="${{ parameters.definitionId }}"
+      #     $env:ARM_CLIENT_ID=${{ vars.CLIENT_ID }}
+      #     $env:ARM_CLIENT_SECRET=tenant_id: ${{ secrets.CLIENT_SECRET }}
+      #     $env:ARM_TENANT_ID=tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+      #     $env:ARM_SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
+      #     $env:AZURE_STORAGE_ACCOUNT="k8sintdeploydata"
+      #     $env:AZURE_STORAGE_SAS_TOKEN= $(az storage container generate-sas --account-name $env:AZURE_STORAGE_ACCOUNT --name "pulumi" --permissions dlrw --as-user --expiry $((Get-date).AddDays(1) | % { "$($_.Year)-$($_.Month)-$($_.Day)" }) --auth-mode login).Trim('"')
+      #     pulumi login azblob://pulumi
+      #     cd SharedClusters/Pulumi/Willow.Stacks.Cluster.DeveloperServices/
+      #     dotnet Willow.Stacks.Cluster.DeveloperServices.dll preview 'internal.devservices'
+
+      # - uses: WillowInc/AzurePlatform/.github/actions/dotnet-restore-build-test@main ## main
+      #   with:
+      #     path: SharedClusters/Pulumi/
+      #     restore_path: SharedClusters/Pulumi/
+      #     restore_parameters: "--locked-mode"
+      #     test_path: SharedClusters/Pulumi/
+      #     version: ${{ env.GitVersion_NuGetVersionV2 }}
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     test_filter: Category!=Manual

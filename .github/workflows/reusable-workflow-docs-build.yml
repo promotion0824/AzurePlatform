@@ -1,0 +1,99 @@
+name: Docs Build Workflow
+
+on:
+  workflow_call:
+    inputs:
+      docs_path:
+        description: "Path to docs"
+        required: false
+        default: "./"
+        type: string
+      backstage_entity_name:
+        description: "Backstage entity name for techdocs publishing"
+        required: true
+        type: string
+      artifact_name:
+        description: "Github artifact name for upload"
+        required: false
+        default: docs
+        type: string
+      tenant_id:
+        description: "Azure service principal tenant id"
+        required: false
+        default: d43166d1-c2a1-4f26-a213-f620dba13ab8
+        type: string
+      subscription_id:
+        description: "Docs storage subscription Id"
+        required: false
+        default: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+        type: string
+      docs_storage_account:
+        description: "Docs storage account name"
+        required: false
+        default: internaldevservicessto
+        type: string
+      docs_storage_container:
+        description: "Docs storage container name"
+        required: false
+        default: techdocs
+        type: string
+    secrets:
+      jira_password:
+        description: "Jira api Key"
+        required: true
+      client_secret:
+        description: "Azure service principal client secret to use"
+        required: true
+      client_id:
+        description: "Azure service principal client id to use"
+        required: true
+      jira_username:
+        description: "Jira username for api key"
+        required: true
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    env:
+      MKDOCS_TO_CONFLUENCE: 1
+      JIRA_USERNAME: ${{ secrets.jira_username }}
+      JIRA_PASSWORD: ${{ secrets.jira_password }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: WillowInc/AzurePlatform
+          ref: main
+          path: docs-tools
+
+      - uses: azure/login@v2
+        with:
+          creds: '{"clientId":"${{ secrets.client_id }}","clientSecret":"${{ secrets.client_secret }}","subscriptionId":"${{ inputs.subscription_id }}","tenantId":"${{ inputs.tenant_id }}"}'
+
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          pip install wheel
+          pip install mkdocs-techdocs-core
+          npm install -g @techdocs/cli
+          pip install md2cf
+          pip install mime
+          pip install mistune
+          pip install -e docs-tools/MkDocs/plugins/mkdocs-kroki-plugin/
+          pip install -e docs-tools/MkDocs/plugins/mkdocs-with-confluence/
+
+      - name: Build and Publish Docs
+        shell: bash
+        run: |
+          key=`az storage account keys list --account-name ${{ inputs.docs_storage_account }} --query '[0].value' -o tsv`
+          techdocs-cli generate --no-docker --source-dir ${{ inputs.docs_path }} --output-dir docs-output
+          techdocs-cli publish --publisher-type azureBlobStorage --storage-name ${{ inputs.docs_storage_container }} --entity ${{ inputs.backstage_entity_name }} --azureAccountName ${{ inputs.docs_storage_account }} --azureAccountKey $key --directory docs-output
+
+      - name: Upload Docs Site
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: docs-output
+          retention-days: 2

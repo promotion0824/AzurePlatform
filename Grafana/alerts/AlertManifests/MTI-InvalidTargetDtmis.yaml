@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: MTI Invalid Target Dtmis
+metricName: Mti-InvalidTargetDtmis
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 0
+Severity: 3
+Aggregation: Count
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2762899457/Alert%3A+MTI-InvalidTargetDtmis
+template: MTI-InvalidTargetDtmis.json

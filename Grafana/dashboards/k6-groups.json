@@ -1,0 +1,3131 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "A dashboard for visualizing results from the k6.io load testing tool by groups,",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 13719,
+  "graphTooltip": 2,
+  "iteration": 1669282816224,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "First Load",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/XKhgaUpik/k6-load-testing-results-by-groups?orgId=1&refresh=1m&var-Workspace=%2Fsubscriptions%2F178b67d7-b6fd-46db-b4a3-b57f8a6b045f%2FresourceGroups%2Fnonprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fnonprodplatformshared-aue-log&var-Measurement=http_req_duration&var-Source=All&var-URL=All&var-Group=::load%20dashboard%20and%20initial%20navigation&var-Group=::load%20dashboard%20and%20initial%20navigation::first%20tab&var-Group=::load%20dashboard%20and%20initial%20navigation::first%20tab::get%20all%20sites%20for%20user&var-Group=::load%20dashboard%20and%20initial%20navigation::first%20tab::get%20metrics%20user%20can%20see&var-Group=::load%20dashboard%20and%20initial%20navigation::first%20tab::get%20sites%20connectivity&var-Group=::load%20dashboard%20and%20initial%20navigation::first%20tab::get%20user%20details&var-Group=::load%20dashboard%20and%20initial%20navigation::second%20tab&var-Group=::load%20dashboard%20and%20initial%20navigation::second%20tab::get%20sites%20connectivity&var-Group=::load%20dashboard%20and%20initial%20navigation::third%20tab&var-Group=::load%20dashboard%20and%20initial%20navigation::third%20tab::get%20insights%20for%20user&from=now-7d&to=now"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Default",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/XKhgaUpik/k6-load-testing-results-by-groups?orgId=1&refresh=1m&var-Workspace=%2Fsubscriptions%2F178b67d7-b6fd-46db-b4a3-b57f8a6b045f%2FresourceGroups%2Fnonprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fnonprodplatformshared-aue-log&var-Measurement=http_req_duration&var-Source=All&var-URL=All&var-Group=::get%20sites%20connectivity&var-Group=::get%20connectors%20for%20site&var-Group=::get%20all%20sites%20for%20user&from=now-7d&to=now"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 91,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisGridShow": true,
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "max": 2,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "Release.*"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "${__field.labels}"
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "hidden"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 89,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "azureLogAnalytics": {
+                "query": "\r\nAppRequests\r\n| extend  AppRoleName = replace_string(AppRoleName, \"-staging\", \"\")\r\n| where _ResourceId has \"f4edc7ff-4396-47be-bf14-90892e463848\"\r\n| where AppRoleName != \"\" \r\n| extend AppVersion = case(AppVersion in (\"1.0.0.1\", \"1.0.0.0\", \"5.0.10\", \"3.1\", \"6.0.3\"), \"\", AppVersion)\r\n| where AppVersion != \"\" \r\n| summarize FirstRequest=min(TimeGenerated) by AppVersion, AppRoleName\r\n| where $__timeFilter(FirstRequest)\r\n| extend Release = 1\r\n| order by FirstRequest asc ",
+                "resource": "$Workspace"
+              },
+              "azureMonitor": {
+                "dimensionFilters": [],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "queryType": "Azure Log Analytics",
+              "refId": "A",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+            }
+          ],
+          "title": "Platform-UAT software releases",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisGridShow": true,
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "max": 2,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "Release.*"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "${__field.labels}"
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "hidden"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 4
+          },
+          "id": 92,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "azureLogAnalytics": {
+                "query": "\r\nAppRequests\r\n| extend  AppRoleName = replace_string(AppRoleName, \"-staging\", \"\")\r\n| where _ResourceId has \"0be01d84-8432-4558-9aba-ecd204a3ee61\"\r\n| where AppRoleName != \"\" \r\n| extend AppVersion = case(AppVersion in (\"1.0.0.1\", \"1.0.0.0\", \"5.0.10\", \"3.1\", \"6.0.3\"), \"\", AppVersion)\r\n| where AppVersion != \"\" \r\n| summarize FirstRequest=min(TimeGenerated) by AppVersion, AppRoleName\r\n| where $__timeFilter(FirstRequest)\r\n| extend Release = 1\r\n| order by FirstRequest asc ",
+                "resource": "$Workspace"
+              },
+              "azureMonitor": {
+                "dimensionFilters": [],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "queryType": "Azure Log Analytics",
+              "refId": "A",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+            }
+          ],
+          "title": "Platform-DEV software releases",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisGridShow": true,
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "max": 2,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "Release.*"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "${__field.labels}"
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "hidden"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 7
+          },
+          "id": 93,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "azureLogAnalytics": {
+                "query": "\r\nAppRequests\r\n| extend  AppRoleName = replace_string(AppRoleName, \"-staging\", \"\")\r\n| where _ResourceId !has \"f4edc7ff-4396-47be-bf14-90892e463848\" and _ResourceId !has \"0be01d84-8432-4558-9aba-ecd204a3ee61\"\r\n| where AppRoleName != \"\" \r\n| extend AppVersion = case(AppVersion in (\"1.0.0.1\", \"1.0.0.0\", \"5.0.10\", \"3.1\", \"6.0.3\"), \"\", AppVersion)\r\n| where AppVersion != \"\" \r\n| summarize FirstRequest=min(TimeGenerated) by AppVersion, AppRoleName\r\n| where $__timeFilter(FirstRequest)\r\n| extend Release = 1\r\n| order by FirstRequest asc ",
+                "resource": "$Workspace"
+              },
+              "azureMonitor": {
+                "dimensionFilters": [],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "queryType": "Azure Log Analytics",
+              "refId": "A",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+            }
+          ],
+          "title": "Other software releases",
+          "type": "timeseries"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Releases",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Grouped by 1 sec intervals and group name",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f2c96d",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f29191",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p90"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#629e51",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p95"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#70dbed",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 13,
+        "x": 0,
+        "y": 1
+      },
+      "id": 71,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group)\r\n| where $__contains(url_s, $URL)\r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source)\r\n| summarize P95=percentile(todouble(metric_value_s), 95) by TimeGenerated=bin(TimeGenerated_, 1s), Group=group_s\r\n| order by TimeGenerated asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "API response times - $Measurement  - over time by group",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 13,
+        "y": 1
+      },
+      "id": 1,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "min"
+          ],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where metric_name_s == \"vus\"\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize max(todouble(metric_value_s)), avg(todouble(metric_value_s)), min(todouble(metric_value_s))   by bin(TimeGenerated_, 1s)\r\n| order by TimeGenerated_ asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Running Virtual Users",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Grouped by 1 sec intervals and group name",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f2c96d",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f29191",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p90"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#629e51",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p95"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#70dbed",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 86,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| extend url = replace_regex(url_s,\"[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?\", \"{id}\")\r\n| summarize P95=percentile(todouble(metric_value_s), 95) by TimeGenerated=bin(TimeGenerated_, 1s), Url=url\r\n| order by TimeGenerated asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "API response times - $Measurement  - over time by url",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1hOOmUP7z"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 69,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1hOOmUP7z"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "K6 Test overview (all URLs)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 20
+      },
+      "id": 75,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "min"
+          ],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == \"http_reqs\"\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize max(todouble(metric_value_s)), avg(todouble(metric_value_s)), min(todouble(metric_value_s))   by bin(TimeGenerated_, 1s)\r\n| order by TimeGenerated_ asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Requests per Second",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 20
+      },
+      "id": 76,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "min"
+          ],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == \"http_req_failed\"\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize max(todouble(metric_value_s)), avg(todouble(metric_value_s)), min(todouble(metric_value_s))   by bin(TimeGenerated_, 1s)\r\n| order by TimeGenerated_ asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Errors Per Second",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 20
+      },
+      "id": 77,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "min"
+          ],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == \"checks\"\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize max(todouble(metric_value_s)), avg(todouble(metric_value_s)), min(todouble(metric_value_s))   by bin(TimeGenerated_, 1s)\r\n| order by TimeGenerated_ asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Checks Per Second",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1hOOmUP7z"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 70,
+      "panels": [],
+      "repeat": "Measurement",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1hOOmUP7z"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "$Measurement",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Grouped by 1 sec intervals and group name",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 60,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "log"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f2c96d",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f29191",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p90"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#629e51",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p95"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#70dbed",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 78,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize P95=percentile(todouble(metric_value_s), 95), P90=percentile(todouble(metric_value_s), 90), P50=percentile(todouble(metric_value_s), 50) by TimeGenerated=bin(TimeGenerated_, 1s)\r\n| order by TimeGenerated asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "P95, P90 and P50 $Measurement",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 200
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 36
+      },
+      "id": 12,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize count()",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (count)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 200
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "dtdurationms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 36
+      },
+      "id": 80,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize min(todouble(metric_value_s))",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (min)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 200
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "dtdurationms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 36
+      },
+      "id": 81,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize max(todouble(metric_value_s))",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (max)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 200
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "dtdurationms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 36
+      },
+      "id": 82,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize percentiles(todouble(metric_value_s), 50)",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (p50)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 200
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "dtdurationms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 36
+      },
+      "id": 83,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize percentiles(todouble(metric_value_s), 90)",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (p90)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 200
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "dtdurationms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 36
+      },
+      "id": 84,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize percentiles(todouble(metric_value_s), 95)",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (p95)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P95"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 108
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "url"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "URL"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Min"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 133
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Avg"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 135
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P50"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 100
+                    },
+                    {
+                      "color": "red",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 155
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P90"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 200
+                    },
+                    {
+                      "color": "red",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 144
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 86
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Group"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 652
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 0,
+        "y": 39
+      },
+      "id": 67,
+      "links": [],
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| extend value = todouble(metric_value_s), Group=group_s\r\n| summarize Count=count(), Min=min(value), Max=max(value), Avg=avg(value), percentiles(value, 50, 90, 95) by Group\r\n| extend P50=percentile_value_50, P90=percentile_value_90, P95=percentile_value_95\r\n| project-away  percentile_value_50, percentile_value_90, percentile_value_95\r\n",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "URLs and latencies (By Group)",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {
+            "reducers": []
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "cards": {},
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateRdYlGn",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "timeseries",
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Grouped by 1 sec intervals and group name",
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 17,
+        "y": 39
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 79,
+      "interval": ">1s",
+      "legend": {
+        "show": true
+      },
+      "links": [],
+      "pluginVersion": "8.3.1",
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| extend value = todouble(metric_value_s), TimeGenerated=bin(TimeGenerated_, 1s)\r\n| order by TimeGenerated asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "$Measurement (log2)",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "dtdurationms",
+        "logBase": 2,
+        "show": true
+      },
+      "yBucketBound": "auto"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P95"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 129
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "url"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "URL"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Min"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 114
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 131
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Avg"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 200
+                    },
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 131
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P50"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 100
+                    },
+                    {
+                      "color": "red",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 154
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P90"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 200
+                    },
+                    {
+                      "color": "red",
+                      "value": 500
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 155
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Url"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 649
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 89
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 0,
+        "y": 48
+      },
+      "id": 85,
+      "links": [],
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where $__contains(group_s, $Group) \r\n| where $__contains(url_s, $URL) \r\n| where metric_name_s == $Measurement\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| extend value = todouble(metric_value_s), Url=url_s\r\n| summarize Count=count(), Min=min(value), Max=max(value), Avg=avg(value), percentiles(value, 50, 90, 95) by Url\r\n| extend P50=percentile_value_50, P90=percentile_value_90, P95=percentile_value_95\r\n| project-away  percentile_value_50, percentile_value_90, percentile_value_95\r\n",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "URLs and latencies (By URL)",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {
+            "reducers": []
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_metric_value_s iterations"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_metric_value_s iterations"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min_metric_value_s iterations"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 17,
+        "y": 49
+      },
+      "id": 87,
+      "interval": ">1s",
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "min"
+          ],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where $__timeFilter(TimeGenerated_)\r\n| where metric_name_s == \"iteration_duration\"\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize max(todouble(metric_value_s)), avg(todouble(metric_value_s)), min(todouble(metric_value_s))  by bin(TimeGenerated_, 1s), metric_name_s\r\n| order by TimeGenerated_ asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| where $__timeFilter(TimeGenerated)\r\n| extend TimeGenerated_ = unixtime_seconds_todatetime(tolong(timestamp_s))\r\n| where metric_name_s == \"iterations\"\r\n| where BuildDefinition_s == \"$Source\"\r\n| summarize max(todouble(metric_value_s)), avg(todouble(metric_value_s)), min(todouble(metric_value_s))  by bin(TimeGenerated_, 1s), metric_name_s\r\n| order by TimeGenerated_ asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Log Analytics",
+          "refId": "B",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Duration",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [
+    "k6",
+    "load testing"
+  ],
+  "templating": {
+    "list": [
+      {
+        "hide": 2,
+        "name": "Workspace",
+        "query": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "http_req_duration"
+          ],
+          "value": [
+            "http_req_duration"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Measurement",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": true,
+            "text": "http_req_duration",
+            "value": "http_req_duration"
+          },
+          {
+            "selected": false,
+            "text": "http_req_blocked",
+            "value": "http_req_blocked"
+          },
+          {
+            "selected": false,
+            "text": "http_req_connecting",
+            "value": "http_req_connecting"
+          },
+          {
+            "selected": false,
+            "text": "http_req_looking_up",
+            "value": "http_req_looking_up"
+          },
+          {
+            "selected": false,
+            "text": "http_req_receiving",
+            "value": "http_req_receiving"
+          },
+          {
+            "selected": false,
+            "text": "http_req_sending",
+            "value": "http_req_sending"
+          },
+          {
+            "selected": false,
+            "text": "http_req_waiting",
+            "value": "http_req_waiting"
+          }
+        ],
+        "query": "http_req_duration,http_req_blocked,http_req_connecting,http_req_looking_up,http_req_receiving,http_req_sending,http_req_waiting",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Source",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| summarize by BuildDefinition_s",
+            "resource": "$Workspace"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "URL",
+        "multi": false,
+        "name": "URL",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize by url_s\r\n| order by url_s desc",
+            "resource": "$Workspace"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Group",
+        "multi": true,
+        "name": "Group",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "K6Test_CL\r\n| where $__contains(BuildDefinition_s, $Source) \r\n| summarize by group_s\r\n| order by group_s desc",
+            "resource": "$Workspace"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "2022-11-22T14:33:28.784Z",
+    "to": "2022-11-22T15:04:06.153Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "5m",
+      "30m"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "k6 Load Testing Results By Groups",
+  "uid": "XKhgaUpik",
+  "version": 1,
+  "weekStart": ""
+}

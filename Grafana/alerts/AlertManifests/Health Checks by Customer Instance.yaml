@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: Health Checks by Customer Instance
+metricName: HealthChecks
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 5
+Severity: 3
+Aggregation: sum
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2765717752/Alert%3A+Health+Checks+by+Customer+Instance
+template: Health Checks by Customer Instance.json

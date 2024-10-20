@@ -1,0 +1,22 @@
+name: Delete Namespace
+
+on:
+  workflow_dispatch:
+    inputs:
+      namespace:
+        description: The namespace to delete
+        required: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    environment: Sandbox
+    steps:
+      - uses: WillowInc/AzurePlatform/.github/actions/aks-login-admin@74957-workflow-testing
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: ${{ env.SUBSCRIPTION_ID }}
+          cluster_resource_group: dhopperrg
+          cluster_name: dhopper-test

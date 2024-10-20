@@ -1,0 +1,30 @@
+﻿[
+  {
+    "contentType": "application/vnd.microsoft.card.oauth",
+    "contentUrl": null,
+    "content": {
+      "text": "Please Sign In",
+      "connectionName": null,
+      "tokenExchangeResource": {
+        "id": "89c178a9-9362-4016-8ea8-c1895caa1652",
+        "uri": "api:///resource",
+        "providerId": null
+      },
+      "tokenPostResource": null,
+      "buttons": [
+        {
+          "type": "signin",
+          "title": "Sign In",
+          "image": null,
+          "text": "Please Sign In",
+          "displayText": null,
+          "value": null,
+          "channelData": null,
+          "imageAltText": null
+        }
+      ]
+    },
+    "name": null,
+    "thumbnailUrl": null
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vaultName": {
+      "value": "kvwildevshared01"
+    },
+    "sharedVaultName": {
+      "value": "kvwildevglobal01"
+    },
+    "vaultAccessPolicies": {
+      "value": [
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "bd2c9873-feb2-4948-88c6-257544aecb64",
+          "comments": "pipeline-deployer-dev-spn the SP used by github workflows",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": ["Get", "Set"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "a4ad701a-f43a-4fec-8d9b-ae323edfd245",
+          "comments": "Azure-Prd-MGMT-Stamp-Deployment-Admin",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": ["Get", "Set"],
+            "certificates": []
+          }
+        }
+      ]
+    },
+    "storageAccountName": {
+      "value": "stwildevshared01"
+    },
+    "zendeskFunctionName": {
+      "value": "fnzendeskconnectordev"
+    },
+    "zendeskFunctionEnvironment": {
+      "value": "Staging"
+    },
+    "zendeskFunctionAppInsights": {
+      "value": "ain-dev-eus"
+    },
+    "AppInsightsResourceGroupName": {
+      "value": "rg-dev-eus"
+    },
+    "containerRegistryName": {
+      "value": "crwildevshared01"
+    },
+    "grafanaName": {
+      "value": "grafana-dev-eus"
+    },
+    "grafanaZoneRedundancy": {
+      "value": "Disabled"
+    },
+    "serverName": {
+      "value": "sqlwildevshared01"
+    },
+    "wsupSqlDBName": {
+      "value": "wsup"
+    },
+    "sqlServerAadAdminGroupName": {
+      "value": "WillowTwin-PlatformEngineers"
+    },
+    "sqlServerAadAdminGroupObjectId": {
+      "value": "7a6ce841-907e-41b4-8bed-bef1a489f6f4"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "customer-code": "shared",
+        "owner": "cloudops",
+        "managedby": "bicep",
+        "application": "shared",
+        "stamp": "management"
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "value": "logs-prd-eus2"
+    },
+    "auditWorkspaceName": {
+      "value": "logs-audit-prd-eus2"
+    },
+    "auditApplicationInsightsName": {
+      "value": "ain-audit-prd-eus2"
+    },
+    "applicationInsightsName": {
+      "value": "ain-prd-eus2"
+    },
+    "kustoClusterName": {
+      "value": "dec-prd-eus2-01"
+    },
+    "apimName": {
+      "value": "apim-prd-eus2-01"
+    },
+    "kustoClusterDatabaseAdminPrincipalAppId": {
+      "value": "66758847-bffc-4ded-941f-14c688be7cc0"
+    },
+    "tags": {
+      "value": {
+        "environment": "prd",
+        "customer-code": "shared",
+        "owner": "cloudops",
+        "managedby": "bicep",
+        "application": "shared",
+        "stamp": "management",
+        "project": "https://github.com/WillowInc/Infrastructure-and-Application-Deployment/tree/main/ManagementSubInfrastructure"
+      }
+    },
+    "deployEdgeACR": {
+      "value": true
+    },
+    "edgeContainerRegistryName": {
+      "value": "crwilprdedgeeus201"
+    },
+    "databricksWorkspaceInfo": {
+      "value": {
+        "deployDatabricks": true,
+        "workspaceName": "dbw-prd-eus2",
+        "pricingTier": "premium",
+        "accessConnectorName": "dbac-prd-eus2",
+        "catalogType": "UnityCatalog",
+        "ucmetastoreName":  "dlsucmetastoreprdeus2"
+      }
+    }
+  }
+}

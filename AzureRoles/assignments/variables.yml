@@ -1,0 +1,89 @@
+variables:
+  identities:
+    - &dhopper 1a380890-5a41-41b3-ad5c-e280d5f6bb66
+    - &Platform_Engineers 28ddc189-5f7c-4a25-9c69-8e5d6830b92c
+    - &P&E_Platform_Engineering f4452c8f-86aa-44fa-9aad-f90ad64f6f7f
+    - &backstage-pod-id7026a7bf_managed_identity 3ca96844-c6b0-453f-ac12-3571b8dc7e6a
+    - &P&E_Real_Estate 8f852b41-a629-4e02-9434-6142ab775c4b
+    - &P&E_Willow_Twin_IoT 18f0d5fa-4f78-47de-9c77-e46f1c5f00ee
+    - &P&E_Willow_Twin_Marketplace e39a4759-1135-4022-b198-d621448fc3b2
+    - &P&E_Willow_Twin_Platform fba7b4b7-d78a-4116-b610-1203e146ba44
+    - &Willow_AppSec_Team ffdca6d6-cc64-4be1-b717-ecf67571fd68
+    - &MS-PIM d2a5eb03-9df1-4aff-8276-2e9587812ed4
+    - &KubecostSP 3f7d11fd-72d4-4bfb-a887-f6586db486fc
+    - &Engineers_Willow c791ea50-fa7e-4842-b285-ad230e1dea9c
+    - &AzSK_CA_SPNc_20210621050340 de2a9954-4488-4654-878f-1d1c5128fa2e
+    - &Azure-K8S-INTERNAL-Owner 470b83d9-2524-42b9-b863-da03283e9fb1
+    - &Azure-K8S-INTERNAL-Reader f79a19ed-5237-4ab8-9a2c-0bb181ef8088
+    - &Azure-K8S-INTERNAL-Contributor 8fd69757-87f4-4fc4-81d9-c61626e9bf9c
+    - &azdo-global-spn f9624c1d-234a-4527-8fd6-6ca04a8dfa6e
+    - &CognitiveServicesContributor-WillowTwin-Dev c2478702-58a8-4b4a-8c16-5497052495b3
+    - &Customer_Technical_Support_Audit_Log_Access fc272b48-86e9-4848-8724-e5cd69110eef
+    - &cost-export-pod-ide6b37b90 a1d55701-c95e-45c8-896a-053229ace49d
+    - &willow-Env-Deployers-nonprod 248d0404-3643-4ee2-8dbe-c659396384b9
+    - &internal-devservices-aks-cluster-id 9602826e-c908-45b6-bd37-9e97c8da0fc9
+    - &internal-devservices-aks-agentpool 9b95dd87-1797-4f3e-af40-3c627bbcb913
+    - &nonprod-platformapps-aks-agentpool a2b9b0bb-9c86-408a-a907-d96fe4275184
+    - &nonprod-platformapps-aks-cluster-id a5b23606-1507-4356-8a5d-21deebf8072f
+    - &kubecost-pod-id2cb9d473 27f82a22-b9ec-40d8-b18f-72d44d4e3fae
+    - &servicePrincipalAzureDevops 57d986a1-9c11-47e9-af27-40f01380001c
+    - &Azure-Build-DEV-Reader e2dedbdd-b802-42c2-9334-6fe2a8fb317e
+    - &Azure-Build-DEV-Contributor a116efbc-f833-4df6-a2ec-19a23265e588
+    - &wdt-prod-automation 5e676e68-9962-40b1-95fe-87fb662039dd
+    - &Visual_Studio_App_Center ed979dbf-9e22-48b9-8c1f-f702510bee09
+    - &Azure-T1-Keyvault-Certificates 05f6488a-e1b6-49d5-82bc-a061ea3d7535
+    - &Azure-Build-TwinCreator-Access b34e9458-334e-426a-9cfe-69dce8ef4c70
+    - &Azure-Build-PRD-Contributor cf558558-aeeb-4d79-ba9e-bca025cefa0b
+    - &AzureManagedGrafanaUsers b0c16342-a605-4303-9dbe-837864d8593d
+    - &dev-eus-00-wil-in1-admin 3711fec2-3633-499a-83c6-f07f5cd2567e
+    - &dev-eus-01-wil-in1-admin f6204a5b-68d0-4947-b378-12de37ae757a
+    - &dev-eus-01-wil-lt-admin f09d4e95-98f3-4063-8a67-aa2b7678214a
+    - &prd-aue-01-inv-in1-admin bdd28926-acde-4e3b-89b9-2cd91e9c941a
+    - &prd-aue-01-inv-uat-admin 16db68a7-ad7e-4d00-8a77-70994517b9d6
+    - &prd-aue-02-jhg-in1-admin 36647e1d-7a0e-46f8-8a5e-b448e41a14e3
+    - &prd-eus2-01-wil-ppe-admin 1a578939-910b-40a8-bfc9-c8c2ad742bab
+    - &prd-eus2-02-san-uat-admin 2a1068fa-b838-47d8-9e8e-272dc136fdd0
+    - &prd-eus2-03-ddk-in1-admin 6bf63164-8534-49f6-b161-77f39fbf3bc0
+    - &prd-eus2-04-wmt-uat-admin c3087467-dcbf-414a-873b-d14782029a55
+    - &prd-eus2-05-wmt-in1-admin a00d3217-8b7b-4f02-a2d1-825712ccd870
+    - &prd-eus2-06-dur-in1-admin 027abfa0-cad3-45a2-8c6f-74e060d9bb38
+    - &prd-eus2-07-tur-in1-admin 0d476f11-333f-4119-a352-0cd1ae5106d5
+    - &prd-eus2-08-msft-in1-admin 1940695d-7396-47a2-a0b9-848adba9447c
+    - &prd-eus2-09-san-in1-admin e639867e-26cf-402c-9810-7e882dcd6b16
+    - &prd-eus2-10-hwp-in1-admin b76fad27-2124-4d42-8251-80d2351ccfbd
+    - &prd-eus2-10-hwp-uat-admin ea2f00a5-2c21-47d9-9eef-f96f2f049401
+    - &prd-eus2-11-brk-in1-admin ad4ab87c-3c99-4d3b-98ea-0cd122319995
+    - &prd-eus2-11-brk-uat-admin 49006c7b-bf2a-4b62-96d3-ea67a7189acb
+    - &prd-eus2-12-dfw-in1-admin 0e9b72c9-4edb-4c7b-b4d3-395457a69be1
+    - &prd-eus2-12-dfw-uat-admin 9192801a-5fc8-44b5-b849-5061e983cbfd
+    - &prd-eus2-13-bp-in1-admin cea409b4-a536-48d0-a026-f5eb1f5652e2
+    - &prd-eus2-14-wck-in1-admin e031a520-da2d-42ab-9e90-7c71150cc575
+    - &prd-eus2-15-wmr-in1-admin 8a75ddce-8d15-4e21-be74-63b66b55d2dc
+    - &prd-eus2-15-wmr-uat-admin b5d10a46-4acc-4a21-9cd5-ed873ca23dc8
+    - &prd-eus2-16-jpmc-in1-admin 0c51d71b-1d2b-4b17-96d1-055bb11434c4
+    - &prd-eus2-17-nau-in1-admin 8cd4b2f8-d19b-4126-bce9-6470468a5711
+    - &prd-weu-01-axa-in1-admin adb6fab4-b351-4473-9363-2734868bfa47
+    - &prd-weu-02-bnp-nuv-admin e4e8f1c2-1d8f-41ad-b8b0-193da1375332
+    - &Wsup_Contributors c76e8d55-c22b-4454-9d2c-0a1fb8ed403d
+  scopes:
+    - &subscription /
+  # roles:
+  #   - &Owner Owner
+  #   - &Reader Reader
+  #   - &Contributor Contributor
+  #   - &Azure_Kubernetes_Service_RBAC_Cluster_Admin Azure Kubernetes Service RBAC Cluster Admin
+  #   - &Azure_Kubernetes_Service_RBAC_Reader Azure Kubernetes Service RBAC Reader
+  #   - &GrafanaEditor Grafana Editor
+  #   - &Diagnostics_Explorer DiagnosticsExplorer
+  #   - &Cosmos_DB_Account_Reader Cosmos DB Account Reader Role
+  #   - &User_access_Administrator User Access Administrator
+  #   - &RateCardBilling RateCardBillingRole
+  #   - &Storage_Blob_Data_Contributor Storage Blob Data Contributor
+  #   - &Storage_Blob_Data_Reader Storage Blob Data Reader
+  #   - &Managed_Identity_Operator Managed Identity Operator
+  #   - &EnvironmentDeployer EnvironmentDeployer
+  #   - &Azure_Service_Bus_Data_Receiver Azure Service Bus Data Receiver
+  #   - &Azure_Digital_Twins_Data_Reader Azure Digital Twins Data Reader
+  #   - &SQL_Server_Contributor SQL Server Contributor
+  #   - &Key_Vault_Contributor Key Vault Contributor
+  #   - &Reader&SQL_Firewall Reader + SQL Firewall

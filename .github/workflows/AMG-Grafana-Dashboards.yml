@@ -1,0 +1,107 @@
+name: AMG-Grafana-Dashboards
+
+on:
+  workflow_dispatch:
+    inputs:
+      DeployDevNonMain:
+        type: boolean
+        default: false
+        description: Deploy Dev instance from non 'Main' branch
+      DeployProdNonMain:
+        type: boolean
+        default: false
+        description: Deploy Prod instance from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Grafana/dashboards/**'
+      - 'Grafana/AzureManagedGrafanaFolders.yaml'
+      - '!Grafana/backstage.yaml'
+      - '!Grafana/docs/*'
+      - '!Grafana/mkdocs.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'Grafana/dashboards/**'
+      - '!Grafana/backstage.yaml'
+      - '!Grafana/docs/*'
+      - '!Grafana/mkdocs.yml'
+
+permissions:
+  id-token: write
+  contents: read
+  actions: write
+
+jobs:
+  Grafana-Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Grafana
+          path: Grafana/
+          retention-days: 1
+
+  deploy-dev:
+    if: (((github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main') || (github.event.inputs.DeployDevNonMain == 'true'))
+    needs: Grafana-Build
+    runs-on: ubuntu-latest
+    environment: NonProd
+    env:
+      ResourceGroup: rg-dev
+      GrafanaName: grafana-dev-eus
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_DEV }}
+
+      - name: Download chart
+        uses: actions/download-artifact@v4
+        with:
+          name: Grafana
+          path: Grafana/
+
+      - name: deploy-dev
+        shell: pwsh
+        run: |
+          ./Grafana/DeployDashboardsAMG.ps1 -Verbose -resourceGroup ${{ env.ResourceGroup }} -grafanaName ${{ env.GrafanaName }}
+
+  deploy-prod:
+    if: (((github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main') || (github.event.inputs.DeployDevNonMain == 'true' && github.event.inputs.DeployProdNonMain == 'true'))
+    needs: [Grafana-Build, deploy-dev]
+    runs-on: ubuntu-latest
+    environment: Production
+    env:
+      ResourceGroup: rg-prd
+      GrafanaName: grafana-prd-eus
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Download chart
+        uses: actions/download-artifact@v4
+        with:
+          name: Grafana
+          path: Grafana/
+
+      - name: deploy-dev
+        shell: pwsh
+        run: |
+          ./Grafana/DeployDashboardsAMG.ps1 -Verbose -resourceGroup ${{ env.ResourceGroup }} -grafanaName ${{ env.GrafanaName }}

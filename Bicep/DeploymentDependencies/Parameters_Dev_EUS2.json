@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "value": "logs-dev-eus2"
+    },
+    "auditWorkspaceName": {
+      "value": "logs-audit-dev-eus2"
+    },
+    "auditApplicationInsightsName": {
+      "value": "ain-audit-dev-eus2"
+    },
+    "applicationInsightsName": {
+      "value": "ain-dev-eus2"
+    },
+    "kustoClusterName": {
+      "value": "dec-dev-eus2-01"
+    },
+    "apimName": {
+      "value": "apim-dev-eus2-01"
+    },
+    "kustoClusterDatabaseAdminPrincipalAppId": {
+      "value": "561ecd96-300b-4525-94e1-e8b86efb649e"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "customer-code": "shared",
+        "owner": "cloudops",
+        "managedby": "bicep",
+        "application": "shared",
+        "stamp": "management",
+        "project": "https://github.com/WillowInc/AzurePlatform/tree/main/Bicep/DeploymentDependencies"
+      }
+    },
+    "databricksWorkspaceInfo": {
+      "value": {
+        "deployDatabricks": false,
+        "workspaceName": "dbw-dev-eus2",
+        "pricingTier": "premium",
+        "accessConnectorName": "dbac-dev-eus2",
+        "catalogType": "UnityCatalog",
+        "ucmetastoreName":  "dlsucmetastoredeveus2"
+      }
+    }
+  }
+}

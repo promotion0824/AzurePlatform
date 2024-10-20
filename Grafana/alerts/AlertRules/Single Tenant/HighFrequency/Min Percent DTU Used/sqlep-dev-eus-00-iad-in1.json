@@ -1,0 +1,155 @@
+{
+  "id": 1,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "HighFrequency",
+  "title": "Min Percent DTU Used sqlep-dev-eus-00-iad-in1",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Minimum",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "",
+          "dimensionFilters": [],
+          "metricName": "dtu_consumption_percent",
+          "metricNamespace": "microsoft.sql/servers/elasticpools",
+          "region": "eastus",
+          "resources": [
+            {
+              "metricNamespace": "microsoft.sql/servers/elasticpools",
+              "region": "eastus",
+              "resourceGroup": "rg-dev-eus-00-iad-in1",
+              "resourceName": "sql-dev-eus-00-iad-in1-17d083d5/sqlep-dev-eus-00-iad-in1",
+              "subscription": "3d662540-4bed-4624-8c4a-fde386ae6667"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "50"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "A",
+        "subscription": "3d662540-4bed-4624-8c4a-fde386ae6667"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 172800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["B"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "A",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "min",
+        "refId": "B",
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 172800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [60],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["C"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "B",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "C",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-01-05T17:36:11Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "annotations": {
+    "__dashboardUid__": "fad5383d-657e-4d11-b35f-832787ae4e5e",
+    "__panelId__": "1"
+  },
+  "labels": {
+    "destination": "ZenDesk",
+    "severity": "2",
+    "region": "eastus",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2665218051/Alert+Min+Percent+DTU+Used",
+    "app": "shared",
+    "customer-code": "iad",
+    "environment": "dev",
+    "owner": "cloudops",
+    "stamp": "00"
+  },
+  "isPaused": false
+}

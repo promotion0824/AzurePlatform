@@ -1,0 +1,36 @@
+securityContext:
+  operator:
+    capabilities:
+      drop:
+        - ALL
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+  metricServer:
+    capabilities:
+      drop:
+        - ALL
+    allowPrivilegeEscalation: false
+
+podSecurityContext:
+  operator:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  metricServer:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+podIdentity:
+  activeDirectory:
+    identity: 'cluster-keda-id'
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 10m
+    memory: 40Mi

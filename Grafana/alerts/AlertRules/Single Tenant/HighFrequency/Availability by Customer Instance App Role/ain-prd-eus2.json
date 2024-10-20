@@ -1,0 +1,332 @@
+{
+  "id": 83,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "HighFrequency",
+  "title": "Availability by Customer Instance App Role ain-prd-eus2",
+  "condition": "A",
+  "data": [
+    {
+      "refId": "TotalRequests",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 900,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Count",
+          "alias": "",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "AppRoleName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "http.server.request.duration",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "eastus2",
+          "resources": [
+            {
+              "metricNamespace": "microsoft.insights/components",
+              "region": "eastus2",
+              "resourceGroup": "rg-prd-eus2",
+              "resourceName": "ain-prd-eus2",
+              "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+            }
+          ],
+          "timeGrain": "PT1M",
+          "top": "50"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "TotalRequests",
+        "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+      }
+    },
+    {
+      "refId": "FailedRequests",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 900,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Count",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "AppRoleName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "http.response.status_code",
+              "filters": ["5"],
+              "operator": "sw"
+            },
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "http.server.request.duration",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "eastus2",
+          "resources": [
+            {
+              "metricNamespace": "microsoft.insights/components",
+              "region": "eastus2",
+              "resourceGroup": "rg-prd-eus2",
+              "resourceName": "ain-prd-eus2",
+              "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+            }
+          ],
+          "timeGrain": "PT1M",
+          "top": "50"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "FailedRequests",
+        "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+      }
+    },
+    {
+      "refId": "TotalRequestsFilled",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 172800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "downsampler": "last",
+        "expression": "TotalRequests",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "TotalRequestsFilled",
+        "type": "resample",
+        "upsampler": "pad",
+        "window": "1m"
+      }
+    },
+    {
+      "refId": "FailedRequestsFilled",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 172800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "downsampler": "min",
+        "expression": "FailedRequests",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "FailedRequestsFilled",
+        "type": "resample",
+        "upsampler": "pad",
+        "window": "1m"
+      }
+    },
+    {
+      "refId": "Availability",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "100*($TotalRequestsFilled-$FailedRequestsFilled)/$TotalRequestsFilled",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "Availability",
+        "type": "math",
+        "window": ""
+      }
+    },
+    {
+      "refId": "AvailabilityFilled",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "downsampler": "last",
+        "expression": "Availability",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "AvailabilityFilled",
+        "type": "resample",
+        "upsampler": "pad",
+        "window": "1m"
+      }
+    },
+    {
+      "refId": "Avail",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 0,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "AvailabilityFilled",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "last",
+        "refId": "Avail",
+        "settings": {
+          "mode": "replaceNN",
+          "replaceWithValue": 100
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "A",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 0,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [98, 0],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "Avail",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "A",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-02-06T22:33:58Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "5m",
+  "labels": {
+    "destination": "ZenDesk",
+    "severity": "3",
+    "region": "eastus2",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2670756381/Alert%3A+Availability+by+Customer+Instance+App+Role",
+    "application": "shared",
+    "customer-code": "shared",
+    "environment": "prd",
+    "managedby": "bicep",
+    "owner": "cloudops",
+    "project": "https://github.com/WillowInc/Infrastructure-and-Application-Deployment/tree/main/ManagementSubInfrastructure",
+    "stamp": "management"
+  },
+  "annotations": {
+    "__dashboardUid__": "ae00356b-291f-4664-b096-6bd261a77bff",
+    "__panelId__": "21"
+  },
+  "isPaused": false
+}

@@ -1,0 +1,366 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Azure Log Analytics Workspace Usage",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 12817,
+  "graphTooltip": 0,
+  "id": 8,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Workspace",
+      "tooltip": "Open Workspace in Azure Portal",
+      "type": "link",
+      "url": "https://portal.azure.com/#@willowinc.com/resource$Workspace"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "NonProd",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/rG8qKad7k/dependencies?orgId=1&var-Subscription=178b67d7-b6fd-46db-b4a3-b57f8a6b045f&var-Workspace=%2Fsubscriptions%2F178b67d7-b6fd-46db-b4a3-b57f8a6b045f%2FresourceGroups%2Fnonprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fnonprodplatformshared-aue-log&var-Apps=All"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Prod EU",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/rG8qKad7k/dependencies?orgId=1&var-Subscription=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-Workspace=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2Fresourcegroups%2Fprod-platformshared%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fprodplatformshared-weu-log&var-Apps=All"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Prod US",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/rG8qKad7k/dependencies?orgId=1&var-Subscription=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-Workspace=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2Fresourcegroups%2Fprod-platformshared%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fprodplatformshared-eu2-log&var-Apps=All"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Prod AU",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/rG8qKad7k/dependencies?orgId=1&var-Subscription=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-Workspace=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2FresourceGroups%2Fprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fprodplatformshared-aue-log&var-Apps=All"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 27,
+        "w": 23,
+        "x": 0,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "aggregationType": "service",
+        "baselineRtUpper": "threshold",
+        "dataMapping": {
+          "aggregationType": "RoleName",
+          "baselineRtUpper": "ExpectedResponseTime",
+          "errorRateColumn": "",
+          "errorRateOutgoingColumn": "ErrorRate",
+          "extOrigin": "ExternalOrigin",
+          "extTarget": "ExternalTarget",
+          "requestRateColumn": "TotalRequests",
+          "requestRateOutgoingColumn": "Requests",
+          "responseTimeColumn": "",
+          "responseTimeOutgoingColumn": "ResponseTime",
+          "showDummyData": false,
+          "sourceColumn": "App",
+          "targetColumn": "TargetApp",
+          "type": "DependencyType"
+        },
+        "drillDownLink": "",
+        "dummyDataSwitch": {
+          "aggregationType": "service",
+          "baselineRtUpper": "threshold",
+          "errorRateColumn": "error-rate",
+          "errorRateOutgoingColumn": "error-rate-out",
+          "extOrigin": "external_origin",
+          "extTarget": "external_target",
+          "requestRateColumn": "request-rate",
+          "requestRateOutgoingColumn": "request-rate-out",
+          "responseTimeColumn": "response-time",
+          "responseTimeOutgoingColumn": "response-time-out",
+          "showDummyData": false,
+          "sourceColumn": "origin_service",
+          "targetColumn": "target_service",
+          "type": "type"
+        },
+        "errorRateColumn": "error-rate",
+        "errorRateOutgoingColumn": "error-rate-out",
+        "externalIconMapping": [
+          {
+            "filename": "web",
+            "pattern": "web"
+          },
+          {
+            "filename": "message",
+            "pattern": "jms"
+          },
+          {
+            "filename": "database",
+            "pattern": "jdbc"
+          },
+          {
+            "filename": "http",
+            "pattern": "http"
+          }
+        ],
+        "externalIcons": [
+          {
+            "filename": "mainframe",
+            "pattern": "blob"
+          },
+          {
+            "filename": "message",
+            "pattern": "Azure Service Bus"
+          },
+          {
+            "filename": "database",
+            "pattern": "sql"
+          },
+          {
+            "filename": "http",
+            "pattern": "http"
+          },
+          {
+            "filename": "default",
+            "pattern": "sql"
+          }
+        ],
+        "externalOrigin": "external_origin",
+        "externalTarget": "external_target",
+        "filterEmptyConnections": false,
+        "iconMapping": [
+          {
+            "filename": "java",
+            "pattern": "java"
+          },
+          {
+            "filename": "star_trek",
+            "pattern": "spok|star trek"
+          }
+        ],
+        "icons": [
+          {
+            "filename": "java",
+            "pattern": "java"
+          },
+          {
+            "filename": "star_trek",
+            "pattern": "spok|star trek"
+          },
+          {
+            "filename": "default",
+            "pattern": "my-type"
+          }
+        ],
+        "requestRateColumn": "request-rate",
+        "requestRateOutgoingColumn": "request-rate-out",
+        "responseTime": "response-time",
+        "responseTimeOutgoingColumn": "response-time-out",
+        "showBaselines": true,
+        "showConnectionStats": true,
+        "showDebugInformation": false,
+        "sourceComponentPrefix": "origin_service",
+        "style": {
+          "dangerColor": "rgb(196, 22, 42)",
+          "healthyColor": "blue",
+          "noDataColor": "purple"
+        },
+        "sumTimings": false,
+        "targetComponentPrefix": "target_service",
+        "timeFormat": "m",
+        "type": "type"
+      },
+      "pluginVersion": "4.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let AppUrls = AppRequests\r\n| where $__timeFilter(TimeGenerated)\r\n| extend RequestRoleName = case(AppRoleName == \"\", \"Unknown\", AppRoleName == \"1\", \"Unknown\", tostring(split(AppRoleName, \"-staging\")[0]))\r\n| where Url !contains \"health\"\r\n| extend Target = tostring(split(split(split(Url, \"//\")[1], \"/\")[0], \"-staging\")[0])\r\n| where Target != \"\" and Target != \"localhost\"\r\n| summarize by RequestRoleName, Target;\r\nlet Requests = AppRequests\r\n| where $__timeFilter(TimeGenerated)\r\n| extend RequestRoleName = case(AppRoleName == \"\", \"Unknown\", AppRoleName == \"1\", \"Unknown\", tostring(split(AppRoleName, \"-staging\")[0]))\r\n| summarize TotalRequests =count() by RequestRoleName;\r\nAppDependencies\r\n| where $__timeFilter(TimeGenerated)\r\n| extend RoleName = case(AppRoleName == \"\", \"Unknown\", AppRoleName == \"1\", \"Unknown\", tostring(split(AppRoleName, \"-staging\")[0]))\r\n| join kind = leftouter AppUrls on Target\r\n| extend TargetApp=case(\r\n          DependencyType == \"HTTP\" and RequestRoleName != \"\", RequestRoleName,\r\n          DependencyType == \"HTTP\" and $__contains(Target, $Apps), tostring(split(Target, \".\")[0]), \r\n          \"\")\r\n| where $__contains(RoleName, $Apps) or $__contains(TargetApp, $Apps)\r\n| extend ExternalTarget=case(TargetApp==\"\" and Name != \"Receive\", strcat(DependencyType, \"|\", Target), \"\")\r\n| extend ExternalOrigin=case(TargetApp==\"\" and Name == \"Receive\", strcat(DependencyType, \"|\", Target), \"\")\r\n| extend ExpectedResponseTime = case(\r\n                                        DependencyType == \"HTTP\", 100, \r\n                                        DependencyType == \"SQL\", 30, \r\n                                        DependencyType == \"Azure blob\", 50, \r\n                                        DependencyType == \"Azure Service Bus\" and Name != \"Receive\", 200,\r\n                                        DependencyType == \"Azure Service Bus\" and Name == \"Receive\", 70000,\r\n                                        100)\r\n| summarize Requests=count(), ResponseTime=avg(DurationMs), ErrorRate=(1-avg(Success))*100 by Target, ExternalTarget, TargetApp, DependencyType, RoleName, ExternalOrigin, ExpectedResponseTime\r\n| top 200 by Requests\r\n| union ( Requests | where $__contains(RequestRoleName, $Apps) | project RoleName=RequestRoleName, TotalRequests)",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Dependencies (Top 200)",
+      "type": "novatec-sdg-panel"
+    }
+  ],
+  "refresh": "15m",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "application insights",
+    "appinsights",
+    "ai",
+    "apps",
+    "requests",
+    "dependencies"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Products-Shared",
+          "value": "d4746c7a-19cb-47ac-82b5-069b17cb99de"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "subscriptions()",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Subscription",
+        "options": [],
+        "query": "subscriptions()",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "prodplatformshared-weu-log",
+          "value": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourcegroups/prod-platformshared/providers/microsoft.operationalinsights/workspaces/prodplatformshared-weu-log"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "workspaces($Subscription)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Workspace",
+        "options": [],
+        "query": "workspaces($Subscription)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": "all",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "union\nworkspace(\"$Workspace\").AppDependencies,\nworkspace(\"$Workspace\").AppRequests,\nworkspace(\"$Workspace\").AppExceptions,\nworkspace(\"$Workspace\").AppTraces,\nworkspace(\"$Workspace\").AppPerformanceCounters,\nworkspace(\"$Workspace\").AppEvents\n| summarize by AppRoleName\n| extend AppRoleName = case(AppRoleName == \"\", \"Unknown\", AppRoleName)\n| order by AppRoleName asc",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Apps",
+        "options": [],
+        "query": "union\nworkspace(\"$Workspace\").AppDependencies,\nworkspace(\"$Workspace\").AppRequests,\nworkspace(\"$Workspace\").AppExceptions,\nworkspace(\"$Workspace\").AppTraces,\nworkspace(\"$Workspace\").AppPerformanceCounters,\nworkspace(\"$Workspace\").AppEvents\n| summarize by AppRoleName\n| extend AppRoleName = case(AppRoleName == \"\", \"Unknown\", AppRoleName)\n| order by AppRoleName asc",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Dependencies",
+  "uid": "rG8qKad7k",
+  "version": 1,
+  "weekStart": ""
+}

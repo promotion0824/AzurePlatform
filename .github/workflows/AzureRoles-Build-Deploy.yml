@@ -1,0 +1,130 @@
+name: AzureRoles-Build-Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      nonmain:
+        type: boolean
+        default: false
+        description: Deploy from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'AzureRoles/**'
+      - '!AzureRoles/managementGroup/**'
+      - '!AzureRoles/docs/*'
+      - '!AzureRoles/mkdocs.yml'
+      - '!AzureRoles/backstage.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'AzureRoles/**'
+      - '!AzureRoles/managementGroup/**'
+      - '!AzureRoles/docs/*'
+      - '!AzureRoles/mkdocs.yml'
+      - '!AzureRoles/backstage.yaml'
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  actions: write
+
+jobs:
+  UploadArtifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Chart
+        uses: actions/upload-artifact@v4
+        with:
+          name: AzureRoles
+          path: AzureRoles/
+          retention-days: 1
+
+  Preview:
+    runs-on: ubuntu-latest
+    environment: NonProd
+    needs: UploadArtifacts
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: AzureRoles
+          path: AzureRoles/
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Preview Role Definitions
+        shell: pwsh
+        run: |
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -WhatIf -subscription 7dab7b5a-d968-43a5-a50f-9509244c297b -roleFile ./AzureRoles/definitions/diagnostics-explorer.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -WhatIf -subscription 7dab7b5a-d968-43a5-a50f-9509244c297b -roleFile ./AzureRoles/definitions/blob-data-contributor-and-tags.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -WhatIf -subscription 249312a0-4c83-4d73-b164-18c5e72bf219 -roleFile ./AzureRoles/definitions/env-deployer.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -WhatIf -subscription 16c3dd19-5016-4bf8-85e2-8c7e88607b7a -roleFile ./AzureRoles/definitions/sql-fw-rule-admin.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -WhatIf -subscription 178b67d7-b6fd-46db-b4a3-b57f8a6b045f -roleFile ./AzureRoles/definitions/rate-card-role.json
+
+      - name: Preview Role Assignments
+        shell: pwsh
+        run: |
+          ./AzureRoles/assignments/Deploy.ps1 -Verbose -WhatIf
+
+      - name: Post Changes to PR
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const title = "Would deploy the following changes to Azure:";
+            const content = fs.readFileSync('${{ github.workspace }}/assignments.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `**${title}**\n\n\`\`\`\n${content}\n\`\`\``
+            });
+
+  Deploy:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain == 'true'))
+    runs-on: ubuntu-latest
+    needs: Preview
+    environment: Production
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: AzureRoles
+          path: AzureRoles/
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Update Role Definitions
+        shell: pwsh
+        run: |
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -subscription 7dab7b5a-d968-43a5-a50f-9509244c297b -roleFile ./AzureRoles/definitions/diagnostics-explorer.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -subscription 7dab7b5a-d968-43a5-a50f-9509244c297b -roleFile ./AzureRoles/definitions/blob-data-contributor-and-tags.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -subscription 249312a0-4c83-4d73-b164-18c5e72bf219 -roleFile ./AzureRoles/definitions/env-deployer.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -subscription 16c3dd19-5016-4bf8-85e2-8c7e88607b7a -roleFile ./AzureRoles/definitions/sql-fw-rule-admin.json
+          ./AzureRoles/definitions/Deploy.ps1 -Verbose -subscription 178b67d7-b6fd-46db-b4a3-b57f8a6b045f -roleFile ./AzureRoles/definitions/rate-card-role.json
+
+      - name: Update Role Assignments
+        shell: pwsh
+        run: |
+          ./AzureRoles/assignments/Deploy.ps1 -Verbose

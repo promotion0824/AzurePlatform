@@ -1,0 +1,182 @@
+name: SharedClusters.Helm
+
+on:
+  workflow_call:
+    secrets:
+      CLIENT_ID:
+        required: true
+      TENANT_ID:
+        required: true
+      CLIENT_SECRET:
+        required: true
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'SharedClusters/Helm/**'
+
+jobs:
+  Publish-Charts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Charts
+        uses: actions/upload-artifact@v4
+        with:
+          name: SharedClusters-Helm
+          path: SharedClusters/Helm/
+          retention-days: 1
+
+  Internal-DevServices:
+    runs-on: ubuntu-latest
+    needs: Publish-Charts
+    environment: NonProd
+    env:
+      subscription_id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+      cluster_resource_group: internal-devservices
+      cluster_name: internal-devservices-aks
+    steps:
+      - name: Download SharedClusters-Helm artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SharedClusters-Helm
+          path: charts/
+
+      - name: AKS Login
+        uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: ${{ env.subscription_id }}
+          cluster_resource_group: ${{ env.cluster_resource_group }}
+          cluster_name: ${{ env.cluster_name }}
+
+      - name: Deploy
+        shell: pwsh
+        run: |
+          ./charts/Deploy-Charts.ps1 -Cluster ${{ env.cluster_name }} -Verbose
+
+  # NonProd-PlatformApps:
+  #   runs-on: ubuntu-latest
+  #   needs: Publish-Charts
+  #   environment: NonProd-PlatformApps
+  #   steps:
+  #     - name: Download SharedClusters-Helm artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: SharedClusters-Helm
+  #         path: charts/
+
+  #     - name: AKS Login
+  #       uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+  #       with:
+  #         client_id: ${{ secrets.CLIENT_ID }}
+  #         client_secret: ${{ secrets.CLIENT_SECRET }}
+  #         tenant_id: ${{ secrets.TENANT_ID }}
+  #         subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+  #         cluster_resource_group: ${{ secrets.CLUSTER_RESOURCE_GROUP }}
+  #         cluster_name: ${{ secrets.CLUSTER_NAME }}
+
+  #     - name: Deploy
+  #       shell: pwsh
+  #       run: |
+  #         ./charts/Deploy-Charts.ps1 -Cluster ${{ secrets.CLUSTER_NAME }} -Verbose
+
+  Prod-PlatformApps-Aue:
+    runs-on: ubuntu-latest
+    needs: [Publish-Charts, Internal-DevServices]
+    environment: Prod-PlatformApps-Aue
+    steps:
+      - name: Download SharedClusters-Helm artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SharedClusters-Helm
+          path: charts/
+
+      - name: DISPLAY cluster info
+        run: |
+          echo ${{secrets.CLIENT_ID}} | sed 's/./& /g'
+          echo ${{secrets.TENANT_ID}} | sed 's/./& /g'
+          echo ${{secrets.SUBSCRIPTION_ID}} | sed 's/./& /g'
+          echo ${{secrets.CLUSTER_RESOURCE_GROUP}} | sed 's/./& /g'
+          echo ${{secrets.CLUSTER_NAME}} | sed 's/./& /g'
+
+      - name: AKS Login
+        uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ secrets.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ secrets.TENANT_ID }}
+          subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+          cluster_resource_group: ${{ secrets.CLUSTER_RESOURCE_GROUP }}
+          cluster_name: ${{ secrets.CLUSTER_NAME }}
+
+      - name: Deploy
+        shell: pwsh
+        run: |
+          ./charts/Deploy-Charts.ps1 -Cluster ${{ secrets.CLUSTER_NAME }} -Verbose
+
+  Prod-PlatformApps-Eu2:
+    runs-on: ubuntu-latest
+    needs: [Publish-Charts, Internal-DevServices]
+    environment: Prod-PlatformApps-Eu2
+    steps:
+      - name: Download SharedClusters-Helm artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SharedClusters-Helm
+          path: charts/
+
+      - name: DISPLAY cluster info
+        run: |
+          echo ${{secrets.CLIENT_ID}} | sed 's/./& /g'
+          echo ${{secrets.TENANT_ID}} | sed 's/./& /g'
+          echo ${{secrets.SUBSCRIPTION_ID}} | sed 's/./& /g'
+          echo ${{secrets.CLUSTER_RESOURCE_GROUP}} | sed 's/./& /g'
+          echo ${{secrets.CLUSTER_NAME}} | sed 's/./& /g'
+
+      - name: AKS Login
+        uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ secrets.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ secrets.TENANT_ID }}
+          subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+          cluster_resource_group: ${{ secrets.CLUSTER_RESOURCE_GROUP }}
+          cluster_name: ${{ secrets.CLUSTER_NAME }}
+
+      - name: Deploy
+        shell: pwsh
+        run: |
+          ./charts/Deploy-Charts.ps1 -Cluster ${{ secrets.CLUSTER_NAME }} -Verbose
+
+  # Prod-PlatformApps-Weu:
+  #   runs-on: ubuntu-latest
+  #   needs: [Publish-Charts, Internal-DevServices]
+  #   environment: Prod-PlatformApps-Weu
+  #   steps:
+  #     - name: Download SharedClusters-Helm artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: SharedClusters-Helm
+  #         path: charts/
+
+  #     - name: AKS Login
+  #       uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+  #       with:
+  #         client_id: ${{ secrets.CLIENT_ID }}
+  #         client_secret: ${{ secrets.CLIENT_SECRET }}
+  #         tenant_id: ${{ secrets.TENANT_ID }}
+  #         subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+  #         cluster_resource_group: ${{ secrets.CLUSTER_RESOURCE_GROUP }}
+  #         cluster_name: ${{ secrets.CLUSTER_NAME }}
+
+  #     - name: Deploy
+  #       shell: pwsh
+  #       run: |
+  #         ./charts/Deploy-Charts.ps1 -Cluster ${{ secrets.CLUSTER_NAME }} -Verbose

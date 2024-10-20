@@ -1,0 +1,32 @@
+name: kroki-build-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Kroki/**"
+jobs:
+  build:
+    uses: WillowInc/AzurePlatform/.github/workflows/kroki-build-chart.yml@main
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: DevServices-Internal
+    steps:
+      - uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ secrets.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ secrets.TENANT_ID }}
+          subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+          cluster_resource_group: ${{ secrets.CLUSTER_RESOURCE_GROUP }}
+          cluster_name: ${{ secrets.CLUSTER_NAME }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/helm-deploy@main ## main
+        with:
+          chart_name: kroki
+          version: ${{ needs.build.outputs.semVer }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          namespace: kroki
+          name: kroki

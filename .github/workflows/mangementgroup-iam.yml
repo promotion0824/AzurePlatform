@@ -1,0 +1,83 @@
+name: ManagementGroupRoles-Build-Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      nonmain:
+        type: boolean
+        default: false
+        description: Deploy from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'AzureRoles/managementGroup/**'
+      - '!AzureRoles/docs/*'
+      - '!AzureRoles/mkdocs.yml'
+      - '!AzureRoles/backstage.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'AzureRoles/managementGroup/**'
+      - '!AzureRoles/docs/*'
+      - '!AzureRoles/mkdocs.yml'
+      - '!AzureRoles/backstage.yaml'
+
+permissions:
+  id-token: write
+  contents: read
+  actions: write
+
+jobs:
+  Preview:
+    runs-on: ubuntu-latest
+    environment: NonProd
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Preview Role Assignments
+        shell: pwsh
+        run: |
+          ./AzureRoles/managementGroup/Deploy.ps1 -Verbose -WhatIf
+
+      - name: Upload Chart
+        uses: actions/upload-artifact@v4
+        with:
+          name: managementGroupRoles
+          path: AzureRoles/managementGroup
+          retention-days: 1
+
+  Deploy:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event.inputs.nonmain == 'true'))
+    runs-on: ubuntu-latest
+    needs: Preview
+    environment: Production
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: managementGroupRoles
+          path: managementGroup/
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Update Role Assignments
+        shell: pwsh
+        run: |
+          ./managementGroup/Deploy.ps1 -Verbose

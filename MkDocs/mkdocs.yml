@@ -1,0 +1,21 @@
+site_name: Willow Docs Generation
+repo_url: https://github.com/willowinc/AzurePlatform
+edit_uri: blob/main/MkDocs/docs/
+nav:
+  - Home (MkDocs): index.md
+plugins:
+  - techdocs-core
+  - kroki:
+      ServerURL: https://kroki.devservices.willowinc.com
+      DownloadImages: true
+      FencePrefix: ''
+      FileTypes: # This is not supported without https://github.com/AVATEAM-IT-SYSTEMHAUS/mkdocs-kroki-plugin/pull/15
+        - png
+  - mkdocs-with-confluence:
+        host_url: https://willow.atlassian.net/wiki/rest/api/content
+        space: DOCS
+        parent_page_name: MkDocs Docs
+        enabled_if_env: MKDOCS_TO_CONFLUENCE
+        verbose: true
+        debug: true
+        dryrun: false

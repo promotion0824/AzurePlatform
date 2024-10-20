@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: cluster-cert-manager
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  name: cluster-cert-manager
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: cluster-ingress
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  name: cluster-ingress
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: cluster-keda
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  name: cluster-keda
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: cluster-pod-id
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  name: cluster-pod-id
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: cluster-reloader
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  name: cluster-reloader
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: cluster-gloo
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  name: cluster-gloo

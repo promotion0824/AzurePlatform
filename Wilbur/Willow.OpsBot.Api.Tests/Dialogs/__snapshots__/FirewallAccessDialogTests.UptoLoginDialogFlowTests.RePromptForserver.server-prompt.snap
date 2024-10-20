@@ -1,0 +1,49 @@
+﻿[
+  {
+    "contentType": "application/vnd.microsoft.card.adaptive",
+    "contentUrl": null,
+    "content": {
+      "type": "AdaptiveCard",
+      "version": "1.0",
+      "body": [
+        {
+          "type": "TextBlock",
+          "size": "large",
+          "color": "good",
+          "text": "PostgreSql"
+        },
+        {
+          "type": "Input.ChoiceSet",
+          "id": "ServerSelect",
+          "style": "compact",
+          "isMultiSelect": false,
+          "choices": [
+            {
+              "title": "test-server-pg-a",
+              "value": "test-server-pg-a"
+            },
+            {
+              "title": "test-server-pg-b",
+              "value": "test-server-pg-b"
+            }
+          ],
+          "label": "What server would you like access to?"
+        },
+        {
+          "type": "Input.Text",
+          "id": "OtherSelect",
+          "label": "Or type the name of another server:",
+          "spacing": "none"
+        }
+      ],
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "title": "Submit"
+        }
+      ]
+    },
+    "name": null,
+    "thumbnailUrl": null
+  }
+]

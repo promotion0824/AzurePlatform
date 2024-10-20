@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vaultName": {
+      "value": "K8sInternalEnvDeployKeys"
+    },
+    "vaultAccessPolicies": {
+      "value": [
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "f9624c1d-234a-4527-8fd6-6ca04a8dfa6e",
+          "comments": "azdo-global-spn the SP used by azure devops",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": [],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "248d0404-3643-4ee2-8dbe-c659396384b9",
+          "comments": "willow-Env-Deployers-nonprod twin platform group for deployments",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": [],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "28ddc189-5f7c-4a25-9c69-8e5d6830b92c",
+          "comments": "Platform_Engineers group",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt", "List", "Get"],
+            "secrets": [],
+            "certificates": []
+          }
+        }
+      ]
+    },
+    "storageAccountName": {
+      "value": "k8sintenvdeploydata"
+    },
+    "tags": {
+      "value": {
+        "environment": "nonprod",
+        "company": "willow",
+        "customer": "none",
+        "team": "azurePlatform",
+        "project": "AzurePlatform/Arm.Clusters/State",
+        "purpose": "Pulumi/Terraform Deployment State",
+        "managedby": "bicep",
+        "app": "release"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+name: Image bump auto approver
+    
+on:
+    pull_request:
+        branches:
+            - main
+        types:
+            - opened
+
+jobs:
+    auto-approve:
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+        if: github.actor == 'willow-github-svc'
+        steps:
+            - uses: hmarr/auto-approve-action@v3

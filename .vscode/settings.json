@@ -1,0 +1,11 @@
+{
+  "cSpell.words": ["investa", "portalxl", "runbook"],
+  "python.formatting.provider": "black",
+  "sarif-viewer.connectToGithubCodeScanning": "on",
+  "azureFunctions.projectSubpath": "Grafana\\ZendeskIntegrationFunctionApp\\GrafanaZendeskIntegration.FunctionApp",
+  "azureFunctions.deploySubpath": "Grafana\\ZendeskIntegrationFunctionApp\\GrafanaZendeskIntegration.FunctionApp/bin/Release/net8.0/publish",
+  "azureFunctions.projectLanguage": "C#",
+  "azureFunctions.projectRuntime": "~4",
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.preDeployTask": "publish (functions)"
+}

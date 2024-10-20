@@ -1,0 +1,58 @@
+name: Cleanup-build
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Cleanup/**'
+      - '!Cleanup/docs/*'
+      - '!Cleanup/mkdocs.md'
+      - '!Cleanup/backstage.yaml'
+  push:
+    branches: ['main']
+    paths:
+      - 'Cleanup/**'
+      - '!Cleanup/docs/*'
+      - '!Cleanup/mkdocs.md'
+      - '!Cleanup/backstage.yaml'
+
+jobs:
+  cleanup-build:
+    runs-on: ubuntu-latest
+    outputs:
+      chartName: ${{ steps.job-outputs.outputs.chartName }}
+      semVer: ${{ steps.job-outputs.outputs.semVer }}
+      imageTag: ${{ steps.job-outputs.outputs.imageTag }}
+      nugetVer: ${{ steps.job-outputs.outputs.nugetVer }}
+      acr: ${{ steps.job-outputs.outputs.acr }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set version
+        uses: WillowInc/.github/.github/actions/generate-versions@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/dotnet-restore-build-test@main ## main
+        with:
+          path: Cleanup/
+          restore_path: Cleanup/
+          restore_parameters: '--locked-mode'
+          test_path: Cleanup/
+          version: ${{ env.GitVersion_NuGetVersionV2 }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          test_filter: Category!=Manual
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cleanup-resource
+          path: /home/runner/work/AzurePlatform/AzurePlatform/Cleanup/Willow.Cleanup.Job/bin/Release/net6.0/*
+          retention-days: 1

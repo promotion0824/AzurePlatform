@@ -1,0 +1,79 @@
+podLabels:
+  willowinc.com/team: azurePlatform
+  willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+
+installCRDs: false
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 150Mi
+  limits:
+    cpu: 200m
+    memory: 250Mi
+
+securityContext:
+  runAsNonRoot: true
+  fsGroup: 1000
+  runAsUser: 1000
+
+containerSecurityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  privileged: false
+  allowPrivilegeEscalation: false
+
+webhook:
+  podLabels:
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  securityContext:
+    runAsNonRoot: true
+    fsGroup: 1000
+    runAsUser: 1000
+
+  containerSecurityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    privileged: false
+    allowPrivilegeEscalation: false
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 30Mi
+    limits:
+      cpu: 50m
+      memory: 100Mi
+
+cainjector:
+  podLabels:
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+  securityContext:
+    runAsNonRoot: true
+    fsGroup: 1000
+    runAsUser: 1000
+
+  containerSecurityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    privileged: false
+    allowPrivilegeEscalation: false
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 130Mi
+    limits:
+      cpu: 50m
+      memory: 200Mi

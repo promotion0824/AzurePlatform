@@ -1,0 +1,129 @@
+name: Grafana-Build-Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      DeployDevNonMain:
+        type: boolean
+        default: false
+        description: Deploy Dev instance from non 'Main' branch
+      DeployProdNonMain:
+        type: boolean
+        default: false
+        description: Deploy Prod instance from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Grafana/**'
+      - '!Grafana/backstage.yaml'
+      - '!Grafana/docs/*'
+      - '!Grafana/mkdocs.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'Grafana/**'
+      - '!Grafana/backstage.yaml'
+      - '!Grafana/docs/*'
+      - '!Grafana/mkdocs.yml'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  Grafana-Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Chart
+        uses: actions/upload-artifact@v4
+        with:
+          name: Grafana-chart
+          path: Grafana/
+          retention-days: 1
+
+  # deploy-dev:
+  #   if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event.inputs.DeployDevNonMain == 'true'))
+  #   needs: Grafana-Build
+  #   runs-on: ubuntu-latest
+  #   environment: NonProd
+  #   steps:
+  #     - uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+  #       with:
+  #         client_id: ${{ vars.CLIENT_ID }}
+  #         tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+  #         subscription_id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+  #         cluster_resource_group: internal-devservices
+  #         cluster_name: internal-devservices-aks
+
+  # - name: Download chart
+  #   uses: actions/download-artifact@v3
+  #   with:
+  #     name: Grafana-chart
+  #     path: charts/
+
+  # - name: Add firewall rule to postgres
+  #   shell: pwsh
+  #   id: create_rule
+  #   run: |
+  #     $IP = (Invoke-WebRequest api.ipify.org).Content.trim()
+  #     az postgres server firewall-rule create --resource-group internal-devservices --server internal-devservices-psql --name workflow-rule-grafana --start-ip-address $IP --end-ip-address $IP
+
+  # - name: deploy-dev
+  #   shell: pwsh
+  #   run: |
+  #     ./charts/Deploy.ps1 -Cluster internal-devservices-aks -Namespace grafana-dev -Environment dev -Verbose -postgresSecret ${{ secrets.HelmPostgresSecret }}
+
+  # The server has delete locks turned on so this will fail
+  # - name: Remove firewall rule from postgres
+  #   shell: pwsh
+  #   id: delete_rule
+  #   run: |
+  #     $IP = (Invoke-WebRequest api.ipify.org).Content.trim()
+  #     az postgres server firewall-rule delete --resource-group internal-devservices --server internal-devservices-psql --name workflow-rule-grafana --yes
+
+  deploy-prod:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event.inputs.DeployDevNonMain == 'true' && github.event.inputs.DeployProdNonMain == 'true'))
+    needs: Grafana-Build
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+          cluster_resource_group: internal-devservices
+          cluster_name: internal-devservices-aks
+
+      - name: Download chart
+        uses: actions/download-artifact@v4
+        with:
+          name: Grafana-chart
+          path: charts/
+
+      - name: Add firewall rule to postgres
+        shell: pwsh
+        id: create_rule
+        run: |
+          $IP = (Invoke-WebRequest api.ipify.org).Content.trim()
+          az postgres server firewall-rule create --resource-group internal-devservices --server internal-devservices-psql --name workflow-rule-grafana --start-ip-address $IP --end-ip-address $IP
+
+      - name: deploy-prod
+        shell: pwsh
+        run: |
+          ./charts/Deploy.ps1 -Cluster internal-devservices-aks -Namespace grafana -Environment internal -Verbose -postgresSecret ${{ secrets.HelmPostgresSecret }}
+
+      # The server has delete locks turned on so this will fail
+      # - name: Remove firewall rule from postgres
+      #   shell: pwsh
+      #   id: delete_rule
+      #   run: |
+      #     $IP = (Invoke-WebRequest api.ipify.org).Content.trim()
+      #     az postgres server firewall-rule delete --resource-group internal-devservices --server internal-devservices-psql --name workflow-rule-grafana --yes

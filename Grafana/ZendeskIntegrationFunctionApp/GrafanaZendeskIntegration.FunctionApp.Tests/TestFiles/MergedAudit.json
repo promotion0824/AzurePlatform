@@ -1,0 +1,465 @@
+{
+  "audits": [
+    {
+      "id": 9955760613007,
+      "ticket_id": 33844,
+      "created_at": "2024-06-11T00:39:57Z",
+      "author_id": 8194384282639,
+      "metadata": {
+        "system": {
+          "ip_address": "52.254.40.146",
+          "location": "Boydton, VA, United States",
+          "latitude": 36.6534,
+          "longitude": -78.375
+        },
+        "custom": {}
+      },
+      "events": [
+        {
+          "id": 9955730635151,
+          "type": "Create",
+          "value": "Willow Support",
+          "field_name": "sla_policy"
+        },
+        {
+          "id": 9955760613135,
+          "type": "Comment",
+          "author_id": 8194384282639,
+          "body": "\n\nIncident Information\nKey Value\nTitle Alert: PartialTelemetryOutage - prd-weu Folder Single Tenant Status: firing\nalertname PartialTelemetryOutage - prd-weu\nfullcustomerinstancename prd:weu:02:bnp-nuv\nconnectorname Default Mapped Connector\nenvironment prd\nowner mapped\nregion westeurope\nseverity Low\nstamp management\nbuildings __Empty\n\n\n\n\nLinks\nTroubleshooting Guide https://willow.atlassian.net/wiki/spaces/PE/pages/2729705478/Alert+Degraded+Partial+Outage+on+capabilities",
+          "html_body": "<div class=\"zd-comment\" dir=\"auto\"><br><table border=\"1\"><tbody><tr><th colspan=\"2\">Incident Information</th></tr><tr><th>Key</th><th>Value</th></tr><tr><td>Title</td><td>Alert: PartialTelemetryOutage - prd-weu Folder Single Tenant Status: firing</td></tr><tr><td>alertname</td><td>PartialTelemetryOutage - prd-weu</td></tr><tr><td>fullcustomerinstancename</td><td>prd:weu:02:bnp-nuv</td></tr><tr><td>connectorname</td><td>Default Mapped Connector</td></tr><tr><td>environment</td><td>prd</td></tr><tr><td>owner</td><td>mapped</td></tr><tr><td>region</td><td>westeurope</td></tr><tr><td>severity</td><td>Low</td></tr><tr><td>stamp</td><td>management</td></tr><tr><td>buildings</td><td>__Empty</td></tr></tbody></table><br><br>\n        <table border=\"1\">\n        <tbody><tr>\n            <th colspan=\"2\">Links</th>\n        </tr>\n        <tr>\n            <td>Troubleshooting Guide</td>\n            <td><a href=\"https://willow.atlassian.net/wiki/spaces/PE/pages/2729705478/Alert+Degraded+Partial+Outage+on+capabilities\" rel=\"noreferrer\">https://willow.atlassian.net/wiki/spaces/PE/pages/2729705478/Alert+Degraded+Partial+Outage+on+capabilities</a></td>\n        </tr></tbody></table><br></div>",
+          "plain_body": "Incident InformationKeyValueTitleAlert: PartialTelemetryOutage - prd-weu Folder Single Tenant Status: firingalertnamePartialTelemetryOutage - prd-weufullcustomerinstancenameprd:weu:02:bnp-nuvconnectornameDefault Mapped ConnectorenvironmentprdownermappedregionwesteuropeseverityLowstampmanagementbuildings__Empty\n\n\n        \n        \n            Links\n        \n        \n            Troubleshooting Guide\n            https://willow.atlassian.net/wiki/spaces/PE/pages/2729705478/Alert+Degraded+Partial+Outage+on+capabilities",
+          "public": false,
+          "attachments": [],
+          "audit_id": 9955760613007
+        },
+        {
+          "id": 9955760613263,
+          "type": "Create",
+          "value": "8194384282639",
+          "field_name": "requester_id"
+        },
+        {
+          "id": 9955760613391,
+          "type": "Create",
+          "value": "7350834040591",
+          "field_name": "group_id"
+        },
+        {
+          "id": 9955760613519,
+          "type": "Create",
+          "value": "normal",
+          "field_name": "priority"
+        },
+        {
+          "id": 9955760613647,
+          "type": "Create",
+          "value": "PartialTelemetryOutage - prd-weu Default Mapped Connector",
+          "field_name": "subject"
+        },
+        {
+          "id": 9955760613775,
+          "type": "Create",
+          "value": "https://willow.atlassian.net/wiki/spaces/PE/pages/2729705478/Alert+Degraded+Partial+Outage+on+capabilities",
+          "field_name": "9249847581199"
+        },
+        {
+          "id": 9955760613903,
+          "type": "Create",
+          "value": ["3_-_low", "mapped1", "no", "prd", "willow"],
+          "field_name": "tags"
+        },
+        {
+          "id": 9955760614031,
+          "type": "Create",
+          "value": "3_-_low",
+          "field_name": "7231972707215"
+        },
+        {
+          "id": 9955760614159,
+          "type": "Create",
+          "value": "willow",
+          "field_name": "360029547271"
+        },
+        {
+          "id": 9955760614287,
+          "type": "Create",
+          "value": "prd",
+          "field_name": "8001260747407"
+        },
+        {
+          "id": 9955760614415,
+          "type": "Create",
+          "value": "mapped1",
+          "field_name": "360029506771"
+        },
+        {
+          "id": 9955760614543,
+          "type": "Create",
+          "value": "no",
+          "field_name": "900007747226"
+        },
+        {
+          "id": 9955760614671,
+          "type": "Create",
+          "value": "incident",
+          "field_name": "type"
+        },
+        {
+          "id": 9955760614799,
+          "type": "Create",
+          "value": "new",
+          "field_name": "status"
+        },
+        {
+          "id": 9955760614927,
+          "type": "Create",
+          "value": "360849219632",
+          "field_name": "organization_id"
+        },
+        {
+          "id": 9955760615055,
+          "type": "Create",
+          "value": "360003359131",
+          "field_name": "brand_id"
+        },
+        {
+          "id": 9955760615183,
+          "type": "Create",
+          "value": "360000625472",
+          "field_name": "ticket_form_id"
+        },
+        {
+          "id": 9955760615311,
+          "type": "Create",
+          "value": "7007246",
+          "field_name": "custom_status_id"
+        },
+        {
+          "id": 9955760615439,
+          "type": "Create",
+          "value": "0",
+          "field_name": "is_public"
+        },
+        {
+          "id": 9955760615567,
+          "type": "Notification",
+          "via": {
+            "channel": "rule",
+            "source": {
+              "from": {
+                "deleted": false,
+                "title": "Zendesk - Microsoft Teams Integration",
+                "id": 7676497193359,
+                "revision_id": 38
+              },
+              "rel": "trigger"
+            }
+          },
+          "subject": "{{ticket.title}} ",
+          "body": "{{ticket.latest_comment_rich}}\n\n____________________________________________________________________________________________________________\n\n-\n\n- - - - - - - - -  Zendesk Ticket Details  - - - - - - - - -\n____________________________________________\nTicket ID:                 {{ticket.id}}\n____________________________________________\nSeverity:                 {{ticket.ticket_field_option_title_7231972707215}}\n____________________________________________\nPriority:                   {{ticket.priority}}\n____________________________________________\nCustomer Code:     {{ticket.ticket_field_option_title_360029547271}}\n____________________________________________\nEnvironment:          {{ticket.ticket_field_option_title_8001260747407}}\n____________________________________________\n\n",
+          "recipients": [7676916607247]
+        }
+      ],
+      "via": {
+        "channel": "api",
+        "source": {
+          "from": {},
+          "to": {},
+          "rel": null
+        }
+      }
+    },
+    {
+      "id": 9955760624399,
+      "ticket_id": 33844,
+      "created_at": "2024-06-11T00:39:57Z",
+      "author_id": -1,
+      "metadata": {
+        "system": {},
+        "custom": {},
+        "parent_audit_id": "9955760613007"
+      },
+      "events": [
+        {
+          "id": 9955730649103,
+          "type": "Change",
+          "previous_value": null,
+          "value": {
+            "minutes": 120,
+            "seconds": 7200,
+            "in_business_hours": false
+          },
+          "field_name": "first_reply_time",
+          "via": {
+            "source": {
+              "rel": "sla_target_change"
+            },
+            "current_sla_policy": "Willow Support"
+          }
+        }
+      ],
+      "via": {
+        "channel": "sla",
+        "source": {
+          "from": {},
+          "to": {},
+          "rel": null
+        }
+      }
+    },
+    {
+      "id": 9955849853967,
+      "ticket_id": 33844,
+      "created_at": "2024-06-11T00:54:05Z",
+      "author_id": 6979957053711,
+      "metadata": {
+        "system": {
+          "client": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+          "ip_address": "163.116.215.41",
+          "location": "Melbourne, VIC, Australia",
+          "latitude": -37.8159,
+          "longitude": 144.9669
+        },
+        "custom": {}
+      },
+      "events": [
+        {
+          "id": 9955849854095,
+          "type": "Change",
+          "value": "open",
+          "field_name": "status",
+          "previous_value": "new"
+        },
+        {
+          "id": 9955849854223,
+          "type": "Change",
+          "value": "7007266",
+          "field_name": "custom_status_id",
+          "previous_value": "7007246"
+        },
+        {
+          "id": 9955849854351,
+          "type": "Change",
+          "value": ["3_-_low", "mapped1", "no", "nuveen", "prd"],
+          "field_name": "tags",
+          "previous_value": ["3_-_low", "mapped1", "no", "prd", "willow"]
+        },
+        {
+          "id": 9955849854479,
+          "type": "Change",
+          "value": "nuveen",
+          "field_name": "360029547271",
+          "previous_value": "willow"
+        },
+        {
+          "id": 9955849854607,
+          "type": "External",
+          "via": {
+            "channel": "rule",
+            "source": {
+              "from": {
+                "deleted": false,
+                "title": "OpsGenie Add Note",
+                "id": 7104559952271,
+                "revision_id": 4
+              },
+              "rel": "trigger"
+            }
+          },
+          "resource": "7105216954511",
+          "body": "action: addnote ||\nid: {{ticket.id}} ||\nstatus: {{ticket.status}} ||\nlatest_comment : {{ticket.latest_comment_formatted}} ||\ntags: {{ticket.tags}} ||\nexternal_id: {{ticket.external_id}}"
+        }
+      ],
+      "via": {
+        "channel": "web",
+        "source": {
+          "from": {},
+          "to": {},
+          "rel": null
+        }
+      }
+    },
+    {
+      "id": 9955858786575,
+      "ticket_id": 33844,
+      "created_at": "2024-06-11T00:54:11Z",
+      "author_id": 6979957053711,
+      "metadata": {
+        "system": {
+          "client": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+          "ip_address": "163.116.215.41",
+          "location": "Melbourne, VIC, Australia",
+          "latitude": -37.8159,
+          "longitude": 144.9669
+        },
+        "custom": {}
+      },
+      "events": [
+        {
+          "id": 9955858786703,
+          "type": "Change",
+          "value": "7329095311247",
+          "field_name": "requester_id",
+          "previous_value": "8194384282639"
+        },
+        {
+          "id": 9955858786831,
+          "type": "External",
+          "via": {
+            "channel": "rule",
+            "source": {
+              "from": {
+                "deleted": false,
+                "title": "OpsGenie Add Note",
+                "id": 7104559952271,
+                "revision_id": 4
+              },
+              "rel": "trigger"
+            }
+          },
+          "resource": "7105216954511",
+          "body": "action: addnote ||\nid: {{ticket.id}} ||\nstatus: {{ticket.status}} ||\nlatest_comment : {{ticket.latest_comment_formatted}} ||\ntags: {{ticket.tags}} ||\nexternal_id: {{ticket.external_id}}"
+        }
+      ],
+      "via": {
+        "channel": "web",
+        "source": {
+          "from": {},
+          "to": {},
+          "rel": null
+        }
+      }
+    },
+    {
+      "id": 9955870277263,
+      "ticket_id": 33844,
+      "created_at": "2024-06-11T00:54:56Z",
+      "author_id": 6979957053711,
+      "metadata": {
+        "system": {
+          "location": "Melbourne, VIC, Australia",
+          "latitude": -37.8159,
+          "longitude": 144.9669
+        },
+        "custom": {}
+      },
+      "events": [
+        {
+          "id": 9955870277391,
+          "type": "Comment",
+          "author_id": 6979957053711,
+          "body": "This request was closed and merged into request #33500 \"PartialTelemetryOutage - prd:weu...\".",
+          "html_body": "<div class=\"zd-comment\" dir=\"auto\"><p dir=\"auto\">This request was closed and merged into request <a href=\"/agent/tickets/33500\" target=\"_blank\" rel=\"ticket\">#33500</a> \"PartialTelemetryOutage - prd:weu...\".</p></div>",
+          "plain_body": "This request was closed and merged into request #33500 \"PartialTelemetryOutage - prd:weu...\".",
+          "public": false,
+          "attachments": [],
+          "audit_id": 9955870277263
+        },
+        {
+          "id": 9955870277519,
+          "type": "Change",
+          "value": "closed",
+          "field_name": "status",
+          "previous_value": "open"
+        },
+        {
+          "id": 9955870277647,
+          "type": "Change",
+          "value": "7571823177359",
+          "field_name": "assignee_id",
+          "previous_value": null
+        },
+        {
+          "id": 9955870277775,
+          "type": "Change",
+          "value": [
+            "3_-_low",
+            "closed_by_merge",
+            "mapped1",
+            "no",
+            "nuveen",
+            "prd"
+          ],
+          "field_name": "tags",
+          "previous_value": ["3_-_low", "mapped1", "no", "nuveen", "prd"]
+        },
+        {
+          "id": 9955870277903,
+          "type": "Change",
+          "value": "7007326",
+          "field_name": "custom_status_id",
+          "previous_value": "7007266"
+        },
+        {
+          "id": 9955870278031,
+          "type": "Notification",
+          "via": {
+            "channel": "rule",
+            "source": {
+              "from": {
+                "deleted": false,
+                "title": "Notify assignee of assignment",
+                "id": 360088566311,
+                "revision_id": 1
+              },
+              "rel": "trigger"
+            }
+          },
+          "subject": "[{{ticket.account}}] Assignment: {{ticket.title}}",
+          "body": "You have been assigned to this ticket (#{{ticket.id}}).\n\n{{ticket.comments_formatted}}",
+          "recipients": [7571823177359]
+        },
+        {
+          "id": 9955870278159,
+          "type": "External",
+          "via": {
+            "channel": "rule",
+            "source": {
+              "from": {
+                "deleted": false,
+                "title": "OpsGenie Add Note",
+                "id": 7104559952271,
+                "revision_id": 4
+              },
+              "rel": "trigger"
+            }
+          },
+          "resource": "7105216954511",
+          "body": "action: addnote ||\nid: {{ticket.id}} ||\nstatus: {{ticket.status}} ||\nlatest_comment : {{ticket.latest_comment_formatted}} ||\ntags: {{ticket.tags}} ||\nexternal_id: {{ticket.external_id}}"
+        },
+        {
+          "id": 9955870278287,
+          "type": "External",
+          "via": {
+            "channel": "rule",
+            "source": {
+              "from": {
+                "deleted": false,
+                "title": "OpsGenie Close Alert",
+                "id": 7104568169231,
+                "revision_id": 5
+              },
+              "rel": "trigger"
+            }
+          },
+          "resource": "7105216954511",
+          "body": "action: close ||\nid: {{ticket.id}} ||\nstatus: {{ticket.status}} ||\nlatest_comment : {{ticket.latest_comment_formatted}} ||\ntags: {{ticket.tags}} ||\nexternal_id: {{ticket.external_id}}"
+        }
+      ],
+      "via": {
+        "channel": "system",
+        "source": {
+          "to": {},
+          "from": {
+            "ticket_id": 33500,
+            "subject": "PartialTelemetryOutage - prd:weu:02:bnp-nuv Default Mapped Connector"
+          },
+          "rel": "merge"
+        }
+      }
+    }
+  ],
+  "next_page": null,
+  "previous_page": null,
+  "count": 5
+}

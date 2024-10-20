@@ -1,0 +1,59 @@
+apiVersion: gloo.solo.io/v1
+kind: Upstream
+metadata:
+  name: customer-auth-gateway-nonprod-upstream
+  namespace: cluster-gloo
+  labels:
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: twinPlatform
+    app.kubernetes.io/name: customer-auth-gateway-nonprod-upstream
+spec:
+  kube:
+    selector:
+      app: customer-auth-gateway
+    serviceName: customer-auth-gateway-svc
+    serviceNamespace: twin-shared-nonprod-australiaeast
+    servicePort: 80
+---
+apiVersion: gloo.solo.io/v1
+kind: Upstream
+metadata:
+  name: customer-auth-gateway-dev-upstream
+  namespace: cluster-gloo
+  labels:
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: twinPlatform
+    app.kubernetes.io/name: customer-auth-gateway-dev-upstream
+spec:
+  kube:
+    selector:
+      app: customer-auth-gateway
+    serviceName: customer-auth-gateway-svc
+    serviceNamespace: twin-shared-dev-australiaeast
+    servicePort: 80
+---
+apiVersion: gateway.solo.io/v1
+kind: Gateway
+metadata:
+  name: gateway-proxy
+  namespace: cluster-gloo
+spec:
+  bindAddress: '::'
+  bindPort: 8080
+  httpGateway:
+    options:
+      healthCheck:
+        path: /healthz
+---
+apiVersion: gateway.solo.io/v1
+kind: Gateway
+metadata:
+  name: dev-gateway-proxy
+  namespace: cluster-gloo
+spec:
+  bindAddress: '::'
+  bindPort: 8080
+  httpGateway:
+    options:
+      healthCheck:
+        path: /healthz

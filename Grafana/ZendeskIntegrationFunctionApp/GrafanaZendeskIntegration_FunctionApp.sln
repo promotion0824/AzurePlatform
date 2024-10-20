@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrafanaZendeskIntegration.FunctionApp", "GrafanaZendeskIntegration.FunctionApp\GrafanaZendeskIntegration.FunctionApp.csproj", "{5EE81407-ADF9-4697-A794-49A3BE518481}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrafanaZendeskIntegration.FunctionApp.Tests", "GrafanaZendeskIntegration.FunctionApp.Tests\GrafanaZendeskIntegration.FunctionApp.Tests.csproj", "{85986ED9-5BB8-4694-A130-30567118637A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EE81407-ADF9-4697-A794-49A3BE518481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EE81407-ADF9-4697-A794-49A3BE518481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EE81407-ADF9-4697-A794-49A3BE518481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EE81407-ADF9-4697-A794-49A3BE518481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85986ED9-5BB8-4694-A130-30567118637A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85986ED9-5BB8-4694-A130-30567118637A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85986ED9-5BB8-4694-A130-30567118637A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85986ED9-5BB8-4694-A130-30567118637A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A06FE87C-9FF9-408F-A0BE-E8ADB5567E21}
+	EndGlobalSection
+EndGlobal

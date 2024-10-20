@@ -1,0 +1,115 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "targetMG": {
+      "value": "WillowTwinPrd"
+    },
+    "subscriptionAssignments": {
+      "value": [
+        {
+          "id": "fd259995-1de7-4ae8-8431-0d150dcca6f4",
+          "name": "prd",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "30778047-59e1-4183-aa92-f0c21e221215",
+          "name": "prd-aue-01",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "fec406ed-b645-4085-9432-38a2d228d484",
+          "name": "prd-aue-02",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "60fb2721-bc6e-4fba-98b9-1023bc1d7f11",
+          "name": "prd-aue-03",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "0bece55b-fdbc-4166-bf0f-1e8acf2ce8c3",
+          "name": "prd-eus-01",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "aa62fdad-c619-4642-9920-e5bf2214cdd8",
+          "name": "prd-eus-02",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "3fb669b2-4001-493d-9c4b-239fd840ecb9",
+          "name": "prd-eus-03",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "192ffab7-c64e-4f35-9e1d-7d2ed0fbf6f1",
+          "name": "prd-eus-04",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "d45624d2-b973-4d02-bc6f-99721e8cc311",
+          "name": "prd-eus-05",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "52d36e42-7a4f-4798-ba4b-d828ee99ba69",
+          "name": "prd-eus-06",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "8abe8cc8-96c9-4c30-8953-8dd6ef6cdc14",
+          "name": "prd-eus-07",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "de45c72a-3ba0-4b25-90d1-647449084e12",
+          "name": "prd-eus-08",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "6b86e92f-3156-4411-8902-284cd7936dbd",
+          "name": "prd-eus-09",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "376d7e17-7ee5-4fa7-82fd-da4f8b59b139",
+          "name": "prd-eus-10",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "4ad0e724-9964-46d0-a7ef-cf9ef9bfc628",
+          "name": "prd-eus-11",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "a0f47fc5-9468-4995-8c4c-749bab2ea244",
+          "name": "prd-eus-12",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "553f62fa-8dd2-4937-aa70-457fd3537578",
+          "name": "prd-weu-01",
+          "enforceTags": false,
+          "remediateTags": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "ab2c083c-7b0c-4dd3-b32e-bdf3f3b5de54",
+  "packageName": "com.willowinc.azureplatform",
+  "developer": {
+    "name": "Willow Platform Team",
+    "websiteUrl": "https://example.azurewebsites.net",
+    "privacyUrl": "https://example.azurewebsites.net/privacy",
+    "termsOfUseUrl": "https://example.azurewebsites.net/termsofuse"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Wilbur",
+    "full": "Wilbur the Willow Ops Services Bot"
+  },
+  "description": {
+    "short": "Willow Ops Services Bot",
+    "full": "Willow Ops Services Bot"
+  },
+  "accentColor": "#1F56DE",
+  "bots": [
+    {
+      "botId": "ab2c083c-7b0c-4dd3-b32e-bdf3f3b5de54",
+      "scopes": ["team", "personal", "groupchat"],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["token.botframework.com", "*.willowinc.com"]
+}

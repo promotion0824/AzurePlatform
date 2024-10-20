@@ -1,0 +1,26 @@
+subscriptionId: c9a0ae53-c468-4612-a318-cfb719c4b2ca
+subscriptionName: Experience-UAT
+subscriptionRoles:
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+    - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+    - de2a9954-4488-4654-878f-1d1c5128fa2e #https://AzSK_CA_SPNc_20210621050340
+
+
+  - role: Contributor
+    scope: *subscription
+    assignments:
+    - *Engineers_Willow
+    - e24a2cdd-6341-44f8-9846-6e79708f05ae #Azure-Experience-UAT-Contributor
+
+
+  - role: Storage Blob Data Contributor
+    scope: *subscription
+    assignments:
+    - *Engineers_Willow

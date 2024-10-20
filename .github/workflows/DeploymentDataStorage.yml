@@ -1,0 +1,249 @@
+name: DeploymentDataStorage
+
+on:
+  workflow_dispatch:
+    inputs:
+      nonmain:
+        type: boolean
+        description: Deploy from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Bicep/DeploymentDataStorage/**'
+  push:
+    branches: [main]
+    paths:
+      - 'Bicep/DeploymentDataStorage/**'
+
+env:
+  artifact_location: DeploymentDataStorage
+  Template: ./DeploymentDataStorage/State.bicep
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Bicep Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact_location }}
+          path: Bicep/DeploymentDataStorage/
+          retention-days: 1
+
+  Sandbox:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: NonProd
+    needs: build
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_SandboxShared.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_SANDBOXSHARED }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  Internal:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Sandbox]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_K8S-Internal.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  InternalEnvironments:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Sandbox]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_K8S-Internal-Environments.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL_ENVIRONMENTS }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  Products-Shared:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Sandbox]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_ProductsShared.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRODUCTS_SHARED }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  Products-Shared-Environments:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Sandbox]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_Products-Shared-Environments.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRODUCTS_SHARED_ENVIRONMENTS }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  Platform-DEV:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Sandbox]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_Platform-DEV.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PLATFORM_DEV }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  Platform-UAT:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Platform-DEV]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_Platform-UAT.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PLATFORM_UAT }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+  Platform-PRD:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.nonmain))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: [build, Platform-UAT]
+    env:
+      ResourceGroup: deployment-data
+      Location: australiaeast
+      Parameters: ./DeploymentDataStorage/Parameters_Platform-PRD.json
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PLATFORM_PRD }}
+
+      - name: Bicep DeploymentDataStorage
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}

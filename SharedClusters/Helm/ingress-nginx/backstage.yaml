@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ingress-nginx
+  description: Cluster Ingress
+  title: Nginx Ingress
+  annotations:
+    github.com/project-slug: WillowInc/AzurePlatform
+    github.com/team-slug: WillowInc/platform-engineering
+    backstage.io/kubernetes-label-selector: app.kubernetes.io/instance=ingress-nginx
+  tags:
+    - tools
+    - services
+spec:
+  type: service
+  lifecycle: experimental
+  owner: Platform-Engineering
+  system: internal-tools
+  dependsOn: ['component:pulumi-clusters']

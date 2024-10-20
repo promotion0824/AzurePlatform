@@ -1,0 +1,37 @@
+﻿[
+  {
+    "contentType": "application/vnd.microsoft.card.hero",
+    "contentUrl": null,
+    "content": {
+      "title": null,
+      "subtitle": null,
+      "text": "Is this a SQL or PostgreSQL server?",
+      "images": null,
+      "buttons": [
+        {
+          "type": "imBack",
+          "title": "SqlServer",
+          "image": null,
+          "text": null,
+          "displayText": null,
+          "value": "SqlServer",
+          "channelData": null,
+          "imageAltText": null
+        },
+        {
+          "type": "imBack",
+          "title": "PostgreSql",
+          "image": null,
+          "text": null,
+          "displayText": null,
+          "value": "PostgreSql",
+          "channelData": null,
+          "imageAltText": null
+        }
+      ],
+      "tap": null
+    },
+    "name": null,
+    "thumbnailUrl": null
+  }
+]

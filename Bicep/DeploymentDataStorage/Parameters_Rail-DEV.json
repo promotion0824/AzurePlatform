@@ -1,0 +1,91 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vaultName": {
+      "value": "RailDevDeployKeys"
+    },
+    "vaultAccessPolicies": {
+      "value": [
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "f9624c1d-234a-4527-8fd6-6ca04a8dfa6e",
+          "comments": "azdo-global-spn the SP used by azure devops",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": [],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "28ddc189-5f7c-4a25-9c69-8e5d6830b92c",
+          "comments": "Platform_Engineers group",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt", "List", "Get"],
+            "secrets": [
+              "Get",
+              "List",
+              "Set",
+              "Delete",
+              "Recover",
+              "Backup",
+              "Restore"
+            ],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "c37877f7-8b2c-4919-82e6-31b1d575352d",
+          "comments": "P&E Rail",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt", "List", "Get"],
+            "secrets": [
+              "Get",
+              "List",
+              "Set",
+              "Delete",
+              "Recover",
+              "Backup",
+              "Restore"
+            ],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "comments": "Ephemeral Enviornments PodId",
+          "objectId": "1c5ba364-6ce1-48ef-9da7-177f21edf314",
+          "permissions": {
+            "keys": [
+              "Get",
+              "List",
+              "Decrypt",
+              "Encrypt",
+              "UnwrapKey",
+              "WrapKey"
+            ],
+            "secrets": ["Get", "List"],
+            "certificates": ["Get", "List", "GetIssuers", "ListIssuers"]
+          }
+        }
+      ]
+    },
+    "storageAccountName": {
+      "value": "raildevdeploydata"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "company": "willow",
+        "customer": "none",
+        "team": "azurePlatform",
+        "project": "AzurePlatform/Arm.Clusters/State",
+        "purpose": "Pulumi/Terraform Deployment State",
+        "managedby": "bicep",
+        "app": "release"
+      }
+    }
+  }
+}

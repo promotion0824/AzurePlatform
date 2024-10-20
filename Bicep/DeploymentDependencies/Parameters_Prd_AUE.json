@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "value": "logs-prd-aue"
+    },
+    "auditWorkspaceName": {
+      "value": "logs-audit-prd-aue"
+    },
+    "auditApplicationInsightsName": {
+      "value": "ain-audit-prd-aue"
+    },
+    "applicationInsightsName": {
+      "value": "ain-prd-aue"
+    },
+    "kustoClusterName": {
+      "value": "dec-prd-aue-01"
+    },
+    "apimName": {
+      "value": "apim-prd-aue-01"
+    },
+    "kustoClusterDatabaseAdminPrincipalAppId": {
+      "value": "66758847-bffc-4ded-941f-14c688be7cc0"
+    },
+    "tags": {
+      "value": {
+        "environment": "prd",
+        "customer-code": "shared",
+        "owner": "cloudops",
+        "managedby": "bicep",
+        "application": "shared",
+        "stamp": "management",
+        "project": "https://github.com/WillowInc/Infrastructure-and-Application-Deployment/tree/main/ManagementSubInfrastructure"
+      }
+    },
+    "deployEdgeACR": {
+      "value": true
+    },
+    "edgeContainerRegistryName": {
+      "value": "crwilprdedgeaue01"
+    },
+    "databricksWorkspaceInfo": {
+      "value": {
+        "deployDatabricks": true,
+        "workspaceName": "dbw-prd-aue",
+        "pricingTier": "premium",
+        "accessConnectorName": "dbac-prd-aue",
+        "catalogType": "UnityCatalog",
+        "ucmetastoreName":  "dlsucmetastoreprdaue"
+      }
+    }
+  }
+}

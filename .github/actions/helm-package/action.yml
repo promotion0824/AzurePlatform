@@ -1,0 +1,36 @@
+name: helm-package
+description: Package and upload helm chart artifact
+inputs:
+  chart_path:
+    description: "Path to chart to package"
+    required: true
+  chart_name:
+    description: "name of chart to upload"
+    required: true
+  version:
+    description: "Artifact version (semver) number to embed in build"
+    required: false
+    default: "0.0.0"
+  github_token:
+    description: "github token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: azure/setup-helm@v4
+      with:
+        version: "latest"
+        token: ${{ inputs.github_token }}
+      id: install
+
+    - name: Package chart
+      shell: bash
+      run: helm package  ${{ inputs.chart_path }} --version ${{ inputs.version }} --app-version ${{ inputs.version }}
+
+    - name: Upload Chart
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.chart_name }}-chart
+        path: ${{ inputs.chart_name }}-${{ inputs.version }}.tgz
+        retention-days: 1

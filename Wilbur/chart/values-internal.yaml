@@ -1,0 +1,20 @@
+msAppId: 'ab2c083c-7b0c-4dd3-b32e-bdf3f3b5de54'
+appInsightsKey: '39e0ce0f-150f-422e-909d-fbabe809672a'
+hostname: https://opsbot.devservices.willowinc.com
+identity:
+  name: 'ops-bot-id'
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  hosts:
+    - host: opsbot.devservices.willowinc.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: opsbot-tls
+      hosts:
+        - opsbot.devservices.willowinc.com

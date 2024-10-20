@@ -1,0 +1,40 @@
+parameters:
+- name: name
+  type: string
+  default: nonprod-platformapps-aks
+- name: resourceGroup
+  type: string
+  default: 'nonprod-platformapps'
+- name: serviceConnection
+  type: string
+  default: 'az-k8s-internal'
+- name: kubectlVersion
+  type: string
+  default: 'latest'
+- name: kubeloginVersion
+  type: string
+  default: 'v0.0.13'
+
+steps:
+- task: KubectlInstaller@0
+  displayName: '[KubectlInstaller] Install Version: ${{ parameters.kubectlVersion }}'
+  inputs:
+    kubectlVersion: ${{ parameters.kubectlVersion }}
+
+- task: AzureCLI@2
+  displayName: '[kubelogin][AzureCLI] Get Credentials for ${{ parameters.name }}'
+  inputs:
+    azureSubscription: ${{ parameters.serviceConnection }}
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az aks get-credentials -n ${{ parameters.name }} -g ${{ parameters.resourceGroup }}
+
+      # get kubelogin
+      wget https://github.com/Azure/kubelogin/releases/download/${{ parameters.kubeloginVersion }}/kubelogin-linux-amd64.zip
+      unzip kubelogin-linux-amd64.zip
+      sudo mv bin/linux_amd64/kubelogin /usr/bin
+      kubelogin convert-kubeconfig -l azurecli
+
+      # Make sure you can get info from cluster
+      kubectl get nodes

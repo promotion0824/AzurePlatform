@@ -1,0 +1,26 @@
+linux:
+  resources:
+    requests:
+      cpu: 30m
+      memory: 100Mi
+    limits:
+      cpu: 50m
+      memory: 100Mi
+  podLabels:
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+
+secrets-store-csi-driver:
+  install: true
+  enableSecretRotation: true
+  rotationPollInterval: 5m
+  # Refer to https://secrets-store-csi-driver.sigs.k8s.io/load-tests.html for more details on actions to take before enabling this feature
+  filteredWatchSecret: true
+
+  syncSecret:
+    enabled: true
+
+## Install default service account
+rbac:
+  install: true
+  pspEnabled: false

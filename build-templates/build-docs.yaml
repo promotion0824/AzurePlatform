@@ -1,0 +1,102 @@
+parameters:
+  - name: docsDirectory
+    type: string
+  - name: backstageEntity
+    type: string
+  - name: pluginsDirectory
+    type: string
+    default: $(Agent.BuildDirectory)/infrastructure/MkDocs/plugins
+  - name: docsBranch
+    type: string
+    default: refs/heads/main
+  - name: outputDirectory
+    type: string
+    default: $(Build.StagingDirectory)/docs
+  - name: readmeAsIndex
+    type: boolean
+    default: false
+  - name: serviceConnection
+    type: string
+    default: az-k8s-internal
+  - name: docsRepositoryName
+    type: string
+    default: infrastructure
+
+stages:
+  - stage: Docs
+    dependsOn: []
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], '${{ parameters.docsBranch }}'))
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    jobs:
+      - job: MkDocs
+        variables:
+          - group: Confluence
+          - name: techDocsStorageAccount
+            value: internaldevservicessto
+          - name: techDocsStorageContainer
+            value: techdocs
+        steps:
+
+          - checkout: self
+            path: s # default path
+
+          - checkout: ${{ parameters.docsRepositoryName }}
+            clean: true
+            fetchDepth: 1
+            submodules: false
+            persistCredentials: false
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.x'
+              addToPath: true
+              architecture: 'x64'
+
+          - script: |
+              pip install wheel
+              pip install mkdocs-techdocs-core
+              npm install -g @techdocs/cli
+              pip install md2cf
+              pip install mime
+              pip install mistune
+              pip install -e ${{ parameters.pluginsDirectory }}/mkdocs-kroki-plugin/
+              pip install -e ${{ parameters.pluginsDirectory }}/mkdocs-with-confluence/
+            displayName: 'Install mkdocs plugins'
+
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: ${{ parameters.serviceConnection }}
+              addSpnToEnvironment: true
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                $az_storage_key= $(az storage account keys list --account-name $(techDocsStorageAccount) --query '[0].value' -o tsv).Trim('"')
+                Write-Host "##vso[task.setvariable variable=techDocsStorageAccountKey;issecret=true]$az_storage_key"
+            displayName: 'Get Storage account key'
+
+          - script: |
+              export JIRA_USERNAME=$(ConfluenceDocsUsername)
+              export JIRA_PASSWORD=$(ConfluenceDocsPassword)
+              export MKDOCS_TO_CONFLUENCE=1
+              techdocs-cli generate --no-docker --source-dir ${{ parameters.docsDirectory }} --output-dir ${{ parameters.outputDirectory }}/techdocs --legacyCopyReadmeMdToIndexMd ${{ parameters.readmeAsIndex }}
+              if [ $? -ne 0 ]; then
+                echo "##vso[task.logissue type=error]Techdocs Failed to generate site"
+                exit 1
+              fi
+              techdocs-cli publish --publisher-type azureBlobStorage --storage-name $(techDocsStorageContainer) --entity ${{ parameters.backstageEntity }} --azureAccountName $(techDocsStorageAccount) --azureAccountKey $(techDocsStorageAccountKey) --directory ${{ parameters.outputDirectory }}/techdocs
+
+            displayName: 'Techdocs generate and publish'
+
+          - script: |
+              export JIRA_USERNAME=$(ConfluenceDocsUsername)
+              export JIRA_PASSWORD=$(ConfluenceDocsPassword)
+              export MKDOCS_TO_CONFLUENCE=0
+              cd ${{ parameters.docsDirectory }}
+              mkdocs build
+            condition: failed()
+            displayName: 'Get debug information for build failure'
+
+
+          - task: PublishBuildArtifacts@1

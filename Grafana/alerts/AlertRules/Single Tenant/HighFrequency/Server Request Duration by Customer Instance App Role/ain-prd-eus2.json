@@ -1,0 +1,173 @@
+{
+  "id": 95,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "HighFrequency",
+  "title": "Server Request Duration by Customer Instance App Role ain-prd-eus2",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "Latency",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 300,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "AppRoleName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "http.route",
+              "filters": ["admin/sites/{siteId}/Twins"],
+              "operator": "ne"
+            }
+          ],
+          "metricName": "http.server.request.duration",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "eastus2",
+          "resources": [
+            {
+              "metricNamespace": "microsoft.insights/components",
+              "region": "eastus2",
+              "resourceGroup": "rg-prd-eus2",
+              "resourceName": "ain-prd-eus2",
+              "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+            }
+          ],
+          "timeGrain": "PT1M",
+          "top": "50"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "Latency",
+        "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["B"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "Latency",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "mean",
+        "refId": "B",
+        "settings": {
+          "mode": "replaceNN",
+          "replaceWithValue": 0
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0.8],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["C"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "B",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "C",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-06-13T21:21:15Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "labels": {
+    "destination": "ZenDesk",
+    "severity": "3",
+    "region": "eastus2",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2724921345/Alert+Server+Request+Duration+by+Customer+Instance+App+Role",
+    "application": "shared",
+    "customer-code": "shared",
+    "environment": "prd",
+    "managedby": "bicep",
+    "owner": "cloudops",
+    "project": "https://github.com/WillowInc/Infrastructure-and-Application-Deployment/tree/main/ManagementSubInfrastructure",
+    "stamp": "management"
+  },
+  "annotations": {
+    "__dashboardUid__": "ae00356b-291f-4664-b096-6bd261a77bff",
+    "__panelId__": "4"
+  },
+  "isPaused": false
+}

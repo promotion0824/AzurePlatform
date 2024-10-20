@@ -1,0 +1,1589 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 204,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Ontology Mapping Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 0,
+        "y": 1
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"MappingForInputDtmiNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-MappingForInputDtmiNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Mapping for Input DTMI Not Found",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 5,
+        "y": 1
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"OutputMappingForInputDtmiNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-OutputMappingForInputDtmiNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Output Mapping For Input Dtmi Not Found",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 10,
+        "y": 1
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"TargetDtmiNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Mti-TargetDtmiNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Target DTMI Not Found",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 15,
+        "y": 1
+      },
+      "id": 38,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"InvalidTargetDtmis\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Mti-InvalidTargetDtmis",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Invalid Target DTMIs",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 0,
+        "y": 8
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"InputInterfaceNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-InputInterfaceNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "InputInterfaceNotFound not found in Model by InterfaceType",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 5,
+        "y": 8
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"OutputMappingForInputDtmiNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-OutputMappingForInputDtmiNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Output Mapping For Input Dtmi Not Found",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 10,
+        "y": 8
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"DuplicateMappingPropertyFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-DuplicateMappingPropertyFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Duplicate property found in Model by PropertyName",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 15,
+        "y": 8
+      },
+      "id": 39,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"InvalidOutputDtmis\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-InvalidOutputDtmis",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Invalid Output DTMI",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 0,
+        "y": 15
+      },
+      "id": 35,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"RelationshipNotFoundInModel\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| extend props = parse_json(Properties)\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, props.RelationshipType, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "RelationshipType",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Mti-RelationshipNotFoundInModel",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Relationship Not Found in Model by RelationshipType",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 5,
+        "y": 15
+      },
+      "id": 41,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"ExactTypeNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Mti-ExactTypeNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exact Type Not Found",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 10,
+        "y": 15
+      },
+      "id": 42,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName == \"Willow.MappedTopologyIngestion\"\r\n| where Name == \"ThingDtmiNotFound\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, Sum",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus"
+            ]
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [],
+            "metricName": "Mti-ThingDtmiNotFound",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Thing Dtmi Not Found",
+      "transformations": [],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "ain-prd-eus2",
+          "value": "ain-prd-eus2"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "AppInsightsInstance",
+        "options": [
+          {
+            "selected": false,
+            "text": "ain-dev-eus",
+            "value": "ain-dev-eus"
+          },
+          {
+            "selected": false,
+            "text": "ain-dev-aue",
+            "value": "ain-dev-aue"
+          },
+          {
+            "selected": true,
+            "text": "ain-prd-eus2",
+            "value": "ain-prd-eus2"
+          },
+          {
+            "selected": false,
+            "text": "ain-prd-weu",
+            "value": "ain-prd-weu"
+          },
+          {
+            "selected": false,
+            "text": "ain-prd-aue",
+            "value": "ain-prd-aue"
+          }
+        ],
+        "query": "ain-dev-eus,ain-dev-aue,ain-prd-eus2,ain-prd-weu,ain-prd-aue",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "AllSubscriptions",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "queryType": "Azure Subscriptions",
+          "refId": "A"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "fd259995-1de7-4ae8-8431-0d150dcca6f4",
+          "value": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "Subscription",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$AppInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName\r\n| project subscriptionId"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": [
+            "$AllSubscriptions"
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "rg-prd-eus2",
+          "value": "rg-prd-eus2"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "ResourceGroup",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$AppInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId, aiResourceGroup = resourceGroup\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName, aiResourceGroup\r\n| project aiResourceGroup\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": [
+            "$AllSubscriptions"
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "eastus2",
+          "value": "eastus2"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "Region",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$AppInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId, location\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName, location\r\n| project location\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": [
+            "$AllSubscriptions"
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "prd:eus2:04:wmt-uat",
+          "value": "prd:eus2:04:wmt-uat"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "FullCustomerInstanceName",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where TimeGenerated > ago(1d)\r\n| where Name == \"Mti-Twins\"\r\n| distinct FullCustomerInstanceName = tostring(Properties.FullCustomerInstanceName)\r\n| project FullCustomerInstanceName",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "MTI Ontology Dashboard",
+  "uid": "c62b5413-6e57-41c2-aff8-cd0e7644f2a3",
+  "version": 50,
+  "weekStart": ""
+}

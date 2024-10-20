@@ -1,0 +1,1953 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "ADX Cluster Resource Usage",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 14761,
+  "graphTooltip": 0,
+  "id": 44,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "NON PROD",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/OBgkDSZVz/adx-cluster-usage?orgId=1&refresh=5m&var-sub=178b67d7-b6fd-46db-b4a3-b57f8a6b045f&var-rg=nonprod-platformdata&var-ns=Microsoft.Kusto%2Fclusters&var-resource=wilnonprodaueadx&var-ws=%2Fsubscriptions%2F178b67d7-b6fd-46db-b4a3-b57f8a6b045f%2FresourceGroups%2Fnonprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fnonprodplatformshared-aue-log"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "PROD AUE",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/OBgkDSZVz/adx-cluster-usage?orgId=1&refresh=5m&var-sub=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-rg=prod-platformdata-aue&var-ns=Microsoft.Kusto%2Fclusters&var-resource=wilprodaueadx&var-ws=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2FresourceGroups%2Fprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fprodplatformshared-aue-log"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "PROD WEU",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/OBgkDSZVz/adx-cluster-usage?orgId=1&refresh=5m&var-sub=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-rg=prod-platformdata-weu&var-ns=Microsoft.Kusto%2Fclusters&var-resource=wilprodweuadx&var-ws=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2FresourceGroups%2Fprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fprodplatformshared-weu-log"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "PROD EU2",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/OBgkDSZVz/adx-cluster-usage?orgId=1&refresh=5m&var-sub=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-rg=prod-platformdata-eu2&var-ns=Microsoft.Kusto%2Fclusters&var-resource=wilprodeu2adx&var-ws=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2FresourceGroups%2Fprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fprodplatformshared-eu2-log"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 42,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# ADX Cluster : ${resource}\r\n[Backstage](https://backstage.devservices.willowinc.com/catalog/default/component/pulumi-clusters)\r\n// [Docs](https://backstage.devservices.willowinc.com/docs/default/component/pulumi-clusters)",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "TotalNumberOfConcurrentQueries",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "Concurrent",
+          "subscription": "$sub"
+        },
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Maximum",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "QueryDuration",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "Query Duration",
+          "subscription": "$sub"
+        },
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "TotalNumberOfThrottledQueries",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "Throttled Queries",
+          "subscription": "$sub"
+        },
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "TotalNumberOfThrottledCommands",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "Throttled Commands",
+          "subscription": "$sub"
+        }
+      ],
+      "title": "Queries and Throttling",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance Count"
+            },
+            "properties": [
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "CPU",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "CPU",
+          "subscription": "$sub"
+        },
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "CacheUtilization",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "Cache",
+          "subscription": "$sub"
+        },
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "InstanceCount",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "Instances",
+          "subscription": "$sub"
+        }
+      ],
+      "title": "Utilization",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ApplicationName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 152
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PercentOfTotalClusterMemoryUsed"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PercentOfTotalClusterCpuUsed"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 44,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let aadApps = union workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADManagedIdentitySignInLogs, workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADServicePrincipalSignInLogs |where TimeGenerated > ago(7d) | summarize by ServicePrincipalName, AppId;\r\nlet system_databases = dynamic(['KustoMonitoringPersistentDatabase', '$systemdb']); \r\nlet system_users = dynamic(['AAD app id=b753584e-c468-4503-852a-374280ce7a62', 'KustoServiceBuiltInPrincipal']); // b753584e-c468-4503-852a-374280ce7a62 is KustoRunner\r\nlet system_cluster_management_applications = dynamic(['Kusto.WinSvc.CM.Svc']); // Kusto Cluster Management\r\nlet CommandTable = ADXCommand \r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | extend MemoryPeak = tolong(ResourceUtilization.MemoryPeak) \r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | project-away ResourceUtilization;\r\nlet QueryTable = ADXQuery\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | extend MemoryPeak = tolong(MemoryPeak)\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | extend CommandType = 'Query';\r\nlet dataset_commands_queries = CommandTable\r\n    | union (QueryTable)\r\n    | project CommandType, DatabaseName, StartedOn, LastUpdatedOn, Duration, State, FailureReason, RootActivityId, User, ApplicationName, Principal, TotalCPU, MemoryPeak, CorrelationId, cluster_name;\r\nlet dataset = dataset_commands_queries\r\n    | where cluster_name == \"$resource\"\r\n    | summarize TotalCPU=max(TotalCPU) \r\n        , MemoryPeak=max(MemoryPeak)\r\n        by User, ApplicationName, CorrelationId \r\n;\r\nlet totalCPU = toscalar(dataset\r\n    | summarize sum((totimespan(TotalCPU) / 1s)));\r\nlet totalMemory = toscalar(dataset\r\n    | summarize sum(MemoryPeak));\r\nlet topMemory = \r\n    dataset\r\n    | top-nested 10000 of User with others=\"Others\" by sum(MemoryPeak), top-nested 10000 of ApplicationName with others=\"Others\" by sum(MemoryPeak)\r\n    | extend PercentOfTotalClusterMemoryUsed = aggregated_ApplicationName / toreal(totalMemory)\r\n;\r\nlet topCpu = \r\n    dataset\r\n    | top-nested 10000 of User with others=\"Others\" by sum(totimespan(TotalCPU) / 1s), top-nested 10000 of ApplicationName with others=\"Others\" by sum(totimespan(TotalCPU) / 1s)\r\n    | extend PercentOfTotalClusterCpuUsed = aggregated_ApplicationName / toreal(totalCPU)\r\n;\r\ntopMemory\r\n| join kind = fullouter(topCpu) on User, ApplicationName\r\n| extend BothPercentages = PercentOfTotalClusterMemoryUsed + PercentOfTotalClusterCpuUsed\r\n| top 10 by BothPercentages desc\r\n| extend User = case(ApplicationName == \"Kusto.WinSvc.DM.Svc\", strcat(\"Kusto Data Management \", \"(\", User, \")\"),\r\n    ApplicationName == \"KustoQueryRunner\", strcat(\"Kusto Query Runner \", \"(\", User, \")\"),\r\n    User == \"AAD app id=e0331ea9-83fc-4409-a17d-6375364c3280\", \"DataMap Agent 001 (app id: e0331ea9-83fc-4409-a17d-6375364c3280)\", // Used for internal MS clusters \r\n    User)\r\n| extend PercentOfTotalClusterMemoryUsed_display = iff(isnan(PercentOfTotalClusterMemoryUsed * 100), toreal(0), PercentOfTotalClusterMemoryUsed * 100)\r\n| extend PercentOfTotalClusterCpuUsed_display = iff(isnan(PercentOfTotalClusterCpuUsed * 100), toreal(0), PercentOfTotalClusterCpuUsed * 100)\r\n| where not (ApplicationName == \"Others\" and PercentOfTotalClusterMemoryUsed_display == 0 and PercentOfTotalClusterCpuUsed_display == 0)\r\n| parse User with \"AAD app id=\" AppId\r\n| join kind=leftouter aadApps on AppId\r\n| extend User = case(strlen(ServicePrincipalName) > 0, ServicePrincipalName, User)\r\n| project User, ApplicationName, PercentOfTotalClusterMemoryUsed=PercentOfTotalClusterMemoryUsed_display, PercentOfTotalClusterCpuUsed=PercentOfTotalClusterCpuUsed_display\r\n| order by PercentOfTotalClusterCpuUsed, PercentOfTotalClusterMemoryUsed",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Top Consumers",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let aadApps = union workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADManagedIdentitySignInLogs, workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADServicePrincipalSignInLogs |where TimeGenerated > ago(7d) | summarize by ServicePrincipalName, AppId;\r\nlet system_databases = dynamic(['KustoMonitoringPersistentDatabase', '$systemdb']); \r\nlet system_users = dynamic(['AAD app id=b753584e-c468-4503-852a-374280ce7a62', 'KustoServiceBuiltInPrincipal']); // b753584e-c468-4503-852a-374280ce7a62 is Kusto Query Runner\r\nlet system_cluster_management_applications = dynamic(['Kusto.WinSvc.CM.Svc']); // Kusto Cluster Management\r\nlet CommandTable = ADXCommand\r\n    | extend MemoryPeak = tolong(ResourceUtilization.MemoryPeak)\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | project-away ResourceUtilization;\r\nlet QueryTable = ADXQuery\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | extend MemoryPeak = tolong(MemoryPeak)\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | extend CommandType = 'Query';\r\nlet dataset_commands_queries = CommandTable\r\n    | union (QueryTable)\r\n    | project CommandType, DatabaseName, StartedOn, LastUpdatedOn, Duration, State,\r\n        FailureReason, RootActivityId, User, ApplicationName, Principal, TotalCPU, MemoryPeak, CorrelationId, cluster_name;\r\nlet dataset = dataset_commands_queries\r\n    | where cluster_name == '$resource';\r\nlet FullList = dataset\r\n    | where CommandType != 'TableSetOrAppend'\r\n    | project User, StartedOn, ApplicationName, CommandType\r\n;\r\nlet Top =\r\n    dataset\r\n    | summarize Count=count() by User\r\n    | top 10 by Count desc\r\n    | extend OriginalUser = User\r\n    | extend Category=User\r\n;\r\nFullList\r\n| join kind=leftouter(Top) on $left.User == $right.OriginalUser\r\n| project User=coalesce(Category, 'Other'), ApplicationName, CommandType, StartedOn\r\n| extend User = case(ApplicationName == \"Kusto.WinSvc.DM.Svc\", strcat(\"Kusto Data Management \", \"(\", User, \")\"),\r\n    ApplicationName == \"KustoQueryRunner\", strcat(\"Kusto Query Runner \", \"(\", User, \")\"),\r\n    User == \"AAD app id=e0331ea9-83fc-4409-a17d-6375364c3280\", \"DataMap Agent 001 (app id: e0331ea9-83fc-4409-a17d-6375364c3280)\", // Used for internal MS clusters \r\n    User)\r\n| summarize count() by User, bin(StartedOn, 1h)\r\n| summarize sum(count_) by bin(StartedOn, 1h), tostring(User)\r\n| parse User with \"AAD app id=\" AppId\r\n| join kind=leftouter aadApps on $left.AppId == $right.AppId\r\n| extend User = case(strlen(ServicePrincipalName) > 0, ServicePrincipalName, User)\r\n| project-away AppId, AppId1, ServicePrincipalName\r\n| sort by StartedOn asc",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Command + query count by principal",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ApplicationName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 152
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Count"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "color-background"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 45,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let aadApps = union workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADManagedIdentitySignInLogs, workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADServicePrincipalSignInLogs |where TimeGenerated > ago(7d) | summarize by ServicePrincipalName, AppId;\r\nlet system_databases = dynamic(['KustoMonitoringPersistentDatabase', '$systemdb']); \r\nlet system_users = dynamic(['AAD app id=b753584e-c468-4503-852a-374280ce7a62', 'KustoServiceBuiltInPrincipal']); // b753584e-c468-4503-852a-374280ce7a62 is Kusto Quert Runner\r\nlet system_cluster_management_applications = dynamic(['Kusto.WinSvc.CM.Svc']); // Kusto Cluster Management\r\nlet CommandTable = ADXCommand\r\n    | extend MemoryPeak = tolong(ResourceUtilization.MemoryPeak)\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | project-away ResourceUtilization;\r\nlet QueryTable = ADXQuery\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | extend MemoryPeak = tolong(MemoryPeak)\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | extend CommandType = 'Query';\r\nlet dataset_commands_queries = CommandTable\r\n    | union (QueryTable)\r\n    | project CommandType, DatabaseName, StartedOn, LastUpdatedOn, Duration, State,\r\n        FailureReason, RootActivityId, User, ApplicationName, Principal, TotalCPU, MemoryPeak, CorrelationId, cluster_name;\r\nlet dataset = dataset_commands_queries\r\n    | where cluster_name == '$resource';\r\ndataset\r\n| where CommandType != 'TableSetOrAppend' and State == 'Failed'\r\n| summarize Count=count() by User, ApplicationName\r\n| top 10 by Count desc\r\n| extend User = case(ApplicationName == \"Kusto.WinSvc.DM.Svc\", strcat(\"Kusto Data Management \", \"(\", User, \")\"),\r\n    ApplicationName == \"KustoQueryRunner\", strcat(\"Kusto Query Runner \", \"(\", User, \")\"),\r\n    User == \"AAD app id=e0331ea9-83fc-4409-a17d-6375364c3280\", \"DataMap Agent 001 (app id: e0331ea9-83fc-4409-a17d-6375364c3280)\", // Used for internal MS clusters \r\n    User)\r\n| parse User with \"AAD app id=\" AppId\r\n| join kind=leftouter aadApps on AppId\r\n| extend User = case(strlen(ServicePrincipalName) > 0, ServicePrincipalName, User)\r\n| project-away AppId, AppId1, ServicePrincipalName\r\n| order by Count desc\r\n",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Top Failed Queries",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
+      "id": 47,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let aadApps = union workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADManagedIdentitySignInLogs, workspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").AADServicePrincipalSignInLogs |where TimeGenerated > ago(7d) | summarize by ServicePrincipalName, AppId;\r\nlet system_databases = dynamic(['KustoMonitoringPersistentDatabase', '$systemdb']); \r\nlet system_users = dynamic(['AAD app id=b753584e-c468-4503-852a-374280ce7a62', 'KustoServiceBuiltInPrincipal']); // b753584e-c468-4503-852a-374280ce7a62 is Kusto Query Runner\r\nlet system_cluster_management_applications = dynamic(['Kusto.WinSvc.CM.Svc']); // Kusto Cluster Management\r\nlet CommandTable = ADXCommand\r\n    | extend MemoryPeak = tolong(ResourceUtilization.MemoryPeak)\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | project-away ResourceUtilization;\r\nlet QueryTable = ADXQuery\r\n    | where $__timeFilter(TimeGenerated)\r\n    | where DatabaseName !in (system_databases) and User !in (system_users) and ApplicationName !in (system_cluster_management_applications)\r\n    | where ((false == \"false\" and ApplicationName != 'Kusto.WinSvc.DM.Svc') or false == \"true\")\r\n    | extend MemoryPeak = tolong(MemoryPeak)\r\n    | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | extend CommandType = 'Query';\r\nlet dataset_commands_queries = CommandTable\r\n    | union (QueryTable)\r\n    | project CommandType, DatabaseName, StartedOn, LastUpdatedOn, Duration, State,\r\n        FailureReason, RootActivityId, User, ApplicationName, Principal, TotalCPU, MemoryPeak, CorrelationId, cluster_name;\r\nlet dataset = dataset_commands_queries\r\n    | where cluster_name == '$resource';\r\nlet FullList = dataset\r\n    | where CommandType != 'TableSetOrAppend'\r\n    | project User, ApplicationName, CommandType, StartedOn, MemoryPeak\r\n    | extend User = case(ApplicationName == \"Kusto.WinSvc.DM.Svc\", strcat(\"Kusto Data Management \", \"(\", User, \")\"),\r\n        ApplicationName == \"KustoQueryRunner\", strcat(\"Kusto Query Runner \", \"(\", User, \")\"),\r\n        User == \"AAD app id=e0331ea9-83fc-4409-a17d-6375364c3280\", \"DataMap Agent 001 (app id: e0331ea9-83fc-4409-a17d-6375364c3280)\", // Used for internal MS clusters \r\n        User)\r\n;\r\nlet Top =\r\n    FullList\r\n    | summarize Memory=sum(MemoryPeak) by User\r\n    | top 10 by Memory desc\r\n    | extend OriginalUser = User\r\n    | project OriginalUser, Category=User\r\n;\r\nFullList\r\n| join kind=leftouter(Top) on $left.User == $right.OriginalUser\r\n| project User=coalesce(Category, 'Other'), StartedOn, MemoryPeakGB=MemoryPeak / 1024.0 / 1024.0 / 1024.0\r\n| summarize MemoryPeakGB=sum(MemoryPeakGB) by User, bin(StartedOn, 1h)\r\n| summarize sum(MemoryPeakGB) by bin(StartedOn, 1h), tostring(User)\r\n| parse User with \"AAD app id=\" AppId\r\n| join kind=leftouter aadApps on AppId\r\n| extend User = case(strlen(ServicePrincipalName) > 0, ServicePrincipalName, User)\r\n| project-away AppId, AppId1, ServicePrincipalName\r\n| sort by StartedOn asc",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Total MemoryPeak GB by principal",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 34
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "appInsights": {
+            "dimension": [],
+            "metricName": "select",
+            "timeGrain": "auto"
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series",
+            "workspace": "657b3e91-7c0b-438b-86a5-f769445e237d"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "Average",
+              "Maximum",
+              "Minimum"
+            ],
+            "aggregation": "Total",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilter": "*",
+            "dimensionFilters": [
+              {
+                "dimension": "ComponentName",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "dimensions": [],
+            "metricDefinition": "$ns",
+            "metricName": "EventsProcessed",
+            "metricNamespace": "$ns",
+            "resourceGroup": "$rg",
+            "resourceName": "$resource",
+            "resourceUri": "/subscriptions/$sub/resourceGroups/$rg/providers/$ns/$resource",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ],
+            "top": "10"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "insightsAnalytics": {
+            "query": "",
+            "resultFormat": "time_series"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "CPU",
+          "subscription": "$sub"
+        }
+      ],
+      "title": "Events By DB",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "id": 48,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let TotalExtentSizeTable = ADXTableDetails\r\n\t      | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | where cluster_name == \"$resource\"\r\n    | where $__timeFilter(TimeGenerated)\r\n    | project Time = TimeGenerated, Category = strcat(DatabaseName, \" (\",TableName , \")\"), Value = TotalExtentSize;\r\nlet topCategories = \r\n    TotalExtentSizeTable\r\n    | summarize sum(Value) by Category\r\n    | top 9 by sum_Value desc;\r\nTotalExtentSizeTable\r\n| join kind = leftouter (topCategories) on Category\r\n| project Category = coalesce(Category1, 'Other Tables'), Value, Time\r\n| summarize max(Value) by Category, Time=bin(Time, $__interval)\r\n| order by Time asc\r\n",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Table Size",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 0,
+        "y": 42
+      },
+      "id": 50,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "ADXTableDetails \r\n   | where $__timeFilter(TimeGenerated)\r\n\t      | parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | where cluster_name == \"$resource\"\r\n| project TimeGenerated,\r\n    DatabaseName,\r\n    TableName,\r\n    RetentionPolicyOrigin,\r\n    CachingPolicyOrigin,\r\n    OriginalSize = TotalOriginalSize, \r\n    TotalExtentSize, \r\n    HotExtentSize = HotExtentSize, \r\n    RowCount = TotalRowCount, \r\n    ExtentCount = TotalExtentCount,\r\n    SoftDelete = format_timespan(totimespan(todynamic(RetentionPolicy).SoftDeletePeriod), 'd'),\r\n    HotCache = format_timespan(totimespan(todynamic(CachingPolicy).DataHotSpan), 'd')      \r\n| extend CompressionRatio = round(toreal(OriginalSize) / TotalExtentSize, 1)\r\n| extend SoftDelete = iff(RetentionPolicyOrigin == \"default\" and isempty(SoftDelete), \"unlimited\", SoftDelete)\r\n| extend HotCache = iff(CachingPolicyOrigin == \"default\" and isempty(HotCache), \"unlimited\", HotCache)\r\n| summarize arg_max(TimeGenerated, *) by DatabaseName, TableName\r\n| top 351 by HotExtentSize desc\r\n| project DatabaseName,\r\n    TableName,\r\n    RowCount, \r\n    HotExtentSize,\r\n    SoftDelete,\r\n    HotCache,\r\n    OriginalSize, \r\n    TotalExtentSize,\r\n    CompressionRatio, \r\n    ExtentCount\r\n",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Tables",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "${__field.labels}",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 46
+      },
+      "id": 49,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.3",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let HotExtentSizeTable = ADXTableDetails\r\n\t| parse _ResourceId with * \"providers/microsoft.kusto/clusters/\" cluster_name\r\n    | where cluster_name == \"$resource\"\r\n    | where $__timeFilter(TimeGenerated)\r\n    | project Time = TimeGenerated, Category = strcat(DatabaseName, \"(\",TableName , \")\"), Value = HotExtentSize;\r\nlet topCategories = \r\n    HotExtentSizeTable\r\n    | summarize sum(Value) by Category\r\n    | top 9 by sum_Value desc;\r\nHotExtentSizeTable\r\n| join kind = leftouter (topCategories) on Category\r\n| project Category = coalesce(Category1, 'Other Tables'), Value, Time\r\n| summarize max(Value) by Category, Time=bin(Time, $__interval)\r\n| order by Time asc\r\n",
+            "resource": "$ws"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Hot Cache Size",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "K8S-INTERNAL",
+          "value": "178b67d7-b6fd-46db-b4a3-b57f8a6b045f"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "subscriptions()",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "sub",
+        "options": [],
+        "query": {
+          "grafanaTemplateVariableFn": {
+            "kind": "SubscriptionsQuery",
+            "rawQuery": "Subscriptions()"
+          },
+          "queryType": "Grafana Template Variable Function",
+          "refId": "A",
+          "subscription": "$sub"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "nonprod-platformdata",
+          "value": "nonprod-platformdata"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "ResourceGroups($sub)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "rg",
+        "options": [],
+        "query": "ResourceGroups($sub)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "hide": 2,
+        "label": "",
+        "name": "ns",
+        "query": "Microsoft.Kusto/clusters",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "wilnonprodaueadx",
+          "value": "wilnonprodaueadx"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "ResourceNames($sub, $rg, $ns)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "resource",
+        "options": [],
+        "query": "ResourceNames($sub, $rg, $ns)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log",
+          "value": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "ws",
+        "options": [
+          {
+            "selected": true,
+            "text": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log",
+            "value": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log"
+          },
+          {
+            "selected": false,
+            "text": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-aue-log",
+            "value": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-aue-log"
+          },
+          {
+            "selected": false,
+            "text": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-eu2-log",
+            "value": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-eu2-log"
+          },
+          {
+            "selected": false,
+            "text": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-weu-log",
+            "value": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-weu-log"
+          }
+        ],
+        "query": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log,/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-aue-log,/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-eu2-log,/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-weu-log",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "ADX Cluster Usage",
+  "uid": "OBgkDSZVz",
+  "version": 1,
+  "weekStart": ""
+}

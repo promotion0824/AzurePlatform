@@ -1,0 +1,68 @@
+name: Wilbur-build-deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "Wilbur/**"
+
+jobs:
+  build:
+    uses: WillowInc/AzurePlatform/.github/workflows/wilbur-build.yml@main
+    secrets:
+      CLIENT_ID: ${{ vars.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      TENANT_ID: ${{ vars.TENANT_ID_WILLOWINC }}
+
+  deploy-dev:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: DevServices-Dev
+    env:
+      NAMESPACE: opsbot-dev
+    steps:
+      - uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: ${{ vars.SUBSCRIPTION_ID }}
+          cluster_resource_group: ${{ vars.CLUSTER_RESOURCE_GROUP }}
+          cluster_name: ${{ vars.CLUSTER_NAME }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/helm-deploy-values@main ## main
+        with:
+          chart_name: ${{ needs.build.outputs.chartName }}
+          version: ${{ needs.build.outputs.imageTag }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          namespace: ${{ env.NAMESPACE }}
+          name: ${{ env.NAMESPACE }}
+          values-file: values-dev.yaml
+          additional_args: --set image.tag=${{ needs.build.outputs.imageTag }} --set image.repository=${{ needs.build.outputs.dockerRepository }}/opsbot-api --set image.repositoryJob=${{ needs.build.outputs.dockerRepository }}/opsbot-worker --set keyVaultUri=https://dev-wil-opsbot-kv.vault.azure.net/
+
+  deploy-internal:
+    needs: [ build, deploy-dev ]
+    runs-on: ubuntu-latest
+    environment: Dev-Internal-DevServices-AKS
+    env:
+      NAMESPACE: opsbot
+    steps:
+      - uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: ${{ vars.SUBSCRIPTION_ID }}
+          cluster_resource_group: ${{ vars.CLUSTER_RESOURCE_GROUP }}
+          cluster_name: ${{ vars.CLUSTER_NAME }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/helm-deploy-values@main ## main
+        with:
+          chart_name: ${{ needs.build.outputs.chartName }}
+          version: ${{ needs.build.outputs.imageTag }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          namespace: ${{ env.NAMESPACE }}
+          name: ${{ env.NAMESPACE }}
+          values-file: values-internal.yaml
+          additional_args: --set image.tag=${{ needs.build.outputs.imageTag }} --set image.repository=${{ needs.build.outputs.dockerRepository }}/opsbot-api --set image.repositoryJob=${{ needs.build.outputs.dockerRepository }}/opsbot-worker --set keyVaultUri=https://internal-wil-opsbot-kv.vault.azure.net/

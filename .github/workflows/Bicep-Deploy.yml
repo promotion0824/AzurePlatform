@@ -1,0 +1,33 @@
+name: Deploy-Bicep
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: az login
+        uses: azure/login@v2
+        with:
+          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"1bc38ca0-6f7f-4f68-946f-5359d9ace66a","tenantId":"${{ secrets.TENANT_ID }}"}'
+
+      - name: Deploy Bicep to PRE
+        shell: pwsh
+        run: |
+          az deployment group create --resource-group t3-wil-wrt-pre-rsg-app-aus --template-file .\PoCs\Bicep\Rail-PRE-Storage.bicep
+
+      - name: az login
+        uses: azure/login@v2
+        with:
+          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6","tenantId":"${{ secrets.TENANT_ID }}"}'
+
+      - name: Deploy Bicep to PRD
+        shell: pwsh
+        run: |
+          az deployment group create --resource-group t3-wil-wrt-prd-rsg-app-aus --template-file .\PoCs\Bicep\Rail-PRD-Storage.bicep

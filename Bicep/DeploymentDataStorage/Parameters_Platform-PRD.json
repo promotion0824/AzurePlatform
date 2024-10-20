@@ -1,0 +1,97 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vaultName": {
+      "value": "PlatformPrdDeployKeys"
+    },
+    "vaultAccessPolicies": {
+      "value": [
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "f9624c1d-234a-4527-8fd6-6ca04a8dfa6e",
+          "comments": "azdo-global-spn the SP used by azure devops",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": [],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "28ddc189-5f7c-4a25-9c69-8e5d6830b92c",
+          "comments": "Platform_Engineers group",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt", "List", "Get"],
+            "secrets": [],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "2c8e62f1-0544-4708-9618-0a123333ae64",
+          "comments": "Azure-Platform-PRD-KV-Admin group",
+          "permissions": {
+            "keys": [
+              "Get",
+              "List",
+              "Update",
+              "Create",
+              "Import",
+              "Delete",
+              "Recover",
+              "Backup",
+              "Restore",
+              "GetRotationPolicy",
+              "SetRotationPolicy",
+              "Rotate",
+              "Decrypt",
+              "Encrypt"
+            ],
+            "secrets": [
+              "Get",
+              "List",
+              "Set",
+              "Delete",
+              "Recover",
+              "Backup",
+              "Restore"
+            ],
+            "certificates": [
+              "Get",
+              "List",
+              "Update",
+              "Create",
+              "Import",
+              "Delete",
+              "Recover",
+              "Backup",
+              "Restore",
+              "ManageContacts",
+              "ManageIssuers",
+              "GetIssuers",
+              "ListIssuers",
+              "SetIssuers",
+              "DeleteIssuers"
+            ]
+          }
+        }
+      ]
+    },
+    "storageAccountName": {
+      "value": "platformprddeploydata"
+    },
+    "tags": {
+      "value": {
+        "environment": "prd",
+        "company": "willow",
+        "customer": "none",
+        "team": "azurePlatform",
+        "project": "AzurePlatform/Arm.Clusters/State",
+        "purpose": "Pulumi/Terraform Deployment State",
+        "managedby": "bicep",
+        "app": "release"
+      }
+    }
+  }
+}

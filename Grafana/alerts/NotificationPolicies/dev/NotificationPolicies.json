@@ -1,0 +1,16 @@
+{
+  "receiver": "grafana-default-email",
+  "group_by": ["grafana_folder", "alertname"],
+  "routes": [
+    {
+      "receiver": "Teams P&E WillowTwin RulesEngine Alerts",
+      "object_matchers": [["destination", "=", "RulesEngineTeamsChannel"]]
+    },
+    {
+      "receiver": "Zendesk Alerts",
+      "group_by": ["..."],
+      "object_matchers": [["destination", "=", "ZenDesk"]]
+    }
+  ],
+  "provenance": "api"
+}

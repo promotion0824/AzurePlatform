@@ -1,0 +1,52 @@
+{
+  "receiver": "Zendesk Connector Dev",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "connector test",
+        "customer-code": "shared",
+        "destination": "ZenDeskDev",
+        "environment": "dev",
+        "grafana_folder": "Sandbox",
+        "owner": "cloudops",
+        "region": "eastus2",
+        "severity": "2",
+        "stamp": "00",
+        "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2669772820/Alert+Missing+TSG"
+      },
+      "annotations": {},
+      "startsAt": "2024-03-05T19:20:00Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/d133a774-f597-4809-aa13-252e5d8f980a/view",
+      "fingerprint": "c02968ab6dfabd5b",
+      "silenceURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=alertname%3Dconnector+test&matcher=customer-code%3Dshared&matcher=destination%3DZenDeskDev&matcher=environment%3Ddev&matcher=grafana_folder%3DSandbox&matcher=owner%3Dcloudops&matcher=region%3Deastus2&matcher=severity%3D2&matcher=stamp%3D00&matcher=tsg%3Dhttps%3A%2F%2Fwillow.atlassian.net%2Fwiki%2Fspaces%2FPE%2Fpages%2F2669772820%2FAlert%2BMissing%2BTSG",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": {
+        "B": 0,
+        "C": 1
+      },
+      "valueString": "[ var='B' labels={} value=0 ], [ var='C' labels={} value=1 ]"
+    }
+  ],
+  "groupLabels": {
+    "alertname": "connector test",
+    "grafana_folder": "Sandbox"
+  },
+  "commonLabels": {
+    "alertname": "connector test",
+    "destination": "ZenDeskDev",
+    "grafana_folder": "Sandbox"
+  },
+  "commonAnnotations": {},
+  "externalURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/",
+  "version": "1",
+  "groupKey": "{}/{destination=\"ZenDeskDev\"}:{alertname=\"connector test\", grafana_folder=\"Sandbox\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1, RESOLVED:2] connector test Sandbox (ZenDeskDev)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: B=0, C=1\nLabels:\n - alertname = connector test\n - customer-code = shared\n - destination = ZenDeskDev\n - environment = dev\n - grafana_folder = Sandbox\n - owner = cloudops\n - region = eastus2\n - severity = 2\n - stamp = 00\n - tsg = https://willow.atlassian.net/wiki/spaces/PE/pages/2669772820/Alert+Missing+TSG\nAnnotations:\nSource: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/d133a774-f597-4809-aa13-252e5d8f980a/view\nSilence: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=alertname%3Dconnector+test&matcher=customer-code%3Dshared&matcher=destination%3DZenDeskDev&matcher=environment%3Ddev&matcher=grafana_folder%3DSandbox&matcher=owner%3DIAD&matcher=region%3Deastus2&matcher=severity%3D2&matcher=stamp%3D00&matcher=tsg%3Dhttps%3A%2F%2Fwillow.atlassian.net%2Fwiki%2Fspaces%2FPE%2Fpages%2F2669772820%2FAlert%2BMissing%2BTSG\n\n\n**Resolved**\n\nValue: [no value]\nLabels:\n - alertname = connector test\n - destination = ZenDeskDev\n - grafana_folder = Sandbox\nAnnotations:\n - grafana_state_reason = Updated\nSource: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/d133a774-f597-4809-aa13-252e5d8f980a/view\nSilence: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=alertname%3Dconnector+test&matcher=destination%3DZenDeskDev&matcher=grafana_folder%3DSandbox\n\nValue: [no value]\nLabels:\n - alertname = connector test\n - destination = ZenDeskDev\n - environment = dev\n - grafana_folder = Sandbox\n - severity = 2\nAnnotations:\n - grafana_state_reason = Updated\nSource: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/d133a774-f597-4809-aa13-252e5d8f980a/view\nSilence: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=alertname%3Dconnector+test&matcher=destination%3DZenDeskDev&matcher=environment%3Ddev&matcher=grafana_folder%3DSandbox&matcher=severity%3D2\n"
+}

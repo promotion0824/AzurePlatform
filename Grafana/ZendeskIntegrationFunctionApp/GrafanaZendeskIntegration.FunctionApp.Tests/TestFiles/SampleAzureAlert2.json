@@ -1,0 +1,65 @@
+{
+  "schemaId": "azureMonitorCommonAlertSchema",
+  "data": {
+    "essentials": {
+      "alertId": "/subscriptions/3d662540-4bed-4624-8c4a-fde386ae6667/providers/Microsoft.AlertsManagement/alerts/e90b82f0-91f5-461a-a798-aacdb4fff000",
+      "alertRule": "alert-CountDeadLetterf474cc05",
+      "severity": "Sev0",
+      "signalType": "Metric",
+      "monitorCondition": "Fired",
+      "monitoringService": "Platform",
+      "alertTargetIDs": [
+        "/subscriptions/3d662540-4bed-4624-8c4a-fde386ae6667/resourcegroups/rg-dev-eus-00-wil-in1/providers/microsoft.servicebus/namespaces/sbns-dev-eus-00-wil-in1-95b411bf"
+      ],
+      "configurationItems": [
+        "sbns-dev-eus-00-wil-in1-95b411bf"
+      ],
+      "originAlertId": "3d662540-4bed-4624-8c4a-fde386ae6667_rg-dev-eus-00-wil-in1_Microsoft.Insights_metricAlerts_alert-CountDeadLetterf474cc05_1407272236",
+      "firedDateTime": "2024-02-16T00:42:16.4690973Z",
+      "description": "Count dead letter",
+      "essentialsVersion": "1.0",
+      "alertContextVersion": "1.0"
+    },
+    "alertContext": {
+      "properties": {
+        "app": "shared",
+        "customer-code": "wil",
+        "environment": "dev",
+        "owner": "cloudops",
+        "stamp": "00",
+        "troubleshootingGuideUrl": "https://willow.atlassian.net/wiki/spaces/MAR/pages/2624552991/Hybrid+Migrations"
+      },
+      "conditionType": "SingleResourceMultipleMetricCriteria",
+      "condition": {
+        "windowSize": "PT5M",
+        "allOf": [
+          {
+            "metricName": "DeadletteredMessages",
+            "metricNamespace": "Microsoft.ServiceBus/Namespaces",
+            "operator": "GreaterThan",
+            "threshold": "0",
+            "timeAggregation": "Maximum",
+            "dimensions": [
+              {
+                "name": "EntityName",
+                "value": "pushinstallation"
+              }
+            ],
+            "metricValue": 7.0,
+            "webTestName": null
+          }
+        ],
+        "windowStartTime": "2024-02-16T00:34:59.349Z",
+        "windowEndTime": "2024-02-16T00:39:59.349Z"
+      }
+    },
+    "customProperties": {
+      "app": "shared",
+      "customer-code": "wil",
+      "environment": "dev",
+      "owner": "cloudops",
+      "stamp": "00",
+      "troubleshootingGuideUrl": "https://willow.atlassian.net/wiki/spaces/MAR/pages/2624552991/Hybrid+Migrations"
+    }
+  }
+}

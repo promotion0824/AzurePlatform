@@ -1,0 +1,208 @@
+name: Ephemeral_steps
+
+on:
+  workflow_call:
+    inputs:
+      client_id:
+        description: 'Azure service principal client id to use'
+        type: string
+        required: true
+      tenant_id:
+        description: 'Azure service principal tenant id'
+        type: string
+        required: true
+      subscription_id:
+        description: 'Cluster subscription Id'
+        type: string
+        required: true
+      cluster_resource_group:
+        description: 'Cluster resource group'
+        type: string
+        required: true
+      cluster_name:
+        description: 'Cluster name'
+        type: string
+        required: true
+      name:
+        required: true
+        description: 'Name of the environment to create'
+        type: string
+      targetBranchOrTag:
+        required: false
+        description: 'The branch or tag to deploy.'
+        type: string
+        default: DEFAULT
+      DestroyEnvironment:
+        description: 'Destroy the environment rather than create it?'
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      client_secret:
+        description: 'Azure service principal client secret to use'
+        required: true
+      B2C_CertificatePassword:
+        description: 'Password for the B2C certificate'
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+env:
+  B2C_AppId: 5d038cb6-e52a-4f13-8fd4-b5f73d810a9b
+  B2C_ManagmentClientID: 871e1da2-3955-4936-b8a7-5d556bae68d1
+  B2C_TenantId: a80618f8-f5e9-43bf-a98f-107dd8f54aa9
+  TF-version: 1.6.0
+  acrName: nonprodplatformsharedcr
+  cluster: nonprod-platformapps-aks
+  clusterIngressSuffix: nonprod.willowinc.com
+  clusterResourceGroup: nonprod-platformapps
+  clusterSubscription: K8S-Internal
+  resourceStateAccount: platformdevdeploydata
+  resourceStateAccountResourceGroup: deployment-data
+  resourceStateContainer: terraform-state
+  rootDirectory: EphemeralEnvironments
+  versionPrefix: '1'
+  PR_NUMBER: ${{ github.event.number }}
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  ephemeral_steps:
+    runs-on: ubuntu-latest
+    environment: NonProd
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: '[Bash] Set variables'
+        shell: bash
+        run: |-
+          branch="${{ inputs.targetBranchOrTag }}"
+          branch=${branch/refs\/heads\//}
+          name=${{ inputs.name }}
+          nameWithoutRefs=${name/refs\/heads\//}
+          nameAlphaNumeric=${nameWithoutRefs//[^A-Za-z0-9\-]/}
+          nameTrimmed=$(echo ${nameAlphaNumeric:0:40} | sed 's/[\-]*$//')
+          nameLower=$(echo $nameTrimmed | tr '[:upper:]' '[:lower:]')
+          reName=re-$nameLower
+          webRedirectHost=$reName.${{ env.clusterIngressSuffix }}
+          echo "TARGETBRANCHORTAG=$branch" >> $GITHUB_ENV
+          echo "TF_VAR_NAME=$reName" >> $GITHUB_ENV
+          echo "TF_VAR_CLUSTER_WILDCARD_INGRESS=${{ env.clusterIngressSuffix }}" >> $GITHUB_ENV
+          echo "TF_VAR_OWNER=${{ github.actor }}" >> $GITHUB_ENV
+          echo "TF_VAR_BUILD_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
+          echo "webRedirectUrls=https://mobile-$webRedirectHost/account/authcallback,https://mobile-$webRedirectHost/account/resetPasswordCallback,https://$webRedirectHost/account/authcallback,https://$webRedirectHost/account/resetPasswordCallback" >> $GITHUB_ENV
+          echo "ARM_CLIENT_ID=${{ inputs.client_id }}" >> $GITHUB_ENV
+          echo "ARM_CLIENT_SECRET=${{ secrets.client_secret }}" >> $GITHUB_ENV
+          echo "ARM_TENANT_ID=${{ inputs.tenant_id }}" >> $GITHUB_ENV
+          echo "ARM_SUBSCRIPTION_ID=${{ inputs.subscription_id }}" >> $GITHUB_ENV
+
+      - name: AKS Login
+        uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ inputs.CLIENT_ID }}
+          tenant_id: ${{ inputs.TENANT_ID }}
+          subscription_id: ${{ inputs.SUBSCRIPTION_ID }}
+          cluster_resource_group: ${{ inputs.CLUSTER_RESOURCE_GROUP }}
+          cluster_name: ${{ inputs.CLUSTER_NAME }}
+
+      - name: Set KubeConfig path
+        run: echo "TF_VAR_KUBECONFIGPATH=$KUBECONFIG" >> $GITHUB_ENV
+
+      - name: Download File
+        shell: pwsh
+        run: |
+          $secret = az keyvault secret show --subscription K8S-INTERNAL --vault-name K8sInternalDeployKeys --name b2c-dev | ConvertFrom-Json
+          $pfxCertObject = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList @([Convert]::FromBase64String($secret.value),"",[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable)
+          $currentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath
+          [io.file]::WriteAllBytes("${{ github.workspace }}/${{ env.rootDirectory }}/cert.pfx", $pfxCertObject.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pkcs12, "${{ secrets.B2C_CertificatePassword}}"))
+
+      - name: '[PowerShell] Initialize-Redirects for current environment'
+        if: inputs.DestroyEnvironment == false
+        run: |
+          pwsh -File "${{ github.workspace }}/${{ env.rootDirectory }}/Scripts/Initialize-Redirects.ps1" -TenantId ${{ env.B2C_TenantId }} -ClientID ${{ env.B2C_ManagmentClientID }} -CertificatePath "${{ github.workspace }}/${{ env.rootDirectory }}/cert.pfx" -CertificatePassword "${{ secrets.B2C_CertificatePassword}}" -AppObjectId ${{ env.B2C_AppId }} -WebRedirectUrls ${{ env.webRedirectUrls }}
+
+      - name: '[Powershell][AzCli] Get tags and repositories for docker images'
+        shell: pwsh
+        run: |
+          pwsh -File "${{ github.workspace }}/${{ env.rootDirectory }}/Scripts/Get-FullImageNames.ps1" -AcrName "${{ env.acrName }}" -TargetBranchOrTag "${{ inputs.targetBranchOrTag }}"
+          Get-ChildItem env:TF*
+
+      - name: '[Bash] List environment variables for debug'
+        shell: bash
+        run: printenv | sort
+
+      - name: '[PowerShell] Install sqlserver module'
+        if: inputs.DestroyEnvironment == false
+        shell: pwsh
+        run: |
+          if (Get-Module -ListAvailable -Name sqlserver) {
+            Write-Output "*** Module sqlserver exists."
+          }
+          else {
+            Write-Output "*** Installing sqlserver module..."
+            Install-Module -Scope CurrentUser sqlserver -AllowClobber -Force
+          }
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF-version }}
+
+      - name: Terraform Init
+        run: terraform -chdir="${{ env.rootDirectory }}/terraform" init
+          -backend-config="subscription_id=0be01d84-8432-4558-9aba-ecd204a3ee61"
+          -backend-config="resource_group_name=${{ env.resourceStateAccountResourceGroup}}"
+          -backend-config="storage_account_name=${{ env.resourceStateAccount}}"
+          -backend-config="container_name=${{ env.resourceStateContainer}}"
+          -backend-config="key=Ephemeral/${{ env.TF_VAR_NAME}}/re-state.tf"
+
+      - name: Terraform Apply
+        if: inputs.DestroyEnvironment == false
+        run: terraform -chdir="${{ env.rootDirectory }}/terraform" apply
+          -auto-approve -input=false -parallelism=15
+
+      - name: '[PSCore] [Terraform] Display terraform output'
+        id: terraform-outputs
+        shell: pwsh
+        run: |
+          $outputs = terraform -chdir="${{ env.rootDirectory }}/terraform" output -json | ConvertFrom-Json
+          "----------"
+          "Terraform Outputs"
+          "----------"
+          $outputs.PSObject.Properties | ForEach-Object {
+              "Name: $($_.Name)"
+              "Value:"
+              $_.Value.value
+              "----------"
+              "$($_.Name)=$($_.Value.value)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          }
+
+      - name: '[powershell] Post environment details to PR'
+        if: github.event_name == 'pull_request'
+        run: |
+          pwsh -File "${{ github.workspace }}/${{ env.rootDirectory }}/Scripts/Add-PRComment.ps1" -name "${{ env.TF_VAR_NAME }}" -resourceGroup ${{ env.environment_resource_group_link }} -environmentUrl ${{ env.environment_url }} -mobileEnvironmentUrl ${{ env.mobile_environment_url }} -sqlServerFqdn ${{ env.sql_server_fqdn }}
+
+      - name: Terraform Destroy
+        if: inputs.DestroyEnvironment == true
+        run: terraform -chdir="${{ env.rootDirectory }}/terraform" destroy
+          -auto-approve -input=false -parallelism=15
+
+      - name: Delete resource group and namespace if still needed
+        if: inputs.DestroyEnvironment == true
+        run: |
+          if [ $(az group exists --name ${{ env.TF_VAR_NAME}}-rsg) = true ]; then
+            az group delete -n ${{ env.TF_VAR_NAME}}-rsg --yes
+          fi
+          if kubectl get namespace ${{ env.TF_VAR_NAME}} ; then
+            kubectl delete namespace ${{ env.TF_VAR_NAME}}
+          fi
+
+      - name: '[PowerShell] Clean-Redirects for current environment'
+        if: inputs.DestroyEnvironment == true
+        run: |
+          pwsh -File "${{ github.workspace }}/${{ env.rootDirectory }}/Scripts/Clean-Redirects.ps1" -TenantId ${{ env.B2C_TenantId }} -ClientID ${{ env.B2C_ManagmentClientID }} -CertificatePath "${{ github.workspace }}/${{ env.rootDirectory }}/cert.pfx" -CertificatePassword "${{ secrets.B2C_CertificatePassword}}" -AppObjectId ${{ env.B2C_AppId }} -WebRedirectUrls ${{ env.webRedirectUrls }}

@@ -1,0 +1,79 @@
+{
+  "assignableScopes": [
+    "/subscriptions/16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+    "/subscriptions/ca5069fb-5f00-4df3-8491-10ee2768126a",
+    "/subscriptions/249312a0-4c83-4d73-b164-18c5e72bf219",
+    "/subscriptions/bdd7479b-ce38-47cf-b22f-285337c1e951",
+    "/subscriptions/f4edc7ff-4396-47be-bf14-90892e463848",
+    "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de",
+    "/subscriptions/0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+    "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c",
+    "/subscriptions/1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+    "/subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61",
+    "/subscriptions/3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+    "/subscriptions/ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+    "/subscriptions/ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+    "/subscriptions/c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+    "/subscriptions/5b797013-f6dc-4235-a157-e4cb98ef8599",
+    "/subscriptions/89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+    "/subscriptions/2e254e02-1149-4bb8-8db1-f20511afb1a4",
+    "/subscriptions/f89766c3-f955-42b5-8925-929bd7df83c0",
+    "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+    "/subscriptions/7dab7b5a-d968-43a5-a50f-9509244c297b",
+    "/subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b"
+  ],
+  "description": "Allow exploration of diagnostics related information",
+  "permissions": [
+    {
+      "actions": [
+        "*/read",
+        "Microsoft.Kusto/Clusters/Start/action",
+        "Microsoft.Web/*/config/list/action",
+        "Microsoft.Web/*/restart/Action",
+        "Microsoft.Web/*/start/Action",
+        "Microsoft.Web/*/slotsdiffs/Action",
+        "microsoft.web/*/networktrace/action",
+        "microsoft.web/*/containerlogs/action",
+        "microsoft.web/*/containerlogs/download/action",
+        "microsoft.web/*/diagnostics/detectors/execute/Action",
+        "microsoft.web/*/diagnostics/analyses/execute/Action",
+        "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+        "Microsoft.ContainerService/managedClusters/read",
+        "Microsoft.ContainerRegistry/registries/pull/read",
+        "Microsoft.Support/*"
+      ],
+      "dataActions": [
+        "Microsoft.Storage/storageAccounts/fileServices/fileshares/files/read",
+        "Microsoft.Storage/storageAccounts/queueServices/queues/messages/read",
+        "Microsoft.Storage/storageAccounts/tableServices/tables/entities/read",
+        "Microsoft.Devices/IotHubs/statistics/read",
+        "Microsoft.Devices/IotHubs/twins/read",
+        "Microsoft.DigitalTwins/digitaltwins/read",
+        "Microsoft.DigitalTwins/digitaltwins/relationships/read",
+        "Microsoft.DigitalTwins/eventroutes/read",
+        "Microsoft.DigitalTwins/models/read",
+        "Microsoft.DigitalTwins/query/action",
+        "Microsoft.AppConfiguration/configurationStores/keyValues/read",
+        "Microsoft.ContainerService/managedClusters/*/read"
+      ],
+      "notActions": [],
+      "notDataActions": [
+        "Microsoft.ContainerService/managedClusters/secrets/read",
+        "Microsoft.ContainerService/managedClusters/apis/authentication.k8s.io/read",
+        "Microsoft.ContainerService/managedClusters/apis/authentication.k8s.io/*/read",
+        "Microsoft.ContainerService/managedClusters/apis/authorization.k8s.io/read",
+        "Microsoft.ContainerService/managedClusters/apis/authorization.k8s.io/*/read",
+        "Microsoft.ContainerService/managedClusters/apis/rbac.authorization.k8s.io/read",
+        "Microsoft.ContainerService/managedClusters/apis/rbac.authorization.k8s.io/*/read",
+        "Microsoft.ContainerService/managedClusters/certificates.k8s.io/certificatesigningrequests/read",
+        "Microsoft.ContainerService/managedClusters/apis/certificates.k8s.io/read",
+        "Microsoft.ContainerService/managedClusters/apis/certificates.k8s.io/*/read",
+        "Microsoft.ContainerService/managedClusters/certificates.k8s.io/certificatesigningrequests/read"
+      ]
+    }
+  ],
+  "roleName": "DiagnosticsExplorer",
+  "name": "DiagnosticsExplorer",
+  "roleType": "CustomRole",
+  "type": "Microsoft.Authorization/roleDefinitions"
+}

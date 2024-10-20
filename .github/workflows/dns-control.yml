@@ -1,0 +1,120 @@
+name: DNS Control
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Dns/**'
+      - '!Dns/backstage.yaml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Dns/**'
+      - '!Dns/docs/**'
+      - '!Dns/mkdocs.yml'
+      - '!Dns/backstage.yaml'
+
+env:
+  YARN_CACHE_FOLDER: ${{ github.workspace }}/.yarn
+  location: Dns
+  dnsControlTag: v3.27.1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.YARN_CACHE_FOLDER }}
+          key: yarn-${{ runner.os }}-${{ env.location }}/yarn.lock
+          restore-keys: yarn-${{ runner.os }}-${{ env.location }}/
+        id: cache
+
+      - name: '[Yarn] install'
+        run: |
+          yarn --frozen-lockfile --cwd ${{ env.location }}/ install
+
+      - name: '[Yarn] build'
+        run: |
+          yarn --cwd ${{ env.location }}/ build
+
+      - name: '[GitHub] Publish DNS Config'
+        uses: actions/upload-artifact@v4
+        with:
+          name: drop.Dns
+          path: ${{ env.location }}/out
+
+  preview:
+    runs-on: ubuntu-latest
+    environment: Cloudflare-Preview
+    needs: build
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - name: Download drop.Dns
+        uses: actions/download-artifact@v4
+        with:
+          name: drop.Dns
+
+      - name: Update creds.json
+        run: |
+          sed -i "s/#{Cloudflare--ApiToken}#/${{ secrets.CLOUDFLARE_APITOKEN }}/g" ${{ github.workspace }}/creds.json
+        env:
+          CLOUDFLARE_APITOKEN: ${{ secrets.CLOUDFLARE_APITOKEN }}
+
+      - name: Preview Changes
+        run: |
+          docker pull stackexchange/dnscontrol
+          docker run -v $(pwd)/dnsconfig.js:/dns/dnsconfig.js -v $(pwd)/creds.json:/dns/creds.json stackexchange/dnscontrol:${{ env.dnsControlTag }} preview 2>&1 | tee dnscontroloutput.txt
+          echo $?
+          if grep -q ERROR dnscontroloutput.txt; then
+            exit 1
+          fi
+        working-directory: ${{ github.workspace }}
+
+      - name: Post Changes to PR
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const title = ":globe_with_meridians: DNS Changes would result in :tada:";
+            const content = fs.readFileSync('${{ github.workspace }}/dnscontroloutput.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `**${title}**\n\n\`\`\`\n${content}\n\`\`\``
+            });
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: cloudflare
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: Download drop.Dns
+        uses: actions/download-artifact@v4
+        with:
+          name: drop.Dns
+
+      - name: Update creds.json
+        run: |
+          sed -i "s/#{Cloudflare--ApiToken}#/${{ secrets.CLOUDFLARE_APITOKEN }}/g" ${{ github.workspace }}/creds.json
+        env:
+          CLOUDFLARE_APITOKEN: ${{ secrets.CLOUDFLARE_APITOKEN }}
+
+      - name: Apply Changes
+        run: |
+          docker pull stackexchange/dnscontrol
+          docker run -v $(pwd)/dnsconfig.js:/dns/dnsconfig.js -v $(pwd)/creds.json:/dns/creds.json stackexchange/dnscontrol:${{ env.dnsControlTag }} push
+        working-directory: ${{ github.workspace }}

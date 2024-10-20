@@ -1,0 +1,59 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * 1,3'
+    - cron: '30 5 * * 2,4'
+
+
+name: Copy Sample Markdowns to WillowGPT Blob Storage
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  Reusable:
+    environment: NonProd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Not on Monday or Wednesday
+        if: github.event.schedule != '30 5 * * 1,3'
+        run: echo "This step runs when the condition is met"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: Willowinc/opendigitaltwins-building
+          ref: main
+          fetch-depth: 0
+
+      - name: OIDC Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL}}
+
+      - name: Connect to Azure CLI 
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az version
+
+      - name: Set Subscription
+        run: |
+          az account set --subscription Willow-IT
+
+      - name: Assign Contributor role to service principal
+        run: |
+          az role assignment create \
+            --assignee ${{ vars.CLIENT_ID }} \
+            --role "Storage Blob Data Contributor" \
+            --scope "/subscriptions/a3a9921b-5f1b-4c4b-a539-4a335fbcc2fe/resourceGroups/wil-it-nonprod-willowgpt-rg/providers/Microsoft.Storage/storageAccounts/willowgptstr"
+
+      - name: Upload Files to Azure Blob Storage
+        run: |
+          az storage blob upload-batch --destination documents \
+            --account-name willowgptstr --pattern "*.md" \
+            --source /Willowinc/opendigitaltwins-building/Samples --overwrite
+

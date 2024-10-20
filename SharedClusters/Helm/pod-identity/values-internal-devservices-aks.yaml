@@ -1,0 +1,62 @@
+forceNamespaced: 'true'
+
+azureIdentities:
+  'cluster-keda-id':
+    namespace: 'cluster-keda'
+    name: 'cluster-keda-id'
+    type: 0
+    resourceID: '/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.ManagedIdentity/userAssignedIdentities/keda-pod-id16a91be1'
+    clientID: '06bce5a8-2b7c-45e4-a58d-04acb2d6a94d'
+    binding:
+      name: 'cluster-keda-id-binding'
+      selector: 'cluster-keda-id'
+
+  'cost-export-pod-id':
+    namespace: 'cost-export'
+    name: 'cost-export-id'
+    type: 0
+    resourceID: '/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.ManagedIdentity/userAssignedIdentities/cost-export-pod-ide6b37b90'
+    clientID: '2c86ae57-8cd6-4925-a713-1c8b341f2a9f'
+    binding:
+      name: 'cost-export-id-binding'
+      selector: 'cost-export-id'
+
+  'ops-bot-id':
+    namespace: 'opsbot'
+    name: 'ops-bot-id'
+    type: 0
+    resourceID: '/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ops-bot-id5407aec0'
+    clientID: '537318b6-65b9-4ee3-96d2-21a1c095a404'
+    binding:
+      name: 'ops-bot-id-binding'
+      selector: 'ops-bot-id'
+
+  'ops-bot-dev-id':
+    namespace: 'opsbot-dev'
+    name: 'ops-bot-dev-id'
+    type: 0
+    resourceID: '/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ops-bot-dev-idf0141e0d'
+    clientID: '22b79b06-a78e-459a-aec6-3ffe4f2e85cd'
+    binding:
+      name: 'ops-bot-dev-id-binding'
+      selector: 'ops-bot-dev-id'
+
+  'grafana-pod-id':
+    namespace: 'grafana'
+    name: 'grafana-pod-id'
+    type: 0
+    resourceID: /subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.ManagedIdentity/userAssignedIdentities/grafana-pod-iddd027713
+    clientID: 6bc6bb4e-b53c-4909-86d3-c52612371b62
+    binding:
+      name: 'grafana-pod-id-binding'
+      selector: 'grafana-pod-id'
+
+  'grafana-dev-pod-id':
+    namespace: 'grafana-dev'
+    name: 'grafana-dev-pod-id'
+    type: 0
+    resourceID: /subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.ManagedIdentity/userAssignedIdentities/grafana-pod-iddd027713
+    clientID: 6bc6bb4e-b53c-4909-86d3-c52612371b62
+    binding:
+      name: 'grafana-dev-pod-id-binding'
+      selector: 'grafana-pod-id'

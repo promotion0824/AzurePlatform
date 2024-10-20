@@ -1,0 +1,26 @@
+subscriptionId: 3ab44a28-5c8d-4f57-9d5e-b4830331e5db
+subscriptionName: Experience-PRD
+
+subscriptionRoles:
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+      - de2a9954-4488-4654-878f-1d1c5128fa2e #https://AzSK_CA_SPNc_20210621050340
+
+  - role: Key Vault Contributor
+    scope: *subscription
+    assignments:
+      - 3b8d40c3-a823-4b5f-b5b7-0fa71445bd56 #ad0e1c7e-6d38-4ba4-9efd-0bc77ba9f037
+
+  - role: DiagnosticsExplorer
+    scope: *subscription
+    assignments:
+      - f4452c8f-86aa-44fa-9aad-f90ad64f6f7f # P&E Platform Engineering
+      - ffdca6d6-cc64-4be1-b717-ecf67571fd68 # Willow AppSec Team
+      - ba6d07d6-4494-4d4e-a819-28c24ada16b5 # Azure-Experience-PRD-Contributor

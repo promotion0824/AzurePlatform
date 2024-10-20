@@ -1,0 +1,28 @@
+subscriptionId: 2e254e02-1149-4bb8-8db1-f20511afb1a4
+subscriptionName: Experience-DEV
+subscriptionRoles:
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+    - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+    - de2a9954-4488-4654-878f-1d1c5128fa2e #https://AzSK_CA_SPNc_20210621050340
+
+  - role: Contributor
+    scope: *subscription
+    assignments:
+    - 59998783-e470-42fc-82d8-99c76f9fb99d #Azure-Experience-DEV-Contributor
+    - *Engineers_Willow
+
+  - role: Storage Blob Data Contributor
+    scope: *subscription
+    assignments:
+    - *Engineers_Willow
+
+  - role: Owner
+    scope: /
+    assignments:
+      - *dhopper

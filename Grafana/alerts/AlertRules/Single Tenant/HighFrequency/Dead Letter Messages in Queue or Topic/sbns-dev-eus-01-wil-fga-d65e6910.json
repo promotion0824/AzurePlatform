@@ -1,0 +1,161 @@
+{
+  "id": 50,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "HighFrequency",
+  "title": "Dead Letter Messages in Queue or Topic sbns-dev-eus-01-wil-fga-d65e6910",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "DeadLetterQueueDepth",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 21600,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Total",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "",
+          "dimensionFilters": [
+            {
+              "dimension": "EntityName",
+              "operator": "eq",
+              "filters": []
+            }
+          ],
+          "metricName": "DeadletteredMessages",
+          "metricNamespace": "microsoft.servicebus/namespaces",
+          "region": "eastus",
+          "resources": [
+            {
+              "metricNamespace": "microsoft.servicebus/namespaces",
+              "region": "eastus",
+              "resourceGroup": "rg-dev-eus-01-wil-fga",
+              "resourceName": "sbns-dev-eus-01-wil-fga-d65e6910",
+              "subscription": "34278886-d081-45e9-b627-37859eed000e"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "50"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "DeadLetterQueueDepth",
+        "subscription": "34278886-d081-45e9-b627-37859eed000e"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["B"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "DeadLetterQueueDepth",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "last",
+        "refId": "B",
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [5],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["C"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "B",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "C",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-02-02T17:09:25Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "labels": {
+    "destination": "ZenDesk",
+    "severity": "3",
+    "region": "eastus",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2671018376/Alert+Dead+Letter+Messages+in+Queue+or+Topic",
+    "app": "shared",
+    "customer-code": "wil",
+    "environment": "dev",
+    "owner": "cloudops",
+    "stamp": "01"
+  },
+  "annotations": {
+    "__dashboardUid__": "ae479efb-c6d8-42b4-9926-6edac5303391",
+    "__panelId__": "7"
+  },
+  "isPaused": false
+}

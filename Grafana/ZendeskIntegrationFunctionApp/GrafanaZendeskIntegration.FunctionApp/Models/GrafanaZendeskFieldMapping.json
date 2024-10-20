@@ -1,0 +1,614 @@
+[
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "Cloud Ops",
+    "ZendeskTicketFieldTag": "7350842174095",
+    "ZendeskTicketFieldId": "group_id",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "iot",
+    "ZendeskTicketFieldTag": "360008656591",
+    "ZendeskTicketFieldId": "group_id",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "mapped",
+    "ZendeskTicketFieldTag": "7350834040591",
+    "ZendeskTicketFieldId": "group_id",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Container",
+    "GrafanaFieldValue": "Any",
+    "ZendeskTicketFieldTag": "7645963732623",
+    "ZendeskTicketFieldId": "group_id",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Container",
+    "GrafanaFieldValue": "Willow.MappedTopologyIngestion",
+    "ZendeskTicketFieldTag": "7350834040591",
+    "ZendeskTicketFieldId": "group_id"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Container",
+    "GrafanaFieldValue": "connectors",
+    "ZendeskTicketFieldTag": "360008645072",
+    "ZendeskTicketFieldId": "group_id"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Container",
+    "GrafanaFieldValue": "core_services",
+    "ZendeskTicketFieldTag": "37350860692751",
+    "ZendeskTicketFieldId": "group_id"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Container",
+    "GrafanaFieldValue": "dashboards",
+    "ZendeskTicketFieldTag": "9377855341583",
+    "ZendeskTicketFieldId": "group_id"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Environment",
+    "GrafanaFieldValue": "dev",
+    "ZendeskTicketFieldTag": "dev",
+    "ZendeskTicketFieldId": "8001260747407"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Environment",
+    "GrafanaFieldValue": "ppe",
+    "ZendeskTicketFieldTag": "ppe",
+    "ZendeskTicketFieldId": "8001260747407"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Environment",
+    "GrafanaFieldValue": "prd",
+    "ZendeskTicketFieldTag": "prd",
+    "ZendeskTicketFieldId": "8001260747407",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Environment",
+    "GrafanaFieldValue": "uat",
+    "ZendeskTicketFieldTag": "uat",
+    "ZendeskTicketFieldId": "8001260747407"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "22b",
+    "ZendeskTicketFieldTag": "22_bishopsgate",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "axa",
+    "ZendeskTicketFieldTag": "axa",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "bp",
+    "ZendeskTicketFieldTag": "bp",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "brk",
+    "ZendeskTicketFieldTag": "brookfield",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "brf",
+    "ZendeskTicketFieldTag": "brookfield",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "brf",
+    "ZendeskTicketFieldTag": "brookfield",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "ddk",
+    "ZendeskTicketFieldTag": "ddk_investments",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "dfw",
+    "ZendeskTicketFieldTag": "dallas_fort_worth",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "dur",
+    "ZendeskTicketFieldTag": "durst",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "hwp",
+    "ZendeskTicketFieldTag": "hollywood_park",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "Cloud Ops",
+    "ZendeskTicketFieldTag": "willow",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "inv",
+    "ZendeskTicketFieldTag": "investa",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "jcb",
+    "ZendeskTicketFieldTag": "jacobs",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "jpmc",
+    "ZendeskTicketFieldTag": "jp_morgan",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "map",
+    "ZendeskTicketFieldTag": "mapped",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "msft",
+    "ZendeskTicketFieldTag": "microsoft",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "san",
+    "ZendeskTicketFieldTag": "sanofi",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "tur",
+    "ZendeskTicketFieldTag": "turner",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "wck",
+    "ZendeskTicketFieldTag": "waterman_clark",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "wil",
+    "ZendeskTicketFieldTag": "willow",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "wmr",
+    "ZendeskTicketFieldTag": "walmart_retail",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Instance",
+    "GrafanaFieldValue": "wmt",
+    "ZendeskTicketFieldTag": "walmart",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Severity",
+    "GrafanaFieldValue": "1",
+    "ZendeskTicketFieldTag": "1_-_critical",
+    "ZendeskTicketFieldId": "7231972707215"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Severity",
+    "GrafanaFieldValue": "2",
+    "ZendeskTicketFieldTag": "2_-_medium",
+    "ZendeskTicketFieldId": "7231972707215",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Severity",
+    "GrafanaFieldValue": "3",
+    "ZendeskTicketFieldTag": "3_-_low",
+    "ZendeskTicketFieldId": "7231972707215"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Severity",
+    "GrafanaFieldValue": "4",
+    "ZendeskTicketFieldTag": "4_-_informational",
+    "ZendeskTicketFieldId": "7231972707215"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "core_services",
+    "ZendeskTicketFieldTag": "core_services",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "cloudops",
+    "ZendeskTicketFieldTag": "cloud_ops",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "IAD",
+    "ZendeskTicketFieldTag": "cloud_ops",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "mapped",
+    "ZendeskTicketFieldTag": "mapped1",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "iot",
+    "ZendeskTicketFieldTag": "iot_services",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "iot_services",
+    "ZendeskTicketFieldTag": "iot_services",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.Owner",
+    "GrafanaFieldValue": "connectors",
+    "ZendeskTicketFieldTag": "connectors",
+    "ZendeskTicketFieldId": "360029506771",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "22b",
+    "ZendeskTicketFieldTag": "22_bishopsgate",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "axa",
+    "ZendeskTicketFieldTag": "axa",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "bp",
+    "ZendeskTicketFieldTag": "bp",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "brk",
+    "ZendeskTicketFieldTag": "brookfield_properties",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "brf",
+    "ZendeskTicketFieldTag": "brookfield",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "ddk",
+    "ZendeskTicketFieldTag": "ddk_investments",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "dfw",
+    "ZendeskTicketFieldTag": "dallas_fort_worth",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "dur",
+    "ZendeskTicketFieldTag": "durst",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "hwp",
+    "ZendeskTicketFieldTag": "hollywood_park",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "Cloud Ops",
+    "ZendeskTicketFieldTag": "willow",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "inv",
+    "ZendeskTicketFieldTag": "investa",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "jcb",
+    "ZendeskTicketFieldTag": "jacobs",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "jpmc",
+    "ZendeskTicketFieldTag": "jp_morgan",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "map",
+    "ZendeskTicketFieldTag": "mapped",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "msft",
+    "ZendeskTicketFieldTag": "microsoft",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "bnp",
+    "ZendeskTicketFieldTag": "nuveen",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "nau",
+    "ZendeskTicketFieldTag": "northern_arizona_university",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "san",
+    "ZendeskTicketFieldTag": "sanofi",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "shared",
+    "ZendeskTicketFieldTag": "willow",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "tur",
+    "ZendeskTicketFieldTag": "turner",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "wck",
+    "ZendeskTicketFieldTag": "waterman_clark",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "wil",
+    "ZendeskTicketFieldTag": "willow",
+    "ZendeskTicketFieldId": "360029547271",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "wmr",
+    "ZendeskTicketFieldTag": "walmart_retail",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "commonLabels.customer-code",
+    "GrafanaFieldValue": "wmt",
+    "ZendeskTicketFieldTag": "walmart",
+    "ZendeskTicketFieldId": "360029547271"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "22b",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "22_bishopsgate"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "axa",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "axa"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "bp",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "bp"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "ddk",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "ddk_investments"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "dfw",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "dallas_fort_worth"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "dur",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "durst"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "hwp",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "hollywood_park"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "Cloud Ops",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "willow"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "inv",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "investa"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "jcb",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "jacobs"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "jpmc",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "jp_morgan"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "map",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "mapped"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "msft",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "microsoft"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "san",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "sanofi"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "shared",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "willow"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "tur",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "turner"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "wck",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "waterman_clark"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "wil",
+    "ZendeskTicketFieldId": "360029547271",
+    "DefaultValue": true,
+    "ZendeskTicketFieldTag": "willow"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "wmr",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "walmart_retail"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.customer-code",
+    "GrafanaFieldValue": "wmt",
+    "ZendeskTicketFieldId": "360029547271",
+    "ZendeskTicketFieldTag": "walmart"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.environment",
+    "GrafanaFieldValue": "dev",
+    "ZendeskTicketFieldId": "8001260747407",
+    "ZendeskTicketFieldTag": "dev"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.environment",
+    "GrafanaFieldValue": "ppe",
+    "ZendeskTicketFieldId": "8001260747407",
+    "ZendeskTicketFieldTag": "ppe"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.environment",
+    "GrafanaFieldValue": "prd",
+    "ZendeskTicketFieldId": "8001260747407",
+    "ZendeskTicketFieldTag": "prd",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.environment",
+    "GrafanaFieldValue": "uat",
+    "ZendeskTicketFieldId": "8001260747407",
+    "ZendeskTicketFieldTag": "uat"
+  },
+  {
+    "GrafanaFieldName": "data.customProperties.owner",
+    "GrafanaFieldValue": "Cloud Ops",
+    "ZendeskTicketFieldId": "group_id",
+    "ZendeskTicketFieldTag": "7350842174095",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "data.essentials.severity",
+    "GrafanaFieldValue": "Sev0",
+    "ZendeskTicketFieldId": "7231972707215",
+    "ZendeskTicketFieldTag": "1_-_critical"
+  },
+  {
+    "GrafanaFieldName": "data.essentials.severity",
+    "GrafanaFieldValue": "Sev1",
+    "ZendeskTicketFieldId": "7231972707215",
+    "ZendeskTicketFieldTag": "2_-_medium",
+    "DefaultValue": true
+  },
+  {
+    "GrafanaFieldName": "data.essentials.severity",
+    "GrafanaFieldValue": "Sev2",
+    "ZendeskTicketFieldId": "7231972707215",
+    "ZendeskTicketFieldTag": "3_-_low"
+  },
+  {
+    "GrafanaFieldName": "data.essentials.severity",
+    "GrafanaFieldValue": "Sev3",
+    "ZendeskTicketFieldId": "7231972707215",
+    "ZendeskTicketFieldTag": "4_-_informational"
+  },
+  {
+    "GrafanaFieldName": "data.essentials.severity",
+    "GrafanaFieldValue": "Sev4",
+    "ZendeskTicketFieldId": "7231972707215",
+    "ZendeskTicketFieldTag": "4_-_informational"
+  }
+]

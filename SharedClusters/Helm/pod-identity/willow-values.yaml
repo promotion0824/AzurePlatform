@@ -1,0 +1,37 @@
+mic:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 1024Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
+
+  tolerations:
+    - key: 'sonarqube'
+      operator: 'Equal'
+      value: 'true'
+      effect: 'NoSchedule'
+
+  podLabels:
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+
+nmi:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 50Mi
+
+  tolerations:
+    - key: 'sonarqube'
+      operator: 'Equal'
+      value: 'true'
+      effect: 'NoSchedule'
+
+  podLabels:
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters

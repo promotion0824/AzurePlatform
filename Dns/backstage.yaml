@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dns-control
+  title: DNS
+  description: Willow Dns Control
+  annotations:
+    github.com/project-slug: WillowInc/AzurePlatform
+    github.com/team-slug: WillowInc/platform-engineering
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - tools
+    - services
+    - cloudflare
+    - dns
+    - azure
+  links:
+    - url: https://dev.azure.com/willowdev/AzurePlatform/_build?definitionId=541&_a=summary
+      title: build
+      icon: web
+    - url: https://stackexchange.github.io/dnscontrol/js
+      title: Language Reference
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: Platform-Engineering
+  system: internal-tools

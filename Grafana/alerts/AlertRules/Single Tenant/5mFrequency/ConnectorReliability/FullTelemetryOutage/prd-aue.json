@@ -1,0 +1,329 @@
+{
+  "id": 108,
+  "uid": "6cef9483-d198-44e5-bba7-3d9bc82921c7",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "5mFrequency",
+  "title": "FullTelemetryOutage - prd-aue",
+  "condition": "B",
+  "data": [
+    {
+      "refId": "TelemetryCount",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "ConnectorName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Source",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Buildings",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryADTModelledCount",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "australiaeast",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "australiaeast",
+              "resourceGroup": "rg-prd-aue",
+              "resourceName": "ain-prd-aue",
+              "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "1000"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "TelemetryCount",
+        "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+      }
+    },
+    {
+      "refId": "EnabledTwins",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "ConnectorName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Source",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Buildings",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Willow.ConnectorReliabilityMonitor-EnabledCapabilitiesCount",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "australiaeast",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "australiaeast",
+              "resourceGroup": "rg-prd-aue",
+              "resourceName": "ain-prd-aue",
+              "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "1000"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "EnabledTwins",
+        "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+      }
+    },
+    {
+      "refId": "NumTwins",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "EnabledTwins",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "last",
+        "refId": "NumTwins",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "NumTelemetry",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "TelemetryCount",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "sum",
+        "refId": "NumTelemetry",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "Alert",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "($NumTwins > 0) && ($NumTelemetry == 0)",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "Alert",
+        "type": "math"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "Alert",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "B",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-04-11T21:46:55Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "annotations": {
+    "summary": "{{ range $k, $v := $labels -}}\n{{ $k }}={{ $v }}\n{{ end }}"
+  },
+  "labels": {
+    "environment": "prd",
+    "destination": "ZenDesk",
+    "severity": "2",
+    "region": "australiaeast",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2755002408/Alert+FullTelemetryOutage",
+    "stamp": "management",
+    "owner": "{{ index $labels \"source\" }}",
+    "buildings": "{{ index $labels \"buildings\" }}",
+    "dashboardURL": "https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/dcdec29a-3751-4f63-afe8-997595ef5b59/connector-reliability-monitoring?orgId=1&var-AllSubscriptions=All&var-ResourceGroup=All&var-Subscription=fd259995-1de7-4ae8-8431-0d150dcca6f4&var-Region=australiaeast&var-AppInsightsInstance=ain-prd-aue&var-FullCustomerInstanceName={{ index $labels \"fullcustomerinstancename\" }}&var-Connector={{ index $labels \"connectorname\" }}&var-EdgeDeviceName=None&from=now-1h&to=now"
+  },
+  "isPaused": false
+}

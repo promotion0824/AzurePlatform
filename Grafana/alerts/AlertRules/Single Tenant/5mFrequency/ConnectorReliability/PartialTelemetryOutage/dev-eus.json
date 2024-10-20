@@ -1,0 +1,324 @@
+﻿{
+  "id": 113,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "5mFrequency",
+  "title": "PartialTelemetryOutage - dev-eus",
+  "condition": "Alert",
+  "data": [
+    {
+      "refId": "TelemetryCount",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 7200,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "ConnectorName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Source",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Buildings",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryModelledCountForPartialAlert",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "East US",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "East US",
+              "resourceGroup": "rg-dev-eus",
+              "resourceName": "ain-dev-eus",
+              "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "1000"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "TelemetryCount",
+        "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+      }
+    },
+    {
+      "refId": "EnabledTwins",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 7200,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "ConnectorName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Source",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Buildings",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Willow.ConnectorReliabilityMonitor-EnabledCapabilitiesCount",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "East US",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "East US",
+              "resourceGroup": "rg-dev-eus",
+              "resourceName": "ain-dev-eus",
+              "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "1000"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "EnabledTwins",
+        "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+      }
+    },
+    {
+      "refId": "TrendingPercent",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 7200,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "(($TelemetryCount / $EnabledTwins) * 100)",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "TrendingPercent",
+        "type": "math"
+      }
+    },
+    {
+      "refId": "AveragePercent",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 7200,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "TrendingPercent",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "mean",
+        "refId": "AveragePercent",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "Condition",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 7200,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "$AveragePercent < 90 && $AveragePercent >= 60",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "Condition",
+        "type": "math"
+      }
+    },
+    {
+      "refId": "Alert",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 7200,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "Condition",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "Alert",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-04-11T21:46:55Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "15m",
+  "annotations": {
+    "summary": "{{ range $k, $v := $labels -}}\n{{ $k }}={{ $v }}\n{{ end }}"
+  },
+  "labels": {
+    "environment": "dev",
+    "severity": "3",
+    "region": "eastus",
+    "tsg": "",
+    "owner": "{{ index $labels \"source\" }}",
+    "stamp": "management",
+    "buildings": "{{ index $labels \"buildings\" }}"
+  },
+  "isPaused": false
+}

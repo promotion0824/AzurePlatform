@@ -1,0 +1,1527 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 187,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "panels": [],
+      "title": "From Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), Environment, Region, Stamp, Instance, AppRoleName\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, AppRoleName, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions Over Time",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 7,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), Environment, Region, Stamp, Instance, AppRoleName\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, AppRoleName, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By App Role Instance",
+      "transformations": [],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 14,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$Region:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$Instance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), Environment, Region, Stamp, Instance, AppRoleName\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, AppRoleName, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleName",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By App Role Name",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 6,
+      "panels": [],
+      "title": "From Logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 4,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$CustomerInstance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), AppRoleName\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, AppRoleName, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By App Role Name",
+      "transformations": [],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$CustomerInstance:csv\" has Instance\r\n| summarize Count=count() by AppRoleName\r\n| order by Count desc, AppRoleName asc\r\n\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By App Role Name",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 5,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$CustomerInstance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), Environment, Region, Stamp, Instance, AppRoleName\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, Stamp, Instance, AppRoleName, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By App Role Instance",
+      "transformations": [],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 9,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$CustomerInstance:csv\" has Instance\r\n| summarize Count=count() by Environment, Region, Stamp, Instance, AppRoleName\r\n| order by Count desc\r\n\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By App Role Instance",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 10,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$CustomerInstance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), Environment, Region, ExceptionType\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, ExceptionType, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Exceptions By Type",
+      "transformations": [],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Exceptions for All Apps",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "id": 11,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| where ExceptionType contains \"socket\"\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend splitted, Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp and \"$CustomerInstance:csv\" has Instance\r\n| summarize Count=count() by bin(TimeGenerated,1m), Environment, Region, ExceptionType\r\n| order by TimeGenerated asc\r\n| project TimeGenerated, Environment, Region, ExceptionType, Count\r\n\r\n\r\n",
+            "resources": [
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue"
+            ],
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggregation": "Count",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+              86400000
+            ],
+            "dimensionFilters": [
+              {
+                "dimension": "cloud/roleInstance",
+                "filters": [],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "exceptions/count",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$ApplicationInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto",
+            "top": "50"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Socket Exceptions By Type",
+      "transformations": [],
+      "type": "barchart"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "ain-prd-eus2",
+          "value": "ain-prd-eus2"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Application Insights Instance",
+        "multi": false,
+        "name": "ApplicationInsightsInstance",
+        "options": [
+          {
+            "selected": false,
+            "text": "ain-dev-eus",
+            "value": "ain-dev-eus"
+          },
+          {
+            "selected": false,
+            "text": "ain-dev-aue",
+            "value": "ain-dev-aue"
+          },
+          {
+            "selected": true,
+            "text": "ain-prd-eus2",
+            "value": "ain-prd-eus2"
+          },
+          {
+            "selected": false,
+            "text": "ain-prd-weu",
+            "value": "ain-prd-weu"
+          },
+          {
+            "selected": false,
+            "text": "ain-prd-aue",
+            "value": "ain-prd-aue"
+          }
+        ],
+        "query": "ain-dev-eus, ain-dev-aue,ain-prd-eus2 ,ain-prd-weu,ain-prd-aue",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "AllSubscriptions",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "queryType": "Azure Subscriptions",
+          "refId": "A"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "fd259995-1de7-4ae8-8431-0d150dcca6f4",
+          "value": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "Subscription",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$ApplicationInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName\r\n| project subscriptionId\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": ["$AllSubscriptions"]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "eastus2",
+          "value": "eastus2"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "label": "Region",
+        "multi": false,
+        "name": "Region",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$ApplicationInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId, location\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName, location\r\n| project location\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": ["$AllSubscriptions"]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "rg-prd-eus2",
+          "value": "rg-prd-eus2"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "label": "Resource Group",
+        "multi": false,
+        "name": "ResourceGroup",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$ApplicationInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId, aiResourceGroup = resourceGroup\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName, aiResourceGroup\r\n| project aiResourceGroup\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": ["$AllSubscriptions"]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "prd",
+          "value": "prd"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Environment",
+        "options": [
+          {
+            "selected": true,
+            "text": "prd",
+            "value": "prd"
+          },
+          {
+            "selected": false,
+            "text": "dev",
+            "value": "dev"
+          }
+        ],
+        "query": "prd,dev",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": ["eus2"],
+          "value": ["eus2"]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "RegionShortName",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "aue",
+            "value": "aue"
+          },
+          {
+            "selected": false,
+            "text": "eus",
+            "value": "eus"
+          },
+          {
+            "selected": true,
+            "text": "eus2",
+            "value": "eus2"
+          },
+          {
+            "selected": false,
+            "text": "weu",
+            "value": "weu"
+          }
+        ],
+        "query": "aue,eus,eus2,weu",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": ["All"],
+          "value": ["$__all"]
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Stamp",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| where TimeGenerated > ago(1d)\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3]), Container = tostring(splitted[4]), Replica = tostring(splitted[5])\r\n| where \"Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region\r\n| distinct Stamp\r\n| project Stamp",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "48A16780-C719-4528-A0F2-4E7640A9C850"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": ["All"],
+          "value": ["$__all"]
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Customer Instance",
+        "multi": true,
+        "name": "CustomerInstance",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "AppExceptions\r\n| where TimeGenerated > ago(1d)\r\n| extend splitted=split(AppRoleInstance, ':')\r\n| extend Environment = tostring(splitted[0]), Region = tostring(splitted[1]), Stamp = tostring(splitted[2]), Instance = tostring(splitted[3]), Container = tostring(splitted[4]), Replica = tostring(splitted[5])\r\n| where \"$Environment:csv\" has Environment and \"$RegionShortName:csv\" has Region and \"$Stamp:csv\" has Stamp\r\n| distinct Instance\r\n| project Instance",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "48A16780-C719-4528-A0F2-4E7640A9C850"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Exceptions",
+  "uid": "d57df63d-c8b3-4384-8f15-ea4180b52346",
+  "version": 83,
+  "weekStart": ""
+}

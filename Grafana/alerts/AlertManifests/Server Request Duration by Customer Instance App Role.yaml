@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: Server Request Duration by Customer Instance App Role
+metricName: http.server.request.duration
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 0.8
+Severity: 3
+Aggregation: Average
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2724921345/Alert+Server+Request+Duration+by+Customer+Instance+App+Role
+template: Server Request Duration by Customer Instance App Role Template.json

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "targetMG": {
+      "value": "WillowTwinDev"
+    },
+    "subscriptionAssignments": {
+      "value": [
+        {
+          "id": "48a16780-c719-4528-a0f2-4e7640a9c850",
+          "name": "dev",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "3d662540-4bed-4624-8c4a-fde386ae6667",
+          "name": "dev-eus-00",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "34278886-d081-45e9-b627-37859eed000e",
+          "name": "dev-eus-01",
+          "enforceTags": false,
+          "remediateTags": true
+        },
+        {
+          "id": "f7036919-3d51-4ed4-9851-4df254e67023",
+          "name": "dev-wus-01",
+          "enforceTags": false,
+          "remediateTags": true
+        }
+      ]
+    }
+  }
+}

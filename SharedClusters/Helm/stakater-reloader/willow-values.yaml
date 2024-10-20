@@ -1,0 +1,35 @@
+reloader:
+  isArgoRollouts: false
+  isOpenshift: false
+  ignoreSecrets: false
+  ignoreConfigMaps: false
+  reloadStrategy: default # Set to default, env-vars or annotations
+  ignoreNamespaces: '' # Comma separated list of namespaces to ignore
+  logFormat: '' #json
+  watchGlobally: true
+  # Set to true if you have a pod security policy that enforces readOnlyRootFilesystem
+  readOnlyRootFileSystem: true
+  legacy:
+    rbac: false
+  deployment:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 1001
+      fsGroup: 1001
+
+    labels:
+      willowinc.com/team: azurePlatform
+      willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+
+    resources:
+      limits:
+        cpu: '100m'
+        memory: '512Mi'
+      requests:
+        cpu: '10m'
+        memory: '128Mi'
+
+    pod:
+      annotations: {}
+    priorityClassName: ''

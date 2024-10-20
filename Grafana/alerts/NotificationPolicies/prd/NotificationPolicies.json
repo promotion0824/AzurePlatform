@@ -1,0 +1,12 @@
+{
+  "receiver": "grafana-default-email",
+  "group_by": ["grafana_folder", "alertname"],
+  "routes": [
+    {
+      "receiver": "Zendesk Alerts",
+      "group_by": ["..."],
+      "object_matchers": [["destination", "=", "ZenDesk"]]
+    }
+  ],
+  "provenance": "api"
+}

@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  title: Internal Tools
+  name: internal-tools
+  description: Internal Development Tools
+  tags:
+    - internal
+  links:
+    - url: https://willow.atlassian.net/wiki/spaces/PE/pages/1909489921/URLs+and+Utilities+for+Developers
+      title: Urls And Utilities
+      icon: web
+spec:
+  owner: Platform-Engineering
+  system: internal-tools
+  domain: devservices

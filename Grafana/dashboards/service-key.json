@@ -1,0 +1,154 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 48,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "union \nworkspace(\"/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log\").AppTraces,\nworkspace(\"/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log\").AppRequests,\nworkspace(\"/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-aue-log\").AppTraces,\nworkspace(\"/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-aue-log\").AppRequests,\nworkspace(\"/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-eu2-log\").AppTraces,\nworkspace(\"/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-eu2-log\").AppRequests,\nworkspace(\"/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-weu-log\").AppTraces,\nworkspace(\"/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-weu-log\").AppRequests\n| where Message in (\"Service key access denied\", \"service-key header not being passed\")\n| join kind=innerunique AppRequests on OperationId\n| project Url, Message\n| summarize count = count() by Url, Message",
+            "resource": "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformshared/providers/Microsoft.OperationalInsights/workspaces/prodplatformshared-eu2-log",
+            "resultFormat": "table"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": ""
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscriptions": [
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "249312a0-4c83-4d73-b164-18c5e72bf219"
+          ]
+        }
+      ],
+      "title": "Failed Service-Key Requests",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "ServiceKey",
+  "uid": "5mv_OvZ4k1",
+  "version": 2,
+  "weekStart": ""
+}

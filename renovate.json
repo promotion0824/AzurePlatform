@@ -1,0 +1,76 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>WillowInc/renovate-config"],
+  "azureWorkItemId": 40722,
+  "commitMessageSuffix": " AB#40722",
+  "prFooter": "Azure Boards: AB#40722",
+  "platformCommit": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": ["at any time"],
+    "dependencyDashboardApproval": false,
+    "stabilityDays": 0,
+    "rangeStrategy": "update-lockfile",
+    "commitMessageSuffix": "[SECURITY] AB#40722",
+    "branchTopic": "{{{datasource}}}-{{{depName}}}-vulnerability",
+    "prCreation": "immediate",
+    "labels": ["security"],
+    "assignees": ["@WillowInc/platform-engineering", "@WillowInc/application-security"]
+  },
+  "assigneesFromCodeOwners": true,
+  "schedule": ["at any time"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^Pulumi"],
+      "groupName": "Pulumi packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^xunit",
+        "Snapshooter",
+        "Moq",
+        "OpenCover",
+        "coverlet",
+        "Microsoft.NET.Test",
+        "FluentAssertions"
+      ],
+      "groupName": "Test packages"
+    },
+    {
+      "matchPackagePatterns": ["^System."],
+      "groupName": "Microsoft System"
+    },
+    {
+      "matchPackagePatterns": ["^Microsoft."],
+      "excludePackageNames": ["Microsoft.Graph"],
+      "groupName": "Microsoft"
+    },
+    {
+      "groupName": "Dotnet Docker File",
+      "matchPackageNames": ["mcr.microsoft.com/dotnet/sdk"],
+      "allowedVersions": "<=8",
+      "matchPaths": ["**/Dockerfile"]
+    },
+    {
+      "groupName": "DNSControl Packages",
+      "matchPaths": ["Dns/**/*.*"]
+    },
+    {
+      "groupName": "Ephemeral ENV Terraform",
+      "matchPaths": ["EphemeralEnvironments/terraform/**/*.*"]
+    },
+    {
+      "groupName": "Ignore Azure DevOps Pipeline Updates",
+      "matchDatasources": ["azure-pipelines-tasks"],
+      "allowedVersions": "<0"
+    }
+  ],
+    "ignorePaths": [
+      "SharedClusters/Pulumi/Willow.Pulumi.Cluster.Components/**",
+      "EphemeralEnvironments/**"
+  ]
+}

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Willow.OpsBot.Api", "Willow.OpsBot.Api\Willow.OpsBot.Api.csproj", "{FD765164-E0C9-4FF8-B5FC-D2F92BF3ABCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Willow.OpsBot.Api.Tests", "Willow.OpsBot.Api.Tests\Willow.OpsBot.Api.Tests.csproj", "{46B3E4E0-2CA9-420D-A2AF-CB15DF96D735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Willow.OpsBot.WorkerService", "Willow.OpsBot.WorkerService\Willow.OpsBot.WorkerService.csproj", "{57E8A92E-7E0F-4557-BDFA-F26DCAF9C63A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Willow.OpsBot.WorkerService.Tests", "Willow.OpsBot.WorkerService.Tests\Willow.OpsBot.WorkerService.Tests.csproj", "{C33126FE-88C2-4E8A-8E4B-50CAE3122FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Willow.OpsBot.Common", "Willow.OpsBot.Common\Willow.OpsBot.Common.csproj", "{8828C957-3E2D-48D3-B7AA-6CDE7B7C8BB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Willow.OpsBot.Common.Tests", "Willow.OpsBot.Common.Tests\Willow.OpsBot.Common.Tests.csproj", "{AF73548E-6A04-4031-8ED8-004431EB4ED7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD765164-E0C9-4FF8-B5FC-D2F92BF3ABCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD765164-E0C9-4FF8-B5FC-D2F92BF3ABCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD765164-E0C9-4FF8-B5FC-D2F92BF3ABCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD765164-E0C9-4FF8-B5FC-D2F92BF3ABCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46B3E4E0-2CA9-420D-A2AF-CB15DF96D735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46B3E4E0-2CA9-420D-A2AF-CB15DF96D735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46B3E4E0-2CA9-420D-A2AF-CB15DF96D735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46B3E4E0-2CA9-420D-A2AF-CB15DF96D735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57E8A92E-7E0F-4557-BDFA-F26DCAF9C63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57E8A92E-7E0F-4557-BDFA-F26DCAF9C63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57E8A92E-7E0F-4557-BDFA-F26DCAF9C63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57E8A92E-7E0F-4557-BDFA-F26DCAF9C63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C33126FE-88C2-4E8A-8E4B-50CAE3122FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C33126FE-88C2-4E8A-8E4B-50CAE3122FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C33126FE-88C2-4E8A-8E4B-50CAE3122FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C33126FE-88C2-4E8A-8E4B-50CAE3122FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8828C957-3E2D-48D3-B7AA-6CDE7B7C8BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8828C957-3E2D-48D3-B7AA-6CDE7B7C8BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8828C957-3E2D-48D3-B7AA-6CDE7B7C8BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8828C957-3E2D-48D3-B7AA-6CDE7B7C8BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF73548E-6A04-4031-8ED8-004431EB4ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF73548E-6A04-4031-8ED8-004431EB4ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF73548E-6A04-4031-8ED8-004431EB4ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF73548E-6A04-4031-8ED8-004431EB4ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

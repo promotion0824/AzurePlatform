@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: cert-manager
+  title: Cert Manager
+  description: Cluster Cert Manager
+  annotations:
+    github.com/project-slug: WillowInc/AzurePlatform
+    github.com/team-slug: WillowInc/platform-engineering
+    backstage.io/kubernetes-label-selector: app.kubernetes.io/instance=cert-manager
+  tags:
+    - tools
+    - services
+spec:
+  type: service
+  lifecycle: experimental
+  owner: Platform-Engineering
+  system: internal-tools
+  dependsOn: ['component:pulumi-clusters']

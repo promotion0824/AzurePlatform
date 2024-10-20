@@ -1,0 +1,128 @@
+subscriptionId: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+subscriptionName: K8S-INTERNAL
+
+clusterRoles:
+  - name: nonprod-platformapps-aks
+    resourceGroup: nonprod-platformapps
+    subscription: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+    namespaces:
+      - namespace: opsbot-dev
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - f4452c8f-86aa-44fa-9aad-f90ad64f6f7f # P&E Platform Engineering
+      # Twin Platform namespaces
+      - namespace: twin-shared-nonprod-eastus2
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+      - namespace: twin-shared-nonprod-australiaeast
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+      - namespace: twin-shared-dev-eastus2
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+      - namespace: twin-shared-dev-australiaeast
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+      - namespace: twin-willowmining-dev
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+
+      - namespace: twin-investa-dev
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - 8f852b41-a629-4e02-9434-6142ab775c4b # P&E Real Estate
+      - namespace: twin-brookfield-dev
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - 8f852b41-a629-4e02-9434-6142ab775c4b # P&E Real Estate
+      - namespace: ambassador
+        role: Azure Kubernetes Service RBAC Cluster Admin
+        assignments:
+          - *Engineers_Willow
+
+subscriptionRoles:
+  - role: Azure Kubernetes Service RBAC Cluster Admin
+    scope: *subscription
+    assignments: *P&E_Platform_Engineering
+
+  - role: Azure Kubernetes Service RBAC Reader
+    scope: *subscription
+    assignments: *backstage-pod-id7026a7bf_managed_identity
+
+  - role: DiagnosticsExplorer
+    scope: *subscription
+    assignments:
+      - *P&E_Real_Estate
+      - *P&E_Willow_Twin_IoT
+      - *P&E_Willow_Twin_Marketplace
+      - *P&E_Willow_Twin_Platform
+      - *Willow_AppSec_Team
+      - *P&E_Platform_Engineering
+
+  - role: Cosmos DB Account Reader Role
+    scope: *subscription
+    assignments:
+      - *Willow_AppSec_Team
+      - *P&E_Platform_Engineering
+
+  - role: User Access Administrator
+    scope: *subscription
+    assignments: *MS-PIM
+
+  - role: RateCardBillingRole
+    scope: *subscription
+    assignments: *KubecostSP
+
+  - role: Owner
+    scope: *subscription
+    assignments: *Azure-K8S-INTERNAL-Owner
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+    - *Engineers_Willow
+    - *AzSK_CA_SPNc_20210621050340
+    - *Azure-K8S-INTERNAL-Reader
+    - *cost-export-pod-ide6b37b90
+    - *willow-Env-Deployers-nonprod
+
+  - role: Contributor
+    scope: *subscription
+    assignments: *Azure-K8S-INTERNAL-Contributor
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/deployment-data/providers/Microsoft.Storage/storageAccounts/k8sintdeploydata
+    assignments:
+      - *Platform_Engineers
+      - *azdo-global-spn
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/internal-devservices/providers/Microsoft.Storage/storageAccounts/internaldevservicessto/blobServices/default/containers/apidocs
+    assignments:
+      - *Platform_Engineers
+      - *azdo-global-spn
+
+  - role: Storage Blob Data Reader
+    scope: /subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/deployment-data/providers/Microsoft.Storage/storageAccounts/k8sintdeploydata/blobServices/default/containers/pulumi
+    assignments: *P&E_Willow_Twin_Platform
+
+  - role: Managed Identity Operator
+    scope: *subscription
+    assignments:
+      - *internal-devservices-aks-cluster-id
+      - *internal-devservices-aks-agentpool
+      - *nonprod-platformapps-aks-cluster-id
+      - *nonprod-platformapps-aks-agentpool
+
+  - role: EnvironmentDeployer
+    scope: /subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformdata/
+    assignments: *willow-Env-Deployers-nonprod
+
+  - role: Azure Service Bus Data Receiver
+    scope: *subscription
+    assignments: *kubecost-pod-id2cb9d473

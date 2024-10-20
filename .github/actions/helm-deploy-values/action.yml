@@ -1,0 +1,49 @@
+name: helm-package
+description: Download and Deploy helm chart artifact with Values override file
+# A separate action is needed for deploying helm charts with values files as they
+# are compressed with the chart and aren't available automatically uncompressed
+# when downloading or deploying through helm
+inputs:
+  chart_name:
+    description: "Name of chart to download"
+    required: true
+  version:
+    description: "Artifact version (semver) to deploy"
+    required: false
+    default: "0.0.0"
+  github_token:
+    description: "github token"
+    required: true
+  namespace:
+    description: "K8s namespace to install or upgrade"
+    required: true
+  name:
+    description: "Helm release name"
+    required: true
+  values-file:
+    description: "Values file to use to override defaults"
+    required: true
+  additional_args:
+    description: "Additional argument to pass to install"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download chart
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.chart_name }}-chart
+        path: charts/
+
+    - uses: azure/setup-helm@v4
+      with:
+        version: "latest"
+        token: ${{ inputs.github_token }}
+      id: install
+
+    - name: Deploy chart
+      shell: bash
+      run: |
+        tar -xvf charts/${{ inputs.chart_name }}-${{ inputs.version }}.tgz --directory charts
+        helm upgrade --install ${{ inputs.namespace }} --namespace ${{ inputs.name }} --create-namespace ./charts/${{ inputs.chart_name }} -f ./charts/${{ inputs.chart_name }}/${{ inputs.values-file }} ${{ inputs.additional_args }}

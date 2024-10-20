@@ -1,0 +1,46 @@
+﻿[
+  {
+    "contentType": "application/vnd.microsoft.card.adaptive",
+    "contentUrl": null,
+    "content": {
+      "type": "AdaptiveCard",
+      "version": "1.0",
+      "body": [
+        {
+          "type": "TextBlock",
+          "text": "Next time you need access you can skip the chatter"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Just tell me what you need with direct commands"
+        }
+      ],
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "data": {
+            "msteams": {
+              "type": "messageBack",
+              "title": null,
+              "image": null,
+              "text": "fw/SqlServer/test-server-sql-a.database.windows.net/127.0.0.1",
+              "displayText": "fw/SqlServer/test-server-sql-a.database.windows.net/127.0.0.1",
+              "value": null,
+              "channelData": null,
+              "imageAltText": null
+            },
+            "command": null,
+            "postedValues": null,
+            "cardId": null,
+            "teamId": null,
+            "ticketId": null,
+            "activityId": null
+          },
+          "title": "fw/SqlServer/test-server-sql-a.database.windows.net/127.0.0.1"
+        }
+      ]
+    },
+    "name": null,
+    "thumbnailUrl": null
+  }
+]

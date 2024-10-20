@@ -1,0 +1,40 @@
+name: version
+description: Builds version information
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'The GitHub Token'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install GitVersion
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      uses: gittools/actions/gitversion/setup@v3.0.0
+      with:
+        versionSpec: '5.x'
+        includePrerelease: true
+
+    - name: Determine Version
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v3.0.0
+
+    - id: version-output
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      shell: bash
+      run: |
+        echo '### Build Version :dragon_face:' >> $GITHUB_STEP_SUMMARY
+        echo ' Semver: ` ${{ steps.gitversion.outputs.semVer }}`  ' >> $GITHUB_STEP_SUMMARY
+        echo ' Nuget: `${{ steps.gitversion.outputs.NuGetVersionV2 }}` ' >> $GITHUB_STEP_SUMMARY
+outputs:
+  semVer:
+    description: 'The SemVer value'
+    value: ${{ steps.gitversion.outputs.semVer }}
+  nugetVer:
+    description: 'The NuGetVersionV2 value'
+    value: ${{ steps.gitversion.outputs.NuGetVersionV2 }}

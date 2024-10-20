@@ -1,0 +1,658 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 36,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == \"microsoft.digitaltwins/digitaltwinsinstances\" and $__contains(subscriptionId, $AdtSubscription)\r\n| extend Customer = case(tostring(tags.customer) != \"\", tags.customer, tags.Customer)\r\n| summarize count()"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "5f077d49-cd08-48b4-a26b-59d708d7847b",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Adt Instances",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 22,
+        "x": 2,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == \"microsoft.digitaltwins/digitaltwinsinstances\" and $__contains(subscriptionId, $AdtSubscription)\r\n| join kind = leftouter (resourcecontainers | where type == \"microsoft.resources/subscriptions\" | extend SubscriptionName=name) on subscriptionId\r\n| extend Customer = case(tostring(tags.customer) != \"\", tags.customer, tags.Customer)\r\n| project  name, location, url=properties.hostName, SubscriptionName, Customer, tags\r\n"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "5f077d49-cd08-48b4-a26b-59d708d7847b",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Adt Instances",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 2,
+        "x": 0,
+        "y": 13
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == \"microsoft.kusto/clusters\"  and $__contains(subscriptionId, $AdxSubscription)\r\n| summarize count()"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "5f077d49-cd08-48b4-a26b-59d708d7847b",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Adx Clusters",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 22,
+        "x": 2,
+        "y": 13
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == \"microsoft.kusto/clusters\"  and $__contains(subscriptionId, $AdxSubscription)\r\n| join kind = leftouter (resourcecontainers | where type == \"microsoft.resources/subscriptions\" | extend SubscriptionName=name) on subscriptionId\r\n| project  name, location, url=properties.uri, SubscriptionName, resourceGroup, tags"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "5f077d49-cd08-48b4-a26b-59d708d7847b",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        }
+      ],
+      "title": "Adx Clusters",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 2,
+        "x": 0,
+        "y": 19
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "union\r\nworkspace(\"09b48b86-3897-4fd2-947b-cd810de6e688\").ADXTableDetails,\r\nworkspace(\"fd04e553-bf7a-4290-8484-edc9ca449345\").ADXTableDetails,\r\nworkspace(\"76178bf7-4b48-4c2f-a447-40fb4601d5df\").ADXTableDetails,\r\nworkspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").ADXTableDetails\r\n| where TimeGenerated > ago(1d)\r\n| parse  _ResourceId with \"/subscriptions/\" subscriptionId \"/resourcegroups/\"resourceGroup \"/providers/microsoft.kusto/clusters/\" cluster\r\n| where $__contains(subscriptionId, $AdxSubscription)\r\n| summarize dcount(DatabaseName)",
+            "resource": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Adx Databases",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 22,
+        "x": 2,
+        "y": 19
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "union\r\nworkspace(\"09b48b86-3897-4fd2-947b-cd810de6e688\").ADXTableDetails,\r\nworkspace(\"fd04e553-bf7a-4290-8484-edc9ca449345\").ADXTableDetails,\r\nworkspace(\"76178bf7-4b48-4c2f-a447-40fb4601d5df\").ADXTableDetails,\r\nworkspace(\"61cc7320-e391-4525-a02b-b93f75ee8e93\").ADXTableDetails\r\n| where TimeGenerated > ago(1d)\r\n| parse  _ResourceId with \"/subscriptions/\" subscriptionId \"/resourcegroups/\"resourceGroup \"/providers/microsoft.kusto/clusters/\" cluster\r\n| where $__contains(subscriptionId, $AdxSubscription)\r\n| summarize by DatabaseName, subscriptionId, resourceGroup, cluster\r\n| order by cluster desc",
+            "resource": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Adx Databases",
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "Delivery",
+    "Overview"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Platform-PRD"
+          ],
+          "value": [
+            "e878a98a-20ec-4516-a59d-f393429fe07c"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ADT Subscription",
+        "multi": true,
+        "name": "AdtSubscription",
+        "options": [],
+        "query": {
+          "grafanaTemplateVariableFn": {
+            "kind": "SubscriptionsQuery",
+            "rawQuery": "Subscriptions()"
+          },
+          "queryType": "Grafana Template Variable Function",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Products-Shared"
+          ],
+          "value": [
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ADX Subscription",
+        "multi": true,
+        "name": "AdxSubscription",
+        "options": [],
+        "query": {
+          "grafanaTemplateVariableFn": {
+            "kind": "SubscriptionsQuery",
+            "rawQuery": "Subscriptions()"
+          },
+          "queryType": "Grafana Template Variable Function",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Adx and ADT Instances",
+  "uid": "yZWpTpP7z",
+  "version": 1,
+  "weekStart": ""
+}

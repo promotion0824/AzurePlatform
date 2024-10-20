@@ -1,0 +1,36 @@
+<Project >
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" Version="1.2.0-beta.556" />
+  </ItemGroup>
+<PropertyGroup Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+  <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  <MSBuildTreatWarningsAsErrors>false</MSBuildTreatWarningsAsErrors>
+</PropertyGroup>
+  <PropertyGroup>
+    <Copyright>2024</Copyright>
+    <Authors>Willow</Authors>
+    <Version>0.0.1</Version>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <AssemblyFileVersion>0.0.1</AssemblyFileVersion>
+    <AssemblyInformationalVersion>0.0.1</AssemblyInformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(BuildingInsideVisualStudio)' != 'true'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <MSBuildTreatWarningsAsErrors>false</MSBuildTreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Test'))">
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)rulesets\stylecop.json">
+      <Visible>false</Visible>
+    </AdditionalFiles>
+  </ItemGroup>
+</Project>

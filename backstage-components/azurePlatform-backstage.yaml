@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: azurePlatform-components
+  description: A collection for azure platform resources
+spec:
+  targets:
+    - ./internal-tools.yaml
+    - ./devservices-domain.yaml
+    - ../SharedClusters/Helm/cert-manager/backstage.yaml
+    - ../SharedClusters/Helm/ingress-nginx/backstage.yaml
+    - ../SharedClusters/Pulumi/backstage.yaml
+    - ../Wilbur/backstage.yaml
+    - ../OpensourcePortal/backstage.yaml
+    - ../Grafana/backstage.yaml
+    - ../BackstageApp/backstage.yaml
+    - ../Dns/backstage.yaml
+    - ../Costing/backstage.yaml
+    - ../EphemeralEnvironments/backstage.yaml
+    - ../AzureRoles/backstage.yaml

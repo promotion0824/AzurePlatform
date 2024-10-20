@@ -1,0 +1,103 @@
+name: SubscriptionDiagnostics
+
+on:
+  workflow_dispatch:
+    inputs:
+      NonMain:
+        type: boolean
+        description: Deploy from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Bicep/SubscriptionDiagnostics/**'
+  push:
+    branches: [main]
+    paths:
+      - 'Bicep/SubscriptionDiagnostics/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  artifact_location: SubscriptionDiagnostics
+  Template: subscriptions-diagnostics.bicep
+  managementGroup: Product
+  Parameters: product-subscriptions.json
+
+jobs:
+  Upload_Artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Bicep Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact_location }}
+          path: Bicep/SubscriptionDiagnostics/
+          retention-days: 1
+
+  Preview_Deployment:
+    runs-on: ubuntu-latest
+    environment: NonProd
+    needs: [Upload_Artifacts]
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.artifact_location }}
+          path: ${{ env.artifact_location }}/
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      # See the following for multiline string format in environment variables
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#multiline-strings
+      - name: Preview Deployment
+        id: powershell
+        shell: pwsh
+        run: |
+          "Results<<EOF" >> $env:GITHUB_ENV
+          ./${{ env.artifact_location }}/Deploy.ps1 -WhatIf -Verbose -managementGroup ${{ env.managementGroup }} -templateFile ./${{ env.artifact_location }}/${{ env.Template }} -parametersFile ./${{ env.artifact_location }}/${{ env.Parameters }} -deploymentName ${{ env.Template }}_1 >> $env:GITHUB_ENV
+          "EOF" >> $env:GITHUB_ENV
+
+      - name: Add Results to PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          header: Powershell-WhatIf-Results
+          message: ${{ env.Results }}
+
+  Deploy:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event.inputs.NonMain))
+    runs-on: ubuntu-latest
+    needs: Preview_Deployment
+    environment: Production
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.artifact_location }}
+          path: ${{ env.artifact_location }}/
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Deploy
+        id: powershell
+        shell: pwsh
+        run: |
+          ./${{ env.artifact_location }}/Deploy.ps1 -Verbose -managementGroup ${{ env.managementGroup }} -templateFile ./${{ env.artifact_location }}/${{ env.Template }} -parametersFile ./${{ env.artifact_location }}/${{ env.Parameters }} -deploymentName ${{ env.Template }}_1

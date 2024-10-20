@@ -1,0 +1,184 @@
+{
+    "id":  108,
+    "uid":  "",
+    "orgID":  1,
+    "folderUID":  "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+    "ruleGroup":  "5mFrequency",
+    "title":  "ReplaceMe",
+    "condition":  "C",
+    "data":  [
+                 {
+                     "refId":  "FailedRelationships",
+                     "queryType":  "Azure Monitor",
+                     "relativeTimeRange":  {
+                                               "from":  3600,
+                                               "to":  0
+                                           },
+                     "datasourceUid":  "azure-monitor-oob",
+                     "model":  {
+                                   "azureMonitor":  {
+                                                        "aggregation":  "Count",
+                                                        "allowedTimeGrainsMs":  [
+                                                                                    60000,
+                                                                                    300000,
+                                                                                    900000,
+                                                                                    1800000,
+                                                                                    3600000,
+                                                                                    21600000,
+                                                                                    43200000,
+                                                                                    86400000
+                                                                                ],
+                                                        "customNamespace":  "Azure.ApplicationInsights",
+                                                        "dimensionFilters":  [
+                                                                                 {
+                                                                                     "dimension":  "Action",
+                                                                                     "filters":  [
+
+                                                                                                 ],
+                                                                                     "operator":  "eq"
+                                                                                 },
+                                                                                 {
+                                                                                     "dimension":  "status",
+                                                                                     "filters":  [
+
+                                                                                                 ],
+                                                                                     "operator":  "eq"
+                                                                                 },
+                                                                                 {
+                                                                                     "dimension":  "FullCustomerInstanceName",
+                                                                                     "filters":  [
+
+                                                                                                 ],
+                                                                                     "operator":  "eq"
+                                                                                 }
+                                                                             ],
+                                                        "metricName":  "Mti-Relationships",
+                                                        "metricNamespace":  "microsoft.insights/components",
+                                                        "region":  "East US 2",
+                                                        "resources":  [
+                                                                          {
+                                                                              "metricNamespace":  "Microsoft.Insights/components",
+                                                                              "region":  "ReplaceMe",
+                                                                              "resourceGroup":  "ReplaceMe",
+                                                                              "resourceName":  "ReplaceMe",
+                                                                              "subscription":  "ReplaceMe"
+                                                                          }
+                                                                      ],
+                                                        "timeGrain":  "auto"
+                                                    },
+                                   "datasource":  {
+                                                      "type":  "grafana-azure-monitor-datasource",
+                                                      "uid":  "azure-monitor-oob"
+                                                  },
+                                   "hide":  false,
+                                   "intervalMs":  1000,
+                                   "maxDataPoints":  43200,
+                                   "queryType":  "Azure Monitor",
+                                   "refId":  "FailedRelationships",
+                                   "subscription":  "ReplaceMe"
+                               }
+                 },
+                 {
+                     "refId":  "LastFailedRelationship",
+                     "queryType":  "",
+                     "relativeTimeRange":  {
+                                               "from":  3600,
+                                               "to":  0
+                                           },
+                     "datasourceUid":  "__expr__",
+                     "model":  {
+                                   "conditions":  [
+                                                      {
+                                                          "evaluator":  {
+                                                                            "params":  [
+
+                                                                                       ],
+                                                                            "type":  "gt"
+                                                                        },
+                                                          "operator":  {
+                                                                           "type":  "and"
+                                                                       },
+                                                          "query":  {
+                                                                        "params":  [
+                                                                                       "B"
+                                                                                   ]
+                                                                    },
+                                                          "reducer":  {
+                                                                          "params":  [
+
+                                                                                     ],
+                                                                          "type":  "last"
+                                                                      },
+                                                          "type":  "query"
+                                                      }
+                                                  ],
+                                   "datasource":  {
+                                                      "type":  "__expr__",
+                                                      "uid":  "__expr__"
+                                                  },
+                                   "expression":  "FailedRelationships",
+                                   "hide":  false,
+                                   "intervalMs":  1000,
+                                   "maxDataPoints":  43200,
+                                   "reducer":  "last",
+                                   "refId":  "LastFailedRelationship",
+                                   "type":  "reduce"
+                               }
+                 },
+                 {
+                     "refId":  "C",
+                     "queryType":  "",
+                     "relativeTimeRange":  {
+                                               "from":  3600,
+                                               "to":  0
+                                           },
+                     "datasourceUid":  "__expr__",
+                     "model":  {
+                                   "conditions":  [
+                                                      {
+                                                          "evaluator":  {
+                                                                            "params":  [
+                                                                                           0
+                                                                                       ],
+                                                                            "type":  "gt"
+                                                                        },
+                                                          "operator":  {
+                                                                           "type":  "and"
+                                                                       },
+                                                          "query":  {
+                                                                        "params":  [
+                                                                                       "C"
+                                                                                   ]
+                                                                    },
+                                                          "reducer":  {
+                                                                          "params":  [
+
+                                                                                     ],
+                                                                          "type":  "last"
+                                                                      },
+                                                          "type":  "query"
+                                                      }
+                                                  ],
+                                   "datasource":  {
+                                                      "type":  "__expr__",
+                                                      "uid":  "__expr__"
+                                                  },
+                                   "expression":  "LastFailedRelationship",
+                                   "hide":  false,
+                                   "intervalMs":  1000,
+                                   "maxDataPoints":  43200,
+                                   "refId":  "C",
+                                   "type":  "threshold"
+                               }
+                 }
+             ],
+    "updated":  "2024-04-29T19:57:55Z",
+    "noDataState":  "NoData",
+    "execErrState":  "Error",
+    "for":  "5m",
+    "labels": {
+      "destination": "ReplaceMe",
+      "severity": "2"
+    },
+    "isPaused":  false
+}

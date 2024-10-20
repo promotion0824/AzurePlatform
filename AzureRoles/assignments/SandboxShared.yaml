@@ -1,0 +1,60 @@
+subscriptionId: 249312a0-4c83-4d73-b164-18c5e72bf219
+subscriptionName: SandboxShared
+
+subscriptionRoles:
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: SqlFirewallAdmin
+    scope: *subscription
+    assignments:
+      - 4a248fcd-b4fc-4001-820c-a8b62e9a668e #d088dd82-c513-43f2-a629-c890ad90d9cb/dev-wil-opsbot-id
+
+  - role: EnvironmentDeployer
+    scope: *subscription
+    assignments:
+      - 248d0404-3643-4ee2-8dbe-c659396384b9 #willow-Env-Deployers-nonprod
+
+  - role: Contributor
+    scope: *subscription
+    assignments:
+      - 82fc95dd-e307-411b-87d5-fe13864f6a4c #1a3b372e-ab5e-4fb1-9d1a-230946d77432/aadApp-wil-bld-sbx-aut-aue
+      - *Engineers_Willow
+
+  - role: Storage Blob Data Contributor
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697/azdo-global-spn
+
+  - role: Azure Digital Twins Data Owner
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: Azure Service Bus Data Owner
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: User Access Administrator
+    scope: /subscriptions/249312a0-4c83-4d73-b164-18c5e72bf219/resourceGroups/rules-engine-poc
+    assignments:
+      - a3362412-4edd-4b95-8d73-1586b934503d #IMercer@willowinc.com
+
+  - role: Owner
+    scope: /subscriptions/249312a0-4c83-4d73-b164-18c5e72bf219/resourceGroups/rules-engine-poc/providers/Microsoft.ServiceBus/namespaces/rules-engine
+    assignments:
+      - a3362412-4edd-4b95-8d73-1586b934503d #IMercer@willowinc.com
+
+  - role: Storage Queue Data Contributor
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: Azure Kubernetes Service RBAC Reader
+    scope: *subscription
+    assignments:
+      - 3ca96844-c6b0-453f-ac12-3571b8dc7e6a # backstage-pod-id7026a7bf managed identity

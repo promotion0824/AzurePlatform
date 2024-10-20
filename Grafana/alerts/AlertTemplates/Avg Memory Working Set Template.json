@@ -1,0 +1,259 @@
+{
+  "id": 49,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "HighFrequency",
+  "title": "ReplaceMe",
+  "condition": "AlertThreshold",
+  "data": [
+    {
+      "refId": "AverageMemory",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 3600,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "",
+          "dimensionFilters": [],
+          "metricName": "WorkingSetBytes",
+          "metricNamespace": "ReplaceMe",
+          "region": "ReplaceMe",
+          "resources": [
+            {
+              "resourceGroup": "ReplaceMe",
+              "resourceName": "ReplaceMe"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "50"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "AverageMemory",
+        "subscription": "ReplaceMe"
+      }
+    },
+    {
+      "refId": "AllocatedMemory",
+      "queryType": "Azure Resource Graph",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "allowedTimeGrainsMs": [],
+          "timeGrain": "auto"
+        },
+        "azureResourceGraph": {
+          "query": "ReplaceMe"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Resource Graph",
+        "refId": "AllocatedMemory",
+        "subscriptions": ["7ec2c608-7942-4f73-a593-cc446c42d9de"]
+      }
+    },
+    {
+      "refId": "MeanMemory",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 3600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["B"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "AverageMemory",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "mean",
+        "refId": "MeanMemory",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "MaxAllocatedMemory",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "AllocatedMemory",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "max",
+        "refId": "MaxAllocatedMemory",
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "PercentMemoryUsage",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "100 * ${MeanMemory}/(${MaxAllocatedMemory} * 1024 * 1024)",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "PercentMemoryUsage",
+        "type": "math"
+      }
+    },
+    {
+      "refId": "AlertThreshold",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [80, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "PercentMemoryUsage",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "AlertThreshold",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-02-02T17:09:25Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "annotations": {
+    "__dashboardUid__": "Wh6Si5g4z",
+    "__panelId__": "33",
+    "description": "The Memory usage on this Container App has exceeded the threshold set"
+  },
+  "labels": {
+    "destination": "ReplaceMe",
+    "severity": "2"
+  },
+  "isPaused": false
+}

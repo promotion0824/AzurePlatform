@@ -1,0 +1,109 @@
+# Default values for kroki.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+commandTimeout: 30s
+convertTimeout: 30s
+
+companions:
+  - name: blockdiag
+    port: 8001
+    repository: yuzutech/kroki-blockdiag
+    tag: latest
+    pullPolicy: Always
+  - name: mermaid
+    port: 8002
+    repository: yuzutech/kroki-mermaid
+    tag: latest
+    pullPolicy: Always
+  - name: bpmn
+    port: 8003
+    repository: yuzutech/kroki-bpmn
+    pullPolicy: Always
+    tag: latest
+  - name: excalidraw
+    port: 8004
+    repository: yuzutech/kroki-excalidraw
+    tag: latest
+    pullPolicy: Always
+
+replicaCount: 1
+
+additionalLabels: {}
+
+image:
+  repository: yuzutech/kroki
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 'latest'
+
+imagePullSecrets: []
+nameOverride: ''
+fullnameOverride: ''
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ''
+
+podAnnotations:
+  reloader.stakater.com/auto: "true"
+
+podSecurityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+  runAsGroup: 1000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  privileged: false
+  allowPrivilegeEscalation: false
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  hosts:
+    - host: kroki.devservices.willowinc.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: kroki-tls
+      hosts:
+        - kroki.devservices.willowinc.com
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 300Mi
+  requests:
+    cpu: 40m
+    memory: 200Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

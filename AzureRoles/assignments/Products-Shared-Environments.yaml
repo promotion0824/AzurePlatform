@@ -1,0 +1,142 @@
+subscriptionId: 5f077d49-cd08-48b4-a26b-59d708d7847b
+subscriptionName: Products-Shared-Environments
+
+subscriptionRoles:
+  - role: Owner
+    scope: /
+    assignments:
+      - *dhopper
+
+  - role: DiagnosticsExplorer
+    scope: /
+    assignments:
+      - f4452c8f-86aa-44fa-9aad-f90ad64f6f7f # P&E Platform Engineering
+      - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+      - c37877f7-8b2c-4919-82e6-31b1d575352d # P&E Rail
+      - ffdca6d6-cc64-4be1-b717-ecf67571fd68 # Willow AppSec Team
+      - 8f852b41-a629-4e02-9434-6142ab775c4b # P&E Real Estate
+      - 18f0d5fa-4f78-47de-9c77-e46f1c5f00ee # P&E Willow Twin IoT
+      - e39a4759-1135-4022-b198-d621448fc3b2 # P&E Willow Twin Marketplace
+      - 10f1633e-888c-4c28-8da5-c2637bab81fb # Azure-Products-Shared-Environments-Contributor
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/deployment-data
+    assignments:
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-brf-prod-default-3ae022b6/providers/Microsoft.Storage/storageAccounts/sttwibrfprodefaue56dfec7
+    assignments:
+      - a56ac843-a6d5-4795-b37e-9b4f3ac5f7ef # Jonathan Scheltema
+
+  - role: EnvironmentDeployer
+    scope: *subscription
+    assignments:
+      - dec6be28-c00a-4e19-bc13-2b325de7b146 # willow-Env-Deployers-prod
+
+  - role: Managed Identity Operator
+    scope: *subscription
+    assignments:
+      - aa43f8f3-85ff-4277-82c0-3812d432ad4b #97697b23-906b-494c-860e-d832166c2418/prod-platformapps-aue-aks-agentpool
+
+  - role: Azure Service Bus Data Receiver
+    scope: *subscription
+    assignments:
+      - d7de529e-2a5f-4b48-aad4-f636f85bb223 # prod-platformapps-aue / keda-pod-ida651e944
+      - 395d08f1-44b1-49b1-bab8-3ceac1e40b35 # prod-platformapps-eu2 / keda-pod-ida651e944
+      - 2f8e97eb-4968-42da-931c-c6b2af33342f # prod-platformapps-weu / keda-pod-ida651e944
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-axa-prod-default-532f5232/providers/Microsoft.Search/searchServices/srch-twin-axa-prod-sharedf6fcbf86
+    assignments:
+      - bb88e7a5-0868-4bab-aa72-d8f15ab26a28 #wil-prd-plt-weu2-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-bp-prod-default-ffa71db3/providers/Microsoft.Search/searchServices/srch-twin-bp-prod-sharedea75f39d
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-brf-prod-default-3ae022b6/providers/Microsoft.Search/searchServices/srch-twin-brf-prod-sharede9720cc7
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-ddk-prod-default-42d4e727/providers/Microsoft.Search/searchServices/srch-twin-ddk-prod-shared72c56766
+    assignments:
+      - a20eb3fb-6e06-4f97-8706-c961cd5f93d8 #wil-prd-plt-aue2-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-dfw-nrel-default-549385ac/providers/Microsoft.Search/searchServices/srch-twin-dfw-nrel-shared80da2f91
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-dfw-prod-default-c8a61b3f/providers/Microsoft.Search/searchServices/srch-twin-dfw-prod-sharede119a451
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-hpk-prod-default-2cc0eb2d/providers/Microsoft.Search/searchServices/srch-twin-hpk-prod-shared16b0a693
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-inv-prod-default-5df0fd00/providers/Microsoft.Search/searchServices/srch-twin-inv-prod-shareda6886b24
+    assignments:
+      - a20eb3fb-6e06-4f97-8706-c961cd5f93d8 #wil-prd-plt-aue2-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-met-prod-default-3ba7b1c2/providers/Microsoft.Search/searchServices/srch-twin-met-prod-shared1fef2bfa
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-msft-prod-default-98d11ab0/providers/Microsoft.Search/searchServices/srch-twin-msft-prod-shared9d307d59
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-san-prod-default-8b97a21d/providers/Microsoft.Search/searchServices/srch-twin-san-prod-shared5949bdd1
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-wmc-prod-default-f4e7c9f5/providers/Microsoft.Search/searchServices/srch-twin-wmc-prod-sharedce9ba7ce
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-wmr-prod-default-99846052/providers/Microsoft.Search/searchServices/srch-twin-wmr-prod-shared31d34538
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-wmt-prod-default-b49bf0f2/providers/Microsoft.Search/searchServices/srch-twin-wmt-prod-shared147be26b
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-jpmc-prod-default-e06caed9/providers/Microsoft.Search/searchServices/srch-twin-jpmc-prod-shared226a8cf0
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-durst-prod-default-3ccd89a9/providers/Microsoft.Search/searchServices/srch-twin-durst-prod-shared5786505a
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl
+
+  - role: Search Index Data Reader
+    scope: /subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b/resourceGroups/rg-twin-turn-prod-default-a7bccf46/providers/Microsoft.Search/searchServices/srch-twin-turn-prod-sharedbc496d32
+    assignments:
+      - 95b56bc9-cdc3-49b4-aecf-54a58bbca8fa #wil-prd-plt-eu22-portalxl

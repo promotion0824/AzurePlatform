@@ -1,0 +1,149 @@
+name: AzurePolicies-Single-Tenant
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployDev:
+        type: boolean
+        default: false
+        description: Deploy to Dev Management Group subscriptions
+      deployPrd:
+        type: boolean
+        default: false
+        description: Deploy to Prd Management Group subscriptions
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - '.github/workflows/AzurePolicies-Single-Tenant.yml'
+      - 'Bicep/SingleTenantPolicies/**'
+      - '!Bicep/SingleTenantPolicies/docs/*'
+      - '!Bicep/SingleTenantPolicies/mkdocs.yml'
+      - '!Bicep/SingleTenantPolicies/backstage.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'Bicep/SingleTenantPolicies/**'
+      - '!Bicep/SingleTenantPolicies/docs/*'
+      - '!Bicep/SingleTenantPolicies/mkdocs.yml'
+      - '!Bicep/SingleTenantPolicies/backstage.yaml'
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  actions: write
+
+env:
+  devManagementGroup: WillowTwinDev
+  prdManagementGroup: WillowTwinPrd
+  file: tags.bicep
+  devParameters: WillowTwinDev-subscriptions.json
+  prdParameters: WillowTwinPrd-subscriptions.json
+  versionPrefix: 0.0
+
+jobs:
+  Preview:
+    runs-on: ubuntu-latest
+    environment: NonProd
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Preview Policy Assignments
+        shell: pwsh
+        run: |
+          $results = ./Bicep/SingleTenantPolicies/Deploy.ps1 -WhatIf -Verbose -managementGroup ${{ env.devManagementGroup }} -templateFile ./Bicep/SingleTenantPolicies/${{ env.file }} -parametersFile ./Bicep/SingleTenantPolicies/${{ env.devParameters }} -deploymentName ${{ env.file }}_${{ env.versionPrefix }}.${{ github.run_id }}
+          $results | Out-File -FilePath ${{ github.workspace }}/devPolicyPreview.txt
+          $results = ./Bicep/SingleTenantPolicies/Deploy.ps1 -WhatIf -Verbose -managementGroup ${{ env.devManagementGroup }} -templateFile ./Bicep/SingleTenantPolicies/Audit.bicep -parametersFile ./Bicep/SingleTenantPolicies/audit.parameters.json -deploymentName audit.bicep_${{ env.versionPrefix }}.${{ github.run_id }}
+
+          $results = ./Bicep/SingleTenantPolicies/Deploy.ps1 -WhatIf -Verbose -managementGroup ${{ env.prdManagementGroup }} -templateFile ./Bicep/SingleTenantPolicies/${{ env.file }} -parametersFile ./Bicep/SingleTenantPolicies/${{ env.prdParameters }} -deploymentName ${{ env.file }}_${{ env.versionPrefix }}.${{ github.run_id }}
+          $results | Out-File -FilePath ${{ github.workspace }}/prdPolicyPreview.txt
+
+      - name: Post Preview to PR
+        if: (github.event_name == 'pull_request')
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const title = ":globe_with_meridians: Policy changes would result in:";
+            const devContent = fs.readFileSync('${{ github.workspace }}/devPolicyPreview.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `**${title}**\n\n\`\`\`\n${devContent}\n\`\`\``
+            });
+            const prdContent = fs.readFileSync('${{ github.workspace }}/prdPolicyPreview.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `**${title}**\n\n\`\`\`\n${prdContent}\n\`\`\``
+            });
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AzurePolicies
+          path: Bicep/SingleTenantPolicies/
+          retention-days: 1
+
+  Deploy_Dev:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.deployDev == 'true'))
+    runs-on: ubuntu-latest
+    needs: Preview
+    environment: Production
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: AzurePolicies
+          path: Bicep/SingleTenantPolicies/
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Policy Assignments
+        shell: pwsh
+        run: |
+          ./Bicep/SingleTenantPolicies/Deploy.ps1 -Verbose -managementGroup ${{ env.devManagementGroup }} -templateFile ./Bicep/SingleTenantPolicies/${{ env.file }} -parametersFile ./Bicep/SingleTenantPolicies/${{ env.devParameters }} -deploymentName ${{ env.file }}_${{ env.versionPrefix }}.${{ github.run_id }}
+          ./Bicep/SingleTenantPolicies/Deploy.ps1 -Verbose -managementGroup ${{ env.devManagementGroup }} -templateFile ./Bicep/SingleTenantPolicies/Audit.bicep -parametersFile ./Bicep/SingleTenantPolicies/audit.parameters.json -deploymentName audit.bicep_${{ env.versionPrefix }}.${{ github.run_id }}
+
+  Deploy_Prd:
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.event.inputs.deployPrd == 'true'))
+    runs-on: ubuntu-latest
+    needs: [Preview, Deploy_Dev]
+    environment: Production
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: AzurePolicies
+          path: Bicep/SingleTenantPolicies/
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+
+      - name: Policy Assignments
+        shell: pwsh
+        run: |
+          ./Bicep/SingleTenantPolicies/Deploy.ps1 -Verbose -managementGroup ${{ env.prdManagementGroup }} -templateFile ./Bicep/SingleTenantPolicies/${{ env.file }} -parametersFile ./Bicep/SingleTenantPolicies/${{ env.prdParameters }} -deploymentName ${{ env.file }}_${{ env.versionPrefix }}.${{ github.run_id }}

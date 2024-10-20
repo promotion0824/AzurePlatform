@@ -1,0 +1,106 @@
+name: Dotnet build with docker and helm
+
+on:
+  workflow_call:
+    outputs:
+      chartName:
+        value: ${{ jobs.dotnet-docker-helm.outputs.chartName }}
+      semVer:
+        value: ${{ jobs.dotnet-docker-helm.outputs.semVer }}
+      imageTag:
+        value: ${{ jobs.dotnet-docker-helm.outputs.imageTag }}
+      nugetVer:
+        value: ${{ jobs.dotnet-docker-helm.outputs.nugetVer }}
+      dockerRepository:
+        value: ${{ jobs.dotnet-docker-helm.outputs.dockerRepository }}
+    inputs:
+      acr_resource_group:
+        required: true
+        type: string
+      acr_name:
+        required: true
+        type: string
+      acr_subscription:
+        required: true
+        type: string
+      image_name:
+        required: true
+        type: string
+      dockerfile:
+        required: true
+        type: string
+      chart_path:
+        required: true
+        type: string
+      chart_name:
+        required: true
+        type: string
+      project_path:
+        required: true
+        type: string
+      restore_parameters:
+        required: false
+        default: ''
+        type: string
+      test_filter:
+        description: test filter used for running dotnet test
+        type: string
+        required: false
+        default: Category!=Integration
+
+jobs:
+  dotnet-docker-helm:
+    environment: NonProd
+    runs-on: ubuntu-latest
+    outputs:
+      chartName: ${{ steps.job-outputs.outputs.chartName }}
+      semVer: ${{ steps.job-outputs.outputs.semVer }}
+      imageTag: ${{ steps.job-outputs.outputs.imageTag }}
+      dockerRepository: ${{ steps.job-outputs.outputs.dockerRepository }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: WillowInc/.github/.github/actions/generate-versions@main
+        id: version-info
+
+      - uses: WillowInc/AzurePlatform/.github/actions/dotnet-restore-build-test@main ## main
+        with:
+          path: ${{ inputs.project_path }}
+          restore_path: ${{ inputs.project_path }}
+          restore_parameters: ${{ inputs.restore_parameters }}
+          test_path: ${{ inputs.project_path }}
+          version: ${{ steps.version-info.outputs.SemVer }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          test_filter: ${{ inputs.test_filter }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/docker-build-push-acr@main ## main
+        id: docker-build-push
+        with:
+          client_id: ${{ vars.client_id }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: ${{ inputs.acr_subscription }}
+          acr_resource_group: ${{ inputs.acr_resource_group }}
+          acr_name: ${{ inputs.acr_name }}
+          image_name: ${{ inputs.image_name }}
+          tags: ${{ steps.version-info.outputs.semVer }}
+          dockerfile: ${{ inputs.dockerfile }}
+          context: ${{ inputs.project_path }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/helm-package@main ## main
+        with:
+          chart_path: ${{ inputs.chart_path }}
+          chart_name: ${{ inputs.chart_name }}
+          version: ${{ steps.version-info.outputs.semVer }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set output
+        id: job-outputs
+        run: |
+          echo "semVer=${{ steps.version-info.outputs.semVer }}" >> $GITHUB_OUTPUT
+          echo "imageTag=${{ steps.version-info.outputs.semVer }}@${{ steps.docker-build-push.outputs.digest }}" >> $GITHUB_OUTPUT
+          echo "chartName=${{ inputs.chart_name }}" >> $GITHUB_OUTPUT
+          echo "dockerRepository=${{ inputs.acr_name }}.azurecr.io/${{ inputs.image_name }}" >> $GITHUB_OUTPUT

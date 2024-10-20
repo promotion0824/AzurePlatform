@@ -1,0 +1,474 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Azure Log Analytics Workspace Usage",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 12817,
+  "graphTooltip": 0,
+  "id": 10,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Workspace",
+      "tooltip": "Open Workspace in Azure Portal",
+      "type": "link",
+      "url": "https://portal.azure.com/#@willowinc.com/resource$Workspace"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "NON PROD",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://grafana.devservices.willowinc.com/d/elubc3vnk/log-usage?orgId=1&var-Subscription=178b67d7-b6fd-46db-b4a3-b57f8a6b045f&var-Workspace=%2Fsubscriptions%2F178b67d7-b6fd-46db-b4a3-b57f8a6b045f%2FresourceGroups%2Fnonprod-platformshared%2Fproviders%2FMicrosoft.OperationalInsights%2Fworkspaces%2Fnonprodplatformshared-aue-log"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "AU PROD",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://grafana.devservices.willowinc.com/d/elubc3vnk/log-usage?orgId=1&var-Subscription=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-Workspace=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2Fresourcegroups%2Fprod-platformshared%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fprodplatformshared-aue-log"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "US PROD",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://grafana.devservices.willowinc.com/d/elubc3vnk/log-usage?orgId=1&var-Subscription=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-Workspace=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2Fresourcegroups%2Fprod-platformshared%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fprodplatformshared-eu2-log"
+    },
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "EU PROD",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://grafana.devservices.willowinc.com/d/elubc3vnk/log-usage?orgId=1&var-Subscription=d4746c7a-19cb-47ac-82b5-069b17cb99de&var-Workspace=%2Fsubscriptions%2Fd4746c7a-19cb-47ac-82b5-069b17cb99de%2Fresourcegroups%2Fprod-platformshared%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fprodplatformshared-weu-log"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "union AppRequests, AppDependencies\r\n| where $__timeFilter(TimeGenerated)\r\n| summarize Count=count() by bin(TimeGenerated, $__interval), Type\r\n| order by TimeGenerated asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Dependencies vs Requests",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 10
+              },
+              {
+                "color": "blue",
+                "value": 20
+              },
+              {
+                "color": "dark-blue",
+                "value": 30
+              },
+              {
+                "color": "purple",
+                "value": 40
+              },
+              {
+                "color": "dark-purple",
+                "value": 50
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "dark-yellow",
+                "value": 70
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              },
+              {
+                "color": "dark-red",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 23,
+        "x": 0,
+        "y": 6
+      },
+      "id": 4,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "limit": 15,
+          "values": true
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "union AppRequests, AppDependencies\r\n| where $__timeFilter(TimeGenerated)\r\n| extend Category = case(Url != \"\" and Type == \"AppRequests\", \"HttpRequest\", Type == \"AppRequest\", \"OtherRequest\", DependencyType)\r\n| summarize Count=count() by Category\r\n| order by Count desc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Dependencies vs Requests Categories",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "union AppRequests, AppDependencies\r\n| where $__timeFilter(TimeGenerated)\r\n| extend Category = case(Url != \"\" and Type == \"AppRequests\", \"HttpRequest\", Type == \"AppRequest\", \"OtherRequest\", DependencyType)\r\n| summarize Count=count() by bin(TimeGenerated, $__interval), Type, Category\r\n| order by TimeGenerated asc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Dependencies vs Requests Categories",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "1h",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "K8S-INTERNAL",
+          "value": "178b67d7-b6fd-46db-b4a3-b57f8a6b045f"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "subscriptions()",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Subscription",
+        "options": [],
+        "query": "subscriptions()",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "nonprodplatformshared-aue-log",
+          "value": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourcegroups/nonprod-platformshared/providers/microsoft.operationalinsights/workspaces/nonprodplatformshared-aue-log"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "workspaces($Subscription)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Workspace",
+        "options": [],
+        "query": "workspaces($Subscription)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Overall Requests",
+  "uid": "QGmBSlBnk",
+  "version": 1,
+  "weekStart": ""
+}

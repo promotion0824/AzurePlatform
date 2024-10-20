@@ -1,0 +1,95 @@
+name: dotnet-restore-build-test
+description: Run a standard build test restore
+inputs:
+  path:
+    description: path to run dotnet restore against
+    required: true
+  restore_path:
+    description: path to run dotnet restore against
+    required: true
+  restore_parameters:
+    description: extra parameters to pass to dotnet restore
+    required: false
+    default: ""
+  test_path:
+    description: path to run dotnet test against
+    required: true
+  test_filter:
+    description: test filter used for running dotnet test
+    required: false
+    default: Category!=Integration
+  test_parameters:
+    description: "Use to pass msbuild parameters to test runner"
+    required: false
+    default: Exclude=\"[Common]*,[*]Microsoft.*,[*]System.*,[xunit*]*\"
+  build_configuration:
+    description: "Dotnet build configuration"
+    required: false
+    default: Release
+  version:
+    description: "Artifact version number to embed in build"
+    required: false
+    default: "0.0.0"
+  github_token:
+    description: "github token"
+    required: true
+  coverage_thresholds:
+    description: "thresholds for coverage"
+    required: true
+    default: "50 80"
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        dotnet restore ${{ inputs.restore_path }} ${{ inputs.restore_parameters }}
+      shell: bash
+      name: dotnet restore
+
+    - run: |
+        dotnet build ${{ inputs.path }} /p:Version=${{ inputs.version }} --configuration ${{ inputs.build_configuration }} --no-restore
+      shell: bash
+      name: dotnet build
+
+    - run: |
+        dotnet test ${{ inputs.test_path }} --filter ${{ inputs.test_filter }} --configuration ${{ inputs.build_configuration }} --no-build --logger trx --collect "XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover ${{ inputs.test_parameters }}
+      shell: bash
+      name: dotnet test
+
+    - run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:${{ inputs.test_path }}/**/coverage.opencover.xml -targetdir:CodeCoverage -reporttypes:Cobertura
+      shell: bash
+      name: Generate test reports
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        trx_files: "**/*.trx"
+
+    - name: Code Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: CodeCoverage/Cobertura.xml
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: false
+        indicators: true
+        output: both
+        thresholds: ${{ inputs.coverage_thresholds }}
+
+    - id: coverage-output
+      shell: bash
+      run: |
+        echo '### Coverage thresholds ${{ inputs.coverage_thresholds }} :dragon_face:' >> $GITHUB_STEP_SUMMARY
+        cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        header: ${{ inputs.test_path }}-coverage
+        path: code-coverage-results.md

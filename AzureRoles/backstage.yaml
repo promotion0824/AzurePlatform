@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: azure-roles
+  title: Azure Role
+  description: Willow Self Service Management of Roles
+  annotations:
+    dev.azure.com/project-repo: AzurePlatform/AzurePlatform
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - services
+spec:
+  type: service
+  lifecycle: production
+  owner: Platform-Engineering
+  system: internal-tools

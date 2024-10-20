@@ -1,0 +1,67 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ops-bot
+  title: Wilbur
+  description: Willow Ops Bot
+  annotations:
+    github.com/project-slug: WillowInc/AzurePlatform
+    github.com/team-slug: WillowInc/platform-engineering
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-label-selector: app=OpsBot
+  tags:
+    - tools
+    - services
+    - bot
+    - worker
+  links:
+    - url: https://willow.atlassian.net/wiki/spaces/PE/pages/1787462141/Temporary+Access+to+Azure+Resources
+      title: Help
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: Platform-Engineering
+  system: internal-tools
+  dependsOn:
+    [
+      'component:pulumi-clusters',
+      'resource:ops-bot-keyvault',
+      'resource:ops-bot-azure-registration',
+    ]
+  providesApis:
+    - opsbot-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ops-bot-azure-registration
+  description: Bot Registration
+spec:
+  type: bot-registration
+  owner: Platform-Engineering
+  system: internal-tools
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ops-bot-keyvault
+  description: Bot Registration
+spec:
+  type: keyvault
+  owner: Platform-Engineering
+  system: internal-tools
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: opsbot-api
+  description: Willow Ops Bot Api Spec
+spec:
+  type: openapi
+  lifecycle: production
+  owner: Platform-Engineering
+  system: internal-tools
+  definition:
+    $text: https://opsbot-dev.devservices.willowinc.com/swagger/v1/swagger.json
+  dependsOn: ['component:ops-bot']

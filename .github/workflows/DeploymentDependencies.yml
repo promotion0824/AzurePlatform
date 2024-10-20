@@ -1,0 +1,273 @@
+name: Deployment Dependencies
+# https://willow.atlassian.net/wiki/spaces/RFC/pages/2405007382/New+Subscription+Resource+Group+Role+Assignments+Policies#Infrastructure-%26-Application-Deployer-(Pulumi)-Requirements
+
+on:
+  workflow_dispatch:
+    inputs:
+      nonMain:
+        type: boolean
+        description: Deploy from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Bicep/DeploymentDependencies/**'
+  push:
+    branches: [main]
+    paths:
+      - 'Bicep/DeploymentDependencies/**'
+
+env:
+  artifact_location: DeploymentDependencies
+  mgProduct: '/providers/Microsoft.Management/managementGroups/Product'
+  mgWillowTwinDev: '/providers/Microsoft.Management/managementGroups/WillowTwinDev'
+  mgWillowTwinPrd: '/providers/Microsoft.Management/managementGroups/WillowTwinPrd'
+
+permissions:
+  id-token: write
+  contents: read
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Bicep Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact_location }}
+          path: Bicep/DeploymentDependencies/
+          retention-days: 1
+
+  Deploy_Dev_NonRegional_Resources:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: NonProd
+    needs: build
+    env:
+      ResourceGroup: rg-dev
+      Location: eastus2
+      Parameters: ./DeploymentDependencies/Parameters_Dev.json
+      Template: ./DeploymentDependencies/nonRegional.bicep
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          only_status: 'waiting'
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_DEV }}
+
+      - name: Bicep NonRegional Resources
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+      - name: Assign Roles
+        shell: pwsh
+        run: |
+          $deployment = az deployment group show -g ${{ env.ResourceGroup }} -n nonRegional | convertfrom-json
+          $assignee = $deployment.properties.outputs.grafana.value.identity.principalId
+          az role assignment create --assignee $assignee --role "Reader" --scope ${{ env.mgProduct }}
+          az role assignment create --assignee $assignee --role "Reader" --scope ${{ env.mgWillowTwinDev }}
+          az role assignment create --assignee $assignee --role "Reader" --scope ${{ env.mgWillowTwinPrd }}
+
+  Deploy_Dev_Regional_Resources_EUS:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: NonProd
+    needs: build
+    env:
+      ResourceGroup: rg-dev-eus
+      Location: eastus
+      Parameters: ./DeploymentDependencies/Parameters_Dev_EUS.json
+      Template: ./DeploymentDependencies/regional.bicep
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_DEV }}
+
+      - name: Bicep Regional Resources EUS
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+      - name: Set delete locks
+        shell: pwsh
+        run: |
+          $params = Get-Content -Path ${{ env.Parameters }} -Raw | ConvertFrom-Json
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.workspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.auditWorkspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.applicationInsightsName.value --resource-type Microsoft.Insights/components
+
+  Deploy_Prod_NonRegional_Resources:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: build
+    env:
+      ResourceGroup: rg-prd
+      Location: eastus2
+      Parameters: ./DeploymentDependencies/Parameters_Prd.json
+      Template: ./DeploymentDependencies/nonRegional.bicep
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Bicep NonRegional Resources
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+      - name: Assign Roles
+        shell: pwsh
+        run: |
+          $deployment = az deployment group show -g ${{ env.ResourceGroup }} -n nonRegional | convertfrom-json
+          $assignee = $deployment.properties.outputs.grafana.value.identity.principalId
+          az role assignment create --assignee $assignee --role "Reader" --scope ${{ env.mgProduct }}
+          az role assignment create --assignee $assignee --role "Reader" --scope ${{ env.mgWillowTwinDev }}
+          az role assignment create --assignee $assignee --role "Reader" --scope ${{ env.mgWillowTwinPrd }}
+
+  Deploy_Prd_Regional_Resources_AUE:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: Deploy_Prd_Regional_Resources_WEU
+    env:
+      ResourceGroup: rg-prd-aue
+      Location: australiaeast
+      Parameters: ./DeploymentDependencies/Parameters_Prd_AUE.json
+      Template: ./DeploymentDependencies/regional.bicep
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Bicep Regional Resources AUE
+        uses: WillowInc/Infrastructure-and-Application-Deployment/.github/actions/Deploy-Bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+      - name: Set delete locks
+        shell: pwsh
+        run: |
+          $params = Get-Content -Path ${{ env.Parameters }} -Raw | ConvertFrom-Json
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.workspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.auditWorkspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.applicationInsightsName.value --resource-type Microsoft.Insights/components
+
+  Deploy_Prd_Regional_Resources_EUS2:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: Deploy_Prd_Regional_Resources_AUE
+    env:
+      ResourceGroup: rg-prd-eus2
+      Location: eastus2
+      Parameters: ./DeploymentDependencies/Parameters_Prd_EUS2.json
+      Template: ./DeploymentDependencies/regional.bicep
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Bicep Regional Resources EUS2
+        uses: WillowInc/Infrastructure-and-Application-Deployment/.github/actions/Deploy-Bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+      - name: Set delete locks
+        shell: pwsh
+        run: |
+          $params = Get-Content -Path ${{ env.Parameters }} -Raw | ConvertFrom-Json
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.workspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.auditWorkspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.applicationInsightsName.value --resource-type Microsoft.Insights/components
+
+  Deploy_Prd_Regional_Resources_WEU:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs:
+      [Deploy_Dev_Regional_Resources_EUS]
+    env:
+      ResourceGroup: rg-prd-weu
+      Location: westeurope
+      Parameters: ./DeploymentDependencies/Parameters_Prd_WEU.json
+      Template: ./DeploymentDependencies/regional.bicep
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Bicep Regional Resources WEU
+        uses: WillowInc/Infrastructure-and-Application-Deployment/.github/actions/Deploy-Bicep@main
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}
+
+      - name: Set delete locks
+        shell: pwsh
+        run: |
+          $params = Get-Content -Path ${{ env.Parameters }} -Raw | ConvertFrom-Json
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.workspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.auditWorkspaceName.value --resource-type Microsoft.OperationalInsights/workspaces
+          az lock create --name delete --lock-type CanNotDelete --resource-group ${{ env.ResourceGroup }} --resource-name $params.parameters.applicationInsightsName.value --resource-type Microsoft.Insights/components

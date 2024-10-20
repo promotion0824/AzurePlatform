@@ -1,0 +1,1209 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 85,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 0,
+        "y": 0
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "/^name$/",
+          "values": true
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "datatable(name:string)\r\n[\r\n '${device:value}'\r\n]\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Dashboard --"
+      },
+      "description": "Host uptime refers to the time during which Host OS is operational, whereas IoTEdge Daemon uptime refers to the time during which Edge runtime is operational.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 7,
+        "y": 0
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "/.*/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "-- Dashboard --"
+          },
+          "panelId": 16,
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Connector": true,
+              "ConnectorCpuUsage": true,
+              "ConnectorMemoryUsage": true,
+              "LastSeen": true,
+              "SystemCpuUsage": true,
+              "SystemDiskUsage": true,
+              "SystemMemoryPercentage": true,
+              "SystemMemoryTotal": true,
+              "SystemMemoryUsage": true,
+              "Timestamp": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "ConnectorCpuUsage": "",
+              "ConnectorUpTime": "Connector",
+              "SystemUptime": "System",
+              "TimeGenerated": "",
+              "Val Host": "Host",
+              "Val IoT Edge daemon": "IoT Edge Daemon"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "CPU, Memory and Disk usage of the Edge Device (Trustbox / VM)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 10,
+        "y": 0
+      },
+      "id": 16,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let startTime = todatetime('${__from:date}');\r\nlet endTime =  todatetime('${__to:date}');\r\n\r\ncustomEvents\r\n| where name == 'CustomDeviceMetrics'\r\n| where timestamp between (startTime .. endTime)\r\n| where customDimensions.IsWindowsVm == true\r\n| where isnotnull(customMeasurements.SystemMemoryTotal)\r\n| extend Connector = tostring(customDimensions.ConnectorName)\r\n| summarize arg_max(timestamp, *) by Connector\r\n| extend \r\n    SystemMemoryTotal = customMeasurements.SystemMemoryTotal,\r\n    SystemMemoryUsage = tostring(customMeasurements.SystemMemoryUsage),\r\n    ConnectorMemoryUsage = customMeasurements.ConnectorMemoryUsage,\r\n    SystemCpuUsage = tostring(customMeasurements.SystemCpuUsage),\r\n    SystemDiskUsage = tostring(customMeasurements.SystemDiskUsagePercent),\r\n    ConnectorCpuUsage = customMeasurements.ConnectorCpuUsage,\r\n    SystemUptime = todatetime(customDimensions.SystemUpTime),\r\n    ConnectorUpTime = todatetime(customDimensions.ConnectorUpTime),\r\n    LastSeenTime = now() - timestamp\r\n| extend \r\n    LastSeen = case(\r\n        LastSeenTime < 1m, strcat(toint(LastSeenTime/1s), \" seconds ago\"),\r\n        LastSeenTime < 2h, strcat(toint(LastSeenTime/1m), \" min ago\"),\r\n        LastSeenTime < 2d, strcat(toint(LastSeenTime/1h), \" hours ago\"),\r\n        LastSeenTime < 14d, strcat(toint(LastSeenTime/1d), \" days ago\"),\r\n        strcat(toint(LastSeenTime/7d), \" weeks ago\")\r\n    ),\r\n    SystemMemoryPercentage = tostring(toint(todouble(SystemMemoryUsage)/todouble(SystemMemoryTotal) * 100)),\r\n    SystemUptime = tostring(datetime_diff('second', now(), todatetime(SystemUptime))),\r\n    ConnectorUpTime = tostring(datetime_diff('second', now(), todatetime(ConnectorUpTime)))\r\n| project Timestamp = timestamp, LastSeen, //SystemMemoryPercentage,\r\nConnector, SystemMemoryTotal, SystemMemoryUsage, ConnectorMemoryUsage, SystemCpuUsage, SystemDiskUsage, ConnectorCpuUsage, SystemMemoryPercentage, SystemUptime, ConnectorUpTime",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-sofi-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-sofi-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Device Usage",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Connector": true,
+              "ConnectorCpuUsage": false,
+              "ConnectorMemoryUsage": true,
+              "ConnectorUpTime": true,
+              "LastSeen": true,
+              "SystemMemoryTotal": true,
+              "SystemMemoryUsage": true,
+              "SystemUptime": true,
+              "Timestamp": true
+            },
+            "indexByName": {
+              "Connector": 2,
+              "ConnectorCpuUsage": 7,
+              "ConnectorMemoryUsage": 5,
+              "ConnectorUpTime": 11,
+              "LastSeen": 1,
+              "SystemCpuUsage": 6,
+              "SystemDiskUsage": 9,
+              "SystemMemoryPercentage": 8,
+              "SystemMemoryTotal": 3,
+              "SystemMemoryUsage": 4,
+              "SystemUptime": 10,
+              "Timestamp": 0
+            },
+            "renameByName": {
+              "ConnectorCpuUsage": "Connector CPU Usage",
+              "SystemCpuUsage": "System CPU Usage",
+              "SystemDiskUsage": "Disk",
+              "SystemMemoryPercentage": "Memory",
+              "SystemMemoryPercentage {Connector=\"Bacnet-RM\", ConnectorCpuUsage=\"0\", ConnectorMemoryUsage=\"165\", LastSeen=\"75 min ago\", SystemCpuUsage=\"18\", SystemMemoryTotal=\"32539\", SystemMemoryUsage=\"15931\"}": "",
+              "p95Disk": "Disk ",
+              "p95HostCpu": "CPU",
+              "p95HostMem": "Memory"
+            }
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Dashboard --"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 17,
+        "y": 0
+      },
+      "id": 23,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "-- Dashboard --"
+          },
+          "panelId": 16,
+          "refId": "A"
+        }
+      ],
+      "title": "Memory Usage",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "SystemMemoryTotal"
+              },
+              {
+                "destinationType": "number",
+                "targetField": "SystemMemoryUsage"
+              },
+              {
+                "destinationType": "number",
+                "targetField": "ConnectorMemoryUsage"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Connector": true,
+              "ConnectorCpuUsage": true,
+              "ConnectorUpTime": true,
+              "LastSeen": true,
+              "SystemCpuUsage": true,
+              "SystemDiskUsage": true,
+              "SystemMemoryPercentage": true,
+              "SystemUptime": true,
+              "Timestamp": true
+            },
+            "indexByName": {
+              "Connector": 2,
+              "ConnectorCpuUsage": 7,
+              "ConnectorMemoryUsage": 4,
+              "ConnectorUpTime": 10,
+              "LastSeen": 1,
+              "SystemCpuUsage": 6,
+              "SystemMemoryPercentage": 8,
+              "SystemMemoryTotal": 5,
+              "SystemMemoryUsage": 3,
+              "SystemUptime": 9,
+              "Timestamp": 0
+            },
+            "renameByName": {
+              "ConnectorMemoryUsage": "Connector",
+              "SystemMemoryTotal": "Total",
+              "SystemMemoryUsage": "System"
+            }
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-background-solid",
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "Healthy": {
+                  "color": "light-green",
+                  "index": 0
+                },
+                "Unhealthy": {
+                  "color": "light-red",
+                  "index": 1
+                },
+                "Unknown": {
+                  "color": "text",
+                  "index": 2
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 7,
+        "x": 0,
+        "y": 4
+      },
+      "id": 11,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": false
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "\r\n//Set thresholds based on workbook parameter values.\r\nlet hostMemPercentThreshold = toint($hostMemPercentThreshold); // 80;\r\nlet hostCpuPercentThreshold = toint($hostCpuPercentThreshold); // 80;\r\nlet firstPanicNoDataThresholdMins = toint($firstPanicNoDataThresholdMins); // 30;\r\nlet secondPanicNoDataThresholdMins = max_of(firstPanicNoDataThresholdMins, toint($secondPanicNoDataThresholdMins)); // 120;\r\nlet startTime = todatetime('${__from:date}');\r\nlet endTime =  todatetime('${__to:date}');\r\n\r\n\r\ncustomEvents\r\n| where name == 'CustomDeviceMetrics'\r\n| where timestamp between (startTime .. endTime)\r\n| where customDimensions.IsWindowsVm == true\r\n| where isnotnull(customMeasurements.SystemMemoryTotal)\r\n| extend Connector = tostring(customDimensions.ConnectorName)\r\n| where Connector == '$device'\r\n| extend SystemMemoryTotal = customMeasurements.SystemMemoryTotal\r\n| extend SystemMemoryUsage = customMeasurements.SystemMemoryUsage\r\n| extend SystemCpuUsage = customMeasurements.SystemCpuUsage\r\n| extend SystemMemoryPercentage = toint(todouble(SystemMemoryUsage)/todouble(SystemMemoryTotal) * 100)\r\n| summarize \r\n    p95CPU = percentile(toint(SystemCpuUsage), 95), \r\n    p95Memory = percentile(toint(SystemMemoryPercentage), 95), \r\n    lastUpdatedMins = toint((now() - max(timestamp))/ 1m)\r\n    by Connector\r\n| extend healthIndicator = \r\n    iff((p95Memory < hostMemPercentThreshold \r\n        and p95CPU < hostCpuPercentThreshold),\r\n        iff(lastUpdatedMins < firstPanicNoDataThresholdMins, 0, 1),\r\n        2\r\n    )\r\n| extend healthIndicator = \r\n    iff(lastUpdatedMins > secondPanicNoDataThresholdMins,\r\n        1,\r\n        iff((isnull(p95Memory) or p95Memory < hostMemPercentThreshold) \r\n            and (isnull(p95CPU) or p95CPU < hostCpuPercentThreshold),\r\n            0,\r\n            2\r\n        )\r\n    )\r\n| extend statusHelper = \r\n    case(\r\n        lastUpdatedMins > secondPanicNoDataThresholdMins, -2,\r\n        lastUpdatedMins > firstPanicNoDataThresholdMins, -1,\r\n        healthIndicator\r\n    )\r\n| extend healthText = \r\n    case(\r\n        statusHelper == 0, \"Healthy\",\r\n        statusHelper == 1, \"Unhealthy\",\r\n        statusHelper == 2, \"Unhealthy\",\r\n        \"Unknown\"\r\n    )\r\n| project device = Connector, measure='CPU & Memory', healthText\r\n| union ((datatable(device:string, measure: string, healthText: string)['$device','CPU & Memory', 'Unhealthy']))\r\n| order by healthText asc \r\n| limit 1;",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-sofi-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-sofi-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "dimensionFilters": [],
+            "metricNamespace": "microsoft.devices/iothubs",
+            "resourceUri": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-sofi-eu22-app-rsg/providers/Microsoft.Devices/IotHubs/wil-prd-lda-sofi-eu22-iot",
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        },
+        {
+          "azureLogAnalytics": {
+            "query": "let startTime = todatetime('${__from:date}');\r\nlet endTime =  todatetime('${__to:date}');\r\n\r\ncustomEvents\r\n| where timestamp between (todatetime(startTime) .. todatetime(endTime))\r\n| where name has \"PartialOutageAlert\" \r\n| extend dimensions=parse_json(customDimensions)\r\n| extend metrics=parse_json(customMeasurements)\r\n| extend customer = tostring(dimensions.CustomerName)\r\n| extend connectorName = tostring(dimensions.ConnectorName)\r\n| where customer =~ '$customerName'\r\n| where connectorName == '$device' \r\n| summarize Count = count() \r\n| project device = '$device', measure = 'Partial Outages', healthText = iff(Count > 0, 'Unhealthy', 'Healthy')\r\n| union (\r\n(datatable(device:string, measure: string, healthText: string)['$device','Partial Outages', 'Healthy']))\r\n| limit 1\r\n\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Log Analytics",
+          "refId": "B"
+        },
+        {
+          "azureLogAnalytics": {
+            "query": "let startTime = todatetime('${__from:date}');\r\nlet endTime =  todatetime('${__to:date}');\r\n\r\ncustomEvents\r\n| where timestamp between (todatetime(startTime) .. todatetime(endTime))\r\n| where name has \"FullOutageAlert\" \r\n| extend dimensions=parse_json(customDimensions)\r\n| extend metrics=parse_json(customMeasurements)\r\n| extend customer = tostring(dimensions.CustomerName)\r\n| extend connectorName = tostring(dimensions.ConnectorName)\r\n| where customer =~ '$customerName'\r\n| where connectorName == '$device' \r\n| summarize Count = count() \r\n| project device = '$device', measure = 'Full Outages', healthText = iff(Count > 0, 'Unhealthy', 'Healthy')\r\n| union (\r\n(datatable(device:string, measure: string, healthText: string)['$device','Full Outages', 'Healthy']))\r\n| limit 1\r\n\r\n\r\n\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "dimensionFilters": [],
+            "metricNamespace": "microsoft.insights/components",
+            "resourceUri": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain",
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Log Analytics",
+          "refId": "C"
+        }
+      ],
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "rowsToFields",
+          "options": {
+            "mappings": [
+              {
+                "fieldName": "healthText",
+                "handlerKey": "field.value"
+              }
+            ]
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "device": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "healthText": "Status",
+              "measure": "Metrics"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Outages when no new telemetry is ingested within the last 30 minutes",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "connectorName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 368
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "module"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 387
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Connector"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 7,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let startTime = '${__from:date}';\r\nlet endTime = '${__to:date}';\r\ncustomEvents\r\n| where timestamp between (todatetime(startTime) .. todatetime(endTime))\r\n| where name has \"FullOutageAlert\"\r\n| extend dimensions=parse_json(customDimensions)\r\n| extend metrics=parse_json(customMeasurements)\r\n| extend customer = tostring(dimensions.CustomerName)\r\n| extend connectorId = tostring(dimensions.ConnectorId)\r\n| extend connectorName = tostring(dimensions.ConnectorName)\r\n| extend thirdPartyConsumers = tostring(dimensions.ThirdPartyConsumers)\r\n| extend connectorType = strcat(trim_start('Default',tostring(dimensions.ConnectorType)),\"Module\")\r\n| extend module=strcat(connectorName,\"-\",connectorType) \r\n| where customer =~ '$customerName'\r\n| where connectorName == '$device' \r\n| project timestamp, name, connectorName,connectorType, thirdPartyConsumers\r\n| order by timestamp desc",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Full Outage",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "connectorType": true,
+              "name": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "connectorName": "Connector",
+              "connectorType": "Connector Type",
+              "name": "Alert Type",
+              "thirdPartyConsumers": "Third Party Consumers",
+              "timestamp": "Timestamp"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Logs when full outages is auto-resolved ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_ResourceId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 460
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let startTime = '${__from:date}';\r\nlet endTime = '${__to:date}';\r\ncustomEvents\r\n| where timestamp between (todatetime(startTime) .. todatetime(endTime))\r\n| where name has \"AlertResolver\"\r\n| extend dimensions=parse_json(customDimensions)\r\n| extend metrics=parse_json(customMeasurements)\r\n| extend customer = tostring(dimensions.CustomerName)\r\n| extend connectorName = tostring(dimensions.ConnectorName)\r\n| extend connectorId = tostring(dimensions.ConnectorId)\r\n| extend connectorType = strcat(trim_start('Default',tostring(dimensions.ConnectorType)),\"Module\")\r\n| extend activeCapability = tostring(metrics.ActiveCapabilities)\r\n| extend TrendingCapabilities = tostring(metrics.TrendingCapabilities)\r\n| extend ActualPercentage = tostring(metrics.ActualPercentage)\r\n| extend MinimumPercentage = tostring(metrics.MinimumPercentage)\r\n| extend DegradedTrendingCapabilitiesAdxAlert = tostring(metrics.DegradedTrendingCapabilitiesAdxAlert)\r\n| extend module=strcat(connectorName,\"-\",connectorType) \r\n| where customer =~ '$customerName'\r\n| where connectorName == '$device' \r\n| project timestamp, name, connectorName,connectorType, module\r\n| order by timestamp desc\r\n\r\n\r\n\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "AutoResolver Logs",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "module": true,
+              "name": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "connectorName": "Connector",
+              "connectorType": "Connector Type",
+              "name": "Alert Type",
+              "timestamp": "Timestamp"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "description": "Outages when telemetry ingested is less than expected.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "red",
+                  "index": 0
+                },
+                "to": 50
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 51,
+                "result": {
+                  "color": "yellow",
+                  "index": 1
+                },
+                "to": 89
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 90,
+                "result": {
+                  "color": "green",
+                  "index": 2
+                },
+                "to": 100
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Actual %"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 9,
+      "options": {
+        "footer": {
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.1.7",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let startTime = '${__from:date}';\r\nlet endTime = '${__to:date}';\r\n\r\ncustomEvents\r\n| where timestamp between (todatetime(startTime) .. todatetime(endTime))\r\n| where name has \"PartialOutageAlert\" \r\n| extend dimensions=parse_json(customDimensions)\r\n| extend metrics=parse_json(customMeasurements)\r\n| extend customer = tostring(dimensions.CustomerName)\r\n| extend connectorName = tostring(dimensions.ConnectorName)\r\n| extend connectorId = tostring(dimensions.ConnectorId)\r\n| extend thirdPartyConsumers = tostring(dimensions.ThirdPartyConsumers)\r\n| extend connectorType = strcat(trim_start('Default',tostring(dimensions.ConnectorType)),\"Module\")\r\n| extend activeCapability = tostring(metrics.ActiveCapabilities)\r\n| extend TrendingCapabilities = tostring(metrics.TrendingCapabilities)\r\n| extend ActualPercentage = tostring(dimensions.['Actual%'])\r\n| extend MinimumPercentage = tostring(dimensions.['Minimum%'])\r\n| extend DegradedTrendingCapabilitiesAdxAlert = tostring(metrics.DegradedTrendingCapabilitiesAdxAlert)\r\n| extend module=strcat(connectorName,\"-\",connectorType) \r\n| where customer =~ '$customerName'\r\n| where connectorName == '$device' \r\n| project timestamp, name, connectorName,connectorType, thirdPartyConsumers, module,  activeCapability, TrendingCapabilities, ActualPercentage, MinimumPercentage, DegradedTrendingCapabilitiesAdxAlert\r\n| order by timestamp desc\r\n\r\n\r\n\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-eu22-ain"
+          },
+          "azureMonitor": {
+            "allowedTimeGrainsMs": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A"
+        }
+      ],
+      "title": "Partial Outage",
+      "transformations": [
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": false,
+                "field": "ActualPercentage"
+              }
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "DegradedTrendingCapabilitiesAdxAlert": true,
+              "module": true,
+              "name": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "ActualPercentage": "A %",
+              "MinimumPercentage": "T %",
+              "TrendingCapabilities": "Trending Capabilities",
+              "activeCapability": "Active Capabilities",
+              "connectorName": "Connector",
+              "connectorType": "Connector Type",
+              "module": "",
+              "name": "Alert Type",
+              "thirdPartyConsumers": "Third-Party Consumer",
+              "timestamp": "Timestamp"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Bacnet-RM",
+          "value": "Bacnet-RM"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "PB92CA166444B34F5"
+        },
+        "definition": "",
+        "hide": 1,
+        "includeAll": false,
+        "label": "Device",
+        "multi": false,
+        "name": "device",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "customEvents \r\n| extend dimensions=parse_json(customDimensions)\r\n| extend device = tostring(dimensions.ConnectorId)\r\n| extend IsWindowsVm = tobool(dimensions.IsWindowsVm)\r\n| extend Connector = tostring(dimensions.ConnectorName)\r\n| where IsWindowsVm == true\r\n| distinct Connector\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-lda-sofi-eu22-app-rsg/providers/Microsoft.Insights/components/wil-prd-lda-sofi-eu22-ain"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "80",
+          "value": "80"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "hostMemPercentThreshold",
+        "options": [
+          {
+            "selected": true,
+            "text": "80",
+            "value": "80"
+          }
+        ],
+        "query": "80",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "80",
+          "value": "80"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "hostCpuPercentThreshold",
+        "options": [
+          {
+            "selected": true,
+            "text": "80",
+            "value": "80"
+          }
+        ],
+        "query": "80",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "90",
+          "value": "90"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "hostDiskPercentThreshold",
+        "options": [
+          {
+            "selected": true,
+            "text": "90",
+            "value": "90"
+          }
+        ],
+        "query": "90",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "localMessagesSentThreshold",
+        "options": [
+          {
+            "selected": true,
+            "text": "0",
+            "value": "0"
+          }
+        ],
+        "query": "0",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "upstreamMessagesSentThreshold",
+        "options": [
+          {
+            "selected": true,
+            "text": "0",
+            "value": "0"
+          }
+        ],
+        "query": "0",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "30",
+          "value": "30"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "firstPanicNoDataThresholdMins",
+        "options": [
+          {
+            "selected": true,
+            "text": "30",
+            "value": "30"
+          }
+        ],
+        "query": "30",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "120",
+          "value": "120"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "secondPanicNoDataThresholdMins",
+        "options": [
+          {
+            "selected": true,
+            "text": "120",
+            "value": "120"
+          }
+        ],
+        "query": "120",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "100",
+          "value": "100"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "qlenThreshold",
+        "options": [
+          {
+            "selected": true,
+            "text": "100",
+            "value": "100"
+          }
+        ],
+        "query": "100",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Hollywood Park",
+          "value": "Hollywood Park"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "customerName",
+        "options": [
+          {
+            "selected": true,
+            "text": "Hollywood Park",
+            "value": "Hollywood Park"
+          }
+        ],
+        "query": "Hollywood Park",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false
+  },
+  "timezone": "",
+  "title": "Hollywood Park - Windows Building View",
+  "uid": "T1u2V3wX4",
+  "version": 24,
+  "weekStart": ""
+}

@@ -1,0 +1,286 @@
+{
+  "id": 48,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "HighFrequency",
+  "title": "Eventhub Queueing evhns-prd-weu-02-bnp-nuv-5fa48e4e",
+  "condition": "F",
+  "data": [
+    {
+      "refId": "IncomingMessages",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 900,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Total",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "dimensionFilters": [
+            {
+              "dimension": "EntityName",
+              "filters": ["evh-mapped"],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "IncomingMessages",
+          "metricNamespace": "Microsoft.EventHub/namespaces",
+          "region": "westeurope",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.EventHub/namespaces",
+              "region": "westeurope",
+              "resourceGroup": "rg-prd-weu-02-bnp-nuv",
+              "resourceName": "evhns-prd-weu-02-bnp-nuv-5fa48e4e",
+              "subscription": "a0f47fc5-9468-4995-8c4c-749bab2ea244"
+            }
+          ],
+          "timeGrain": "auto"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "IncomingMessages",
+        "subscription": "a0f47fc5-9468-4995-8c4c-749bab2ea244"
+      }
+    },
+    {
+      "refId": "OutgoingMessages",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 900,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Total",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "dimensionFilters": [
+            {
+              "dimension": "EntityName",
+              "filters": ["evh-mapped"],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "OutgoingMessages",
+          "metricNamespace": "Microsoft.EventHub/namespaces",
+          "region": "westeurope",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.EventHub/namespaces",
+              "region": "westeurope",
+              "resourceGroup": "rg-prd-weu-02-bnp-nuv",
+              "resourceName": "evhns-prd-weu-02-bnp-nuv-5fa48e4e",
+              "subscription": "a0f47fc5-9468-4995-8c4c-749bab2ea244"
+            }
+          ],
+          "timeGrain": "auto"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "OutgoingMessages",
+        "subscription": "a0f47fc5-9468-4995-8c4c-749bab2ea244"
+      }
+    },
+    {
+      "refId": "IncomingSum",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 900,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "IncomingMessages",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "sum",
+        "refId": "IncomingSum",
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "OutgoingSum",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "OutgoingMessages",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "sum",
+        "refId": "OutgoingSum",
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "UnprocessedTotal",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "${IncomingSum}-${OutgoingSum}",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "UnprocessedTotal",
+        "type": "math"
+      }
+    },
+    {
+      "refId": "F",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [1000, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "UnprocessedTotal",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "F",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-02-02T17:09:25Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "15m",
+  "labels": {
+    "destination": "ZenDesk",
+    "severity": "2",
+    "region": "westeurope",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2670854663/Alert+EventHub+Queuing",
+    "app": "shared",
+    "customer-code": "bnp",
+    "environment": "prd",
+    "owner": "cloudops",
+    "stamp": "02"
+  },
+  "isPaused": false
+}

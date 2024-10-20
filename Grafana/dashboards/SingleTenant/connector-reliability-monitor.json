@@ -1,0 +1,2399 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 318,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Connectors Health",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Percentage of capabilities trending over expected",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "A%"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "color": "semi-dark-red",
+                        "index": 0
+                      },
+                      "to": 49
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 50,
+                      "result": {
+                        "color": "semi-dark-yellow",
+                        "index": 1
+                      },
+                      "to": 89
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 90,
+                      "result": {
+                        "color": "semi-dark-green",
+                        "index": 2
+                      },
+                      "to": 125
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      "id": 38,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-EnabledCapabilitiesCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": true,
+          "queryType": "Azure Monitor",
+          "refId": "EnabledTwins",
+          "subscription": "$Subscription"
+        },
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryModelledCountForPartialAlert",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": true,
+          "queryType": "Azure Monitor",
+          "refId": "ActualCount",
+          "subscription": "$Subscription"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "($ActualCount / $EnabledTwins) * 100",
+          "hide": false,
+          "refId": "A%",
+          "type": "math"
+        }
+      ],
+      "title": "Trending %",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Capabilities in ADT that are enabled for data collection",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-EnabledCapabilitiesCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "EnabledTwins",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Active Capabilities",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Received telemetry from capabilities modelled in ADT",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryModelledCountForPartialAlert",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Trending Capabilities",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Total telemetry received in ADX for selected time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 9,
+        "y": 1
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryValuesCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Total Telemetry Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 12,
+        "y": 1
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.17",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-ConnectorInterval",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Collection Interval",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "- Number of capability twins with Enabled flag set in ADT",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 0,
+        "y": 5
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "{{ConnectorName}}",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-EnabledCapabilitiesCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "EnabledCapabilities",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Enabled Capabilities",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Total telemetry events received for capabilities that are enabled",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 9,
+        "y": 5
+      },
+      "id": 30,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "{{ConnectorName}}",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryADTModelledCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "TelemetryADTModelCount",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Telemetry Received for enabled capabilities",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Total twins configured for this connector in ADT",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 0,
+        "y": 17
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "{{ConnectorName}}",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-ActiveTwinsCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "ActiveTwins",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Active Twins",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "azure-monitor-oob"
+      },
+      "description": "Total telemetry events received for this connector",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 9,
+        "y": 17
+      },
+      "id": 41,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.13",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "alias": "{{ConnectorName}}",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "customNamespace": "Azure.ApplicationInsights",
+            "dimensionFilters": [
+              {
+                "dimension": "FullCustomerInstanceName",
+                "filters": [
+                  "$FullCustomerInstanceName"
+                ],
+                "operator": "eq"
+              },
+              {
+                "dimension": "ConnectorName",
+                "filters": [
+                  "$Connector"
+                ],
+                "operator": "eq"
+              }
+            ],
+            "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryValuesCount",
+            "metricNamespace": "microsoft.insights/components",
+            "region": "$Region",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resourceGroup": "$ResourceGroup",
+                "resourceName": "$AppInsightsInstance",
+                "subscription": "$Subscription"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "TelemetryCount",
+          "subscription": "$Subscription"
+        }
+      ],
+      "title": "Total Telemetry Received",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 26,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "description": "List of connectors deployed",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 19,
+            "w": 4,
+            "x": 0,
+            "y": 29
+          },
+          "id": 8,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "frameIndex": 0,
+            "showHeader": false
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "azureLogAnalytics": {
+                "query": "customMetrics\r\n| where name == \"EdgeMetrics-UsedMemoryBytes\"\r\n| extend dimensions=parse_json(customDimensions)\r\n| extend device = tostring(dimensions.edge_device)\r\n| where device == '$EdgeDeviceName'\r\n| extend module = tostring(dimensions.module_name)\r\n| where not (module has_any(\"host\", \"MetricsCollectorModule\", \"edgeAgent\",\"edgeHub\",\"CASBACnetRPC\",\"MenderRestart\"))\r\n| summarize by module = replace_regex(module,'-([A-Za-z0-9]*)ConnectorModule$','')\r\n| order by module asc",
+                "resources": [
+                  "/subscriptions/$Subscription/resourceGroups/$ResourceGroup/providers/microsoft.insights/components/$AppInsightsInstance"
+                ],
+                "resultFormat": "table"
+              },
+              "azureMonitor": {
+                "aggregation": "Average",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [],
+                "metricName": "EdgeMetrics-UsedMemoryBytes",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": false,
+              "queryType": "Azure Log Analytics",
+              "refId": "A",
+              "subscription": "$Subscription"
+            }
+          ],
+          "title": "Connectors",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "description": "Host uptime refers to the time during which Host OS is operational, whereas IoTEdge Daemon uptime refers to the time during which Edge runtime is operational.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 4,
+            "y": 29
+          },
+          "id": 25,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "alias": "",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-HostUptimeSeconds",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto",
+                "top": "50"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "A",
+              "subscription": "$Subscription"
+            },
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "alias": "",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-EdgeUptimeSeconds",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto",
+                "top": "50"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "B",
+              "subscription": "$Subscription"
+            }
+          ],
+          "title": "Uptime",
+          "transformations": [
+            {
+              "id": "reduce",
+              "options": {
+                "includeTimeField": true,
+                "labelsToFields": true,
+                "mode": "reduceFields",
+                "reducers": [
+                  "lastNotNull"
+                ]
+              }
+            },
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "EdgeMetrics-EdgeUptimeSeconds": "IoT Edge Daemon",
+                  "EdgeMetrics-HostUptimeSeconds": "Host"
+                }
+              }
+            }
+          ],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "description": "CPU, Memory and Disk usage of the Edge Device (Trustbox / VM)",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 8,
+            "y": 29
+          },
+          "id": 16,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "showUnfilled": true,
+            "valueMode": "color"
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "alias": "",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "module_name",
+                    "filters": [
+                      "host"
+                    ],
+                    "operator": "eq"
+                  },
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-UsedCpuPercent",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "CPU",
+              "subscription": "$Subscription"
+            },
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "alias": "",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  },
+                  {
+                    "dimension": "module_name",
+                    "filters": [
+                      "host"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-TotalMemoryBytes",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": true,
+              "queryType": "Azure Monitor",
+              "refId": "MemoryTotal",
+              "subscription": "$Subscription"
+            },
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "module_name",
+                    "filters": [
+                      "host"
+                    ],
+                    "operator": "eq"
+                  },
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-UsedMemoryBytes",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": true,
+              "queryType": "Azure Monitor",
+              "refId": "MemoryUsed",
+              "subscription": "$Subscription"
+            },
+            {
+              "datasource": {
+                "name": "Expression",
+                "type": "__expr__",
+                "uid": "__expr__"
+              },
+              "expression": "($MemoryUsed/$MemoryTotal)*100",
+              "hide": false,
+              "refId": "Memory",
+              "type": "math"
+            },
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-TotalDiskSpaceBytes",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": true,
+              "queryType": "Azure Monitor",
+              "refId": "TotalDiskSpace",
+              "subscription": "$Subscription"
+            },
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-AvailableDiskSpaceBytes",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": true,
+              "queryType": "Azure Monitor",
+              "refId": "AvailableDiskSpace",
+              "subscription": "$Subscription"
+            },
+            {
+              "datasource": {
+                "name": "Expression",
+                "type": "__expr__",
+                "uid": "__expr__"
+              },
+              "expression": "(($TotalDiskSpace - $AvailableDiskSpace)/$TotalDiskSpace)*100",
+              "hide": false,
+              "refId": "Disk",
+              "type": "math"
+            }
+          ],
+          "title": "Device Usage",
+          "transformations": [
+            {
+              "id": "reduce",
+              "options": {
+                "includeTimeField": true,
+                "mode": "reduceFields",
+                "reducers": [
+                  "last"
+                ]
+              }
+            },
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "EdgeMetrics-UsedCpuPercent": "CPU"
+                }
+              }
+            }
+          ],
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "description": "CPU usage of each edge module deployed on a device",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 5,
+            "x": 4,
+            "y": 35
+          },
+          "id": 23,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "range"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true,
+            "valueMode": "color"
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "alias": "{{module_name}}",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "module_name",
+                    "filters": [
+                      "host"
+                    ],
+                    "operator": "ne"
+                  },
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  }
+                ],
+                "metricName": "EdgeMetrics-UsedCpuPercent",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "A",
+              "subscription": "$Subscription"
+            }
+          ],
+          "title": "CPU Usage",
+          "transformations": [],
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "azure-monitor-oob"
+          },
+          "description": "Memory usage of each edge module deployed on a device",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              },
+              "unit": "decbytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 6,
+            "x": 9,
+            "y": 35
+          },
+          "id": 24,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "range"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true,
+            "valueMode": "color"
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "azureMonitor": {
+                "aggregation": "Average",
+                "alias": "{{module_name}}",
+                "allowedTimeGrainsMs": [
+                  60000,
+                  300000,
+                  900000,
+                  1800000,
+                  3600000,
+                  21600000,
+                  43200000,
+                  86400000
+                ],
+                "customNamespace": "Azure.ApplicationInsights",
+                "dimensionFilters": [
+                  {
+                    "dimension": "edge_device",
+                    "filters": [
+                      "$EdgeDeviceName"
+                    ],
+                    "operator": "eq"
+                  },
+                  {
+                    "dimension": "module_name",
+                    "filters": [
+                      "host"
+                    ],
+                    "operator": "ne"
+                  }
+                ],
+                "metricName": "EdgeMetrics-UsedMemoryBytes",
+                "metricNamespace": "microsoft.insights/components",
+                "region": "$Region",
+                "resources": [
+                  {
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "$Region",
+                    "resourceGroup": "$ResourceGroup",
+                    "resourceName": "$AppInsightsInstance",
+                    "subscription": "$Subscription"
+                  }
+                ],
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "azure-monitor-oob"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "MemoryUsed",
+              "subscription": "$Subscription"
+            }
+          ],
+          "title": "Memory Usage",
+          "transformations": [],
+          "type": "bargauge"
+        }
+      ],
+      "title": "Edge Device Health",
+      "type": "row"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "AllSubscriptions",
+        "options": [],
+        "query": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "ResourceGroup",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$AppInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId, aiResourceGroup = resourceGroup\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName, aiResourceGroup\r\n| project aiResourceGroup\r\n\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": [
+            "$AllSubscriptions"
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "fd259995-1de7-4ae8-8431-0d150dcca6f4",
+          "value": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "Subscription",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$AppInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName\r\n| project subscriptionId\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": [
+            "$AllSubscriptions"
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "eastus2",
+          "value": "eastus2"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "Region",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "",
+            "resources": []
+          },
+          "azureResourceGraph": {
+            "query": "resources\r\n| where type == 'microsoft.insights/components' and name == \"$AppInsightsInstance\"\r\n| project appInsightsName = name, subscriptionId, location\r\n| join kind=inner (\r\n    resourcecontainers\r\n    | where type == 'microsoft.resources/subscriptions'\r\n    | project subscriptionId, subscriptionName = name)\r\n    on subscriptionId\r\n        | where subscriptionName startswith \"dev\" or subscriptionName startswith \"prd\"\r\n        | distinct subscriptionId, subscriptionName, appInsightsName, location\r\n| project location\r\n"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscriptions": [
+            "$AllSubscriptions"
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "ain-prd-eus2",
+          "value": "ain-prd-eus2"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 2,
+        "includeAll": false,
+        "label": "App Insights Instance",
+        "multi": false,
+        "name": "AppInsightsInstance",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "let fcin = '$FullCustomerInstanceName';\r\nprint fcin\r\n| extend SplitValues = split(fcin, \":\")\r\n| extend Region = tostring(SplitValues[1])\r\n| extend Environment = tostring(SplitValues[0])\r\n| extend AppInsightsInstance = strcat_delim(\"-\", \"ain\", Environment, Region)\r\n| project AppInsightsInstance",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "prd:eus2:01:wil-ppe",
+          "value": "prd:eus2:01:wil-ppe"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "FullCustomerInstanceName",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where AppRoleName contains \"ConnectorReliabilityMonitor\"\r\n| distinct fcin = tostring(Properties.FullCustomerInstanceName)\r\n| where isnotempty( fcin) and fcin != \":::\"\r\n| project fcin\r\n| order by fcin asc ",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "Intellicare Infirmary Mapped Universal Gateway",
+          "value": "Intellicare Infirmary Mapped Universal Gateway"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Connector",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where TimeGenerated > ago(1d)\r\n| where AppRoleName has \"ConnectorReliabilityMonitor\"\r\n| extend FullCustomerInstanceName = tostring(Properties.FullCustomerInstanceName)\r\n| where FullCustomerInstanceName == '$FullCustomerInstanceName'\r\n| distinct ConnectorName = tostring(Properties.ConnectorName)\r\n| where isnotempty( ConnectorName)\r\n| project ConnectorName",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "EdgeDeviceName",
+        "options": [],
+        "query": {
+          "azureLogAnalytics": {
+            "query": "AppMetrics\r\n| where Name has 'EdgeMetrics'\r\n| extend FullCustomerInstanceName = tostring(Properties.FullCustomerInstanceName)\r\n| where FullCustomerInstanceName == '$FullCustomerInstanceName'\r\n| distinct DeviceName = tostring(Properties.edge_device)\r\n| order by DeviceName asc \r\n| project DeviceName",
+            "resources": [
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-aue/providers/Microsoft.OperationalInsights/workspaces/logs-dev-aue",
+              "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-eus/providers/Microsoft.OperationalInsights/workspaces/logs-dev-eus",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-aue/providers/Microsoft.OperationalInsights/workspaces/logs-prd-aue",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-eus2/providers/Microsoft.OperationalInsights/workspaces/logs-prd-eus2",
+              "/subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd-weu/providers/Microsoft.OperationalInsights/workspaces/logs-prd-weu"
+            ]
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false
+  },
+  "timezone": "",
+  "title": "Connector Reliability Monitoring",
+  "uid": "dcdec29a-3751-4f63-afe8-997595ef5b59",
+  "version": 49,
+  "weekStart": ""
+}

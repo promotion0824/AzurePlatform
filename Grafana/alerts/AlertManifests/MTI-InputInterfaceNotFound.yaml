@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: MTI Input Interface Not Found
+metricName: Mti-InputInterfaceNotFound
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 0
+Severity: 3
+Aggregation: Count
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2762702880/Alert%3A+MTI-InputInterfaceNotFound
+template: MTI-InputInterfaceNotFound.json

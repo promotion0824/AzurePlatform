@@ -1,0 +1,87 @@
+subscriptionId: d4746c7a-19cb-47ac-82b5-069b17cb99de
+subscriptionName: Products-Shared
+
+subscriptionRoles:
+  - role: Owner
+    scope: /
+    assignments:
+      - *dhopper
+
+  - role: DiagnosticsExplorer
+    scope: *subscription
+    assignments:
+      - f4452c8f-86aa-44fa-9aad-f90ad64f6f7f # P&E Platform Engineering
+      - fba7b4b7-d78a-4116-b610-1203e146ba44 # P&E Willow Twin Platform
+      - c37877f7-8b2c-4919-82e6-31b1d575352d # P&E Rail
+      - ffdca6d6-cc64-4be1-b717-ecf67571fd68 # Willow AppSec Team
+      - 8f852b41-a629-4e02-9434-6142ab775c4b # P&E Real Estate
+      - 18f0d5fa-4f78-47de-9c77-e46f1c5f00ee # P&E Willow Twin IoT
+      - e39a4759-1135-4022-b198-d621448fc3b2 # P&E Willow Twin Marketplace
+      - 46b898af-edc4-4813-9fbe-eb3069fc50ef # Azure-Products-Shared-Contributor
+
+  - role: Cosmos DB Account Reader Role
+    scope: /
+    assignments:
+      - f4452c8f-86aa-44fa-9aad-f90ad64f6f7f # P&E Platform Engineering
+      - ffdca6d6-cc64-4be1-b717-ecf67571fd68 # Willow AppSec Team
+
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - 86ab2bb8-92fd-4b7c-ba16-c3a9438c5c28 #BSudheer@willowinc.com
+
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+      - 8fd69757-87f4-4fc4-81d9-c61626e9bf9c #Azure-K8S-INTERNAL-Contributor
+      - *Engineers_Willow
+      - de2a9954-4488-4654-878f-1d1c5128fa2e #https://AzSK_CA_SPNc_20210621050340
+      - dec6be28-c00a-4e19-bc13-2b325de7b146 # willow-Env-Deployers-prod
+      - a1d55701-c95e-45c8-896a-053229ace49d #2c86ae57-8cd6-4925-a713-1c8b341f2a9f/cost-export-pod-ide6b37b90
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/deployment-data
+    assignments:
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697
+
+  - role: Managed Identity Operator
+    scope: *subscription
+    assignments:
+      - 914d6f13-ec29-4a54-a06e-83b5c344c4aa #e7da1966-59ff-4d32-929b-7c6fbb28298d/prod-platformapps-aue-aks-cluster-id
+      - aa43f8f3-85ff-4277-82c0-3812d432ad4b #97697b23-906b-494c-860e-d832166c2418/prod-platformapps-aue-aks-agentpool
+
+  - role: EnvironmentDeployer
+    scope: /subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformdata-aue/
+    assignments:
+      - dec6be28-c00a-4e19-bc13-2b325de7b146 # willow-Env-Deployers-prod
+
+  - role: EnvironmentDeployer
+    scope: /subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformdata-eu2/
+    assignments:
+      - dec6be28-c00a-4e19-bc13-2b325de7b146 # willow-Env-Deployers-prod
+
+  - role: EnvironmentDeployer
+    scope: /subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformdata-weu/
+    assignments:
+      - dec6be28-c00a-4e19-bc13-2b325de7b146 # willow-Env-Deployers-prod
+
+  - role: Azure Service Bus Data Receiver
+    scope: *subscription
+    assignments:
+      - d7de529e-2a5f-4b48-aad4-f636f85bb223 # prod-platformapps-aue / keda-pod-ida651e944
+      - 395d08f1-44b1-49b1-bab8-3ceac1e40b35 # prod-platformapps-eu2 / keda-pod-ida651e944
+      - 2f8e97eb-4968-42da-931c-c6b2af33342f # prod-platformapps-weu / keda-pod-ida651e944
+
+  - role: Azure Kubernetes Service RBAC Cluster Admin
+    scope: /
+    assignments:
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697/azdo-global-spn
+
+  - role: Support Request Contributor
+    scope: /
+    assignments: 26e3eaa0-3d31-488e-b4e9-a7e4e12ec522

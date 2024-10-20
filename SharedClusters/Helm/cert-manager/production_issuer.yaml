@@ -1,0 +1,41 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+  labels:
+    app.kubernetes.io/managed-by: kubectl
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+spec:
+  acme:
+    email: willowinc.com@domainsbyproxy.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-production-private-key
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+    - http01:
+        ingress:
+          serviceType: ClusterIP
+          podTemplate:
+            metadata:
+              labels:
+                role: acme-solver--domain-group-tp-1
+      selector:
+        dnsNames:
+        - app.prodaue.willowinc.com
+        - app.prodweu.willowinc.com
+        - app.prodeus.willowinc.com
+        - app.nonprod.willowinc.com
+    - http01:
+        ingress:
+          serviceType: ClusterIP
+          podTemplate:
+            metadata:
+              labels:
+                role: acme-solver--domain-group-tp-2
+      selector:
+        dnsNames:
+        - app2.nonprod.willowinc.com

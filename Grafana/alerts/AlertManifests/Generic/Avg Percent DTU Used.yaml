@@ -1,0 +1,13 @@
+ResourceType: microsoft.sql/servers/elasticpools
+Title: Avg Percent DTU Used
+metricName: dtu_consumption_percent
+metricNamespace: microsoft.sql/servers/elasticpools
+reducer:
+Threshold: 90
+Duration: 30m
+DashboardUid: fad5383d-657e-4d11-b35f-832787ae4e5e
+PanelId: 9
+Severity: 2
+Aggregation: Average
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2674819117/Alert+Avg+Percent+DTU+Used
+template: AlertTemplate.json

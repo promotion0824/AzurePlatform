@@ -1,0 +1,32 @@
+forceNamespaced: "true"
+
+azureIdentities:
+  "cluster-keda-id":
+    namespace: "cluster-keda"
+    name: "cluster-keda-id"
+    type: 0
+    resourceID: "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformapps-weu/providers/Microsoft.ManagedIdentity/userAssignedIdentities/keda-pod-id17d6bd0a"
+    clientID: "1a652494-80ae-4247-837b-1a91cb278d98"
+    binding:
+      name: "cluster-keda-id-binding"
+      selector: "cluster-keda-id"
+
+  "kubecost-pod-id":
+    namespace: "cluster-kubecost"
+    name: "kubecost-pod-id"
+    type: 0
+    resourceID: "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformapps-weu/providers/Microsoft.ManagedIdentity/userAssignedIdentities/kubecost-pod-idec17e89d"
+    clientID: "996816f8-5f63-4851-bf7f-ec4eaa7f6712"
+    binding:
+      name: "kubecost-pod-id-binding"
+      selector: "kubecost-pod-id"
+
+  "oauth2proxy-pod-id":
+    namespace: "cluster-oauth2-proxy"
+    name: "oauth2proxy-pod-id"
+    type: 0
+    resourceID: "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de/resourceGroups/prod-platformapps-weu/providers/Microsoft.ManagedIdentity/userAssignedIdentities/oauth2proxy-pod-id40ae76a2"
+    clientID: "df8179b4-1b03-4ca9-9d94-a1528a399bee"
+    binding:
+      name: "oauth2proxy-pod-id-binding"
+      selector: "oauth2proxy-pod-id"

@@ -1,0 +1,22 @@
+{
+  "assignableScopes": [
+    "/subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850"
+  ],
+  "description": "Allows for read, write and delete access to WSUP API",
+  "name": "WsupContributor",
+  "permissions": [
+    {
+      "actions": [
+        "WillowInc.Wsup/contributor"
+      ],
+      "notActions": [],
+      "dataActions": [
+        "WillowInc.Wsup/contributor"
+      ],
+      "notDataActions": []
+    }
+  ],
+  "roleName": "WsupContributor",
+  "roleType": "CustomRole",
+  "type": "Microsoft.Authorization/roleDefinitions"
+}

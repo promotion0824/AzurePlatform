@@ -1,0 +1,104 @@
+name: AMG-Grafana-Alerts
+
+on:
+  workflow_dispatch:
+    inputs:
+      DeployDevNonMain:
+        type: boolean
+        default: false
+        description: Deploy Dev instance from non 'Main' branch
+      DeployProdNonMain:
+        type: boolean
+        default: false
+        description: Deploy Prod instance from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Grafana/alerts/**'
+  push:
+    branches: [main]
+    paths:
+      - 'Grafana/alerts/**'
+
+permissions:
+  id-token: write
+  contents: read
+  actions: write
+
+jobs:
+  Grafana-Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Grafana
+          path: Grafana/
+          retention-days: 1
+
+  deploy-dev:
+    if: (((github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main') || (github.event.inputs.DeployDevNonMain == 'true'))
+    needs: Grafana-Build
+    runs-on: ubuntu-latest
+    environment: NonProd
+    env:
+      ResourceGroup: rg-dev
+      GrafanaName: grafana-dev-eus
+      GrafanaUrl: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com
+      Subscription: dev
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_DEV }}
+
+      - name: Download chart
+        uses: actions/download-artifact@v4
+        with:
+          name: Grafana
+          path: Grafana/
+
+      - name: deploy-dev
+        shell: pwsh
+        run: |
+          ./Grafana/DeployGrafanaAlerting.ps1 -Verbose -resourceGroup ${{ env.ResourceGroup }} -grafanaName ${{ env.GrafanaName }} -grafanaUrl ${{ env.GrafanaUrl }} -subscription ${{ env.Subscription }} -zendeskWebhookUrl ${{ secrets.ZENDESKWEBHOOKURL }}
+
+  deploy-prod:
+    if: (((github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main') || (github.event.inputs.DeployDevNonMain == 'true' && github.event.inputs.DeployProdNonMain == 'true'))
+    needs: [Grafana-Build, deploy-dev]
+    runs-on: ubuntu-latest
+    environment: Production
+    env:
+      ResourceGroup: rg-prd
+      GrafanaName: grafana-prd-eus
+      GrafanaUrl: https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com
+      Subscription: prd
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Download chart
+        uses: actions/download-artifact@v4
+        with:
+          name: Grafana
+          path: Grafana/
+
+      - name: deploy-prd
+        shell: pwsh
+        run: |
+          ./Grafana/DeployGrafanaAlerting.ps1 -Verbose -resourceGroup ${{ env.ResourceGroup }} -grafanaName ${{ env.GrafanaName }} -grafanaUrl ${{ env.GrafanaUrl }} -subscription ${{ env.Subscription }} -zendeskWebhookUrl ${{ secrets.ZENDESKWEBHOOKURL }}

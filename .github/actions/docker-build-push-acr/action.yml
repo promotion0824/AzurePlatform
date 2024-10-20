@@ -1,0 +1,96 @@
+name: docker-login-acr
+description: Login to an azure container registry via service principal
+inputs:
+  client_id:
+    description: 'Azure service principal client id to use'
+    required: true
+  client_secret:
+    description: 'Azure service principal client secret to use'
+    required: true
+  tenant_id:
+    description: 'Azure service principal tenant id'
+    required: true
+  subscription_id:
+    description: 'ACR subscription Id'
+    required: true
+  acr_resource_group:
+    description: 'ACR resource group'
+    required: true
+  acr_name:
+    description: 'ACR name'
+    required: true
+  image_name:
+    description: 'Image repository name'
+    required: true
+  tags:
+    description: 'Tags'
+    default: latest
+    required: true
+  dockerfile:
+    description: path to dockerfile
+    required: true
+    default: Dockerfile
+  context:
+    description: docker build context
+    required: true
+    default: '.'
+  platforms:
+    description: docker build platforms
+    required: true
+    default: 'linux/amd64'
+  dockerPush:
+    description: 'Push docker image to registry'
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: WillowInc/AzurePlatform/.github/actions/docker-login-acr@main ## main
+      with:
+        client_id: ${{ inputs.client_id }}
+        client_secret: ${{ inputs.client_secret }}
+        tenant_id: ${{ inputs.tenant_id }}
+        subscription_id: ${{ inputs.subscription_id }}
+        acr_resource_group: ${{ inputs.acr_resource_group }}
+        acr_name: ${{ inputs.acr_name }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Make tags
+      shell: bash
+      id: tags
+      run: |
+        input_tags=${{ inputs.tags }}
+        tags=${{ inputs.acr_name }}.azurecr.io/${{ inputs.image_name}}:${input_tags//,/,${{ inputs.acr_name }}.azurecr.io\/${{ inputs.image_name}}:}
+        echo $tags
+        echo "::set-output name=tags::$(echo $tags)"
+
+    - name: Build and push
+      id: docker-build
+      uses: docker/build-push-action@v5
+      with:
+        file: ${{ inputs.dockerfile }}
+        context: ${{ inputs.context }}
+        push: ${{ inputs.dockerPush }}
+        tags: ${{ steps.tags.outputs.tags }}
+        platforms: ${{ inputs.platforms }}
+
+    - id: image-output
+      shell: bash
+      run: |
+        echo '### Image Info :dragon_face:' >> $GITHUB_STEP_SUMMARY
+        echo ' Imageid: ` ${{ steps.docker-build.outputs.imageid }}`  ' >> $GITHUB_STEP_SUMMARY
+        echo ' Digest: `${{ steps.docker-build.outputs.digest }}` ' >> $GITHUB_STEP_SUMMARY
+        echo ' Metadata: `${{ steps.docker-build.outputs.metadata }}` ' >> $GITHUB_STEP_SUMMARY
+
+outputs:
+  imageid:
+    description: 'The imageid value'
+    value: ${{ steps.docker-build.outputs.imageid }}
+  digest:
+    description: 'The digest value'
+    value: ${{ steps.docker-build.outputs.digest }}
+  metadata:
+    description: 'The metadata value'
+    value: ${{ steps.docker-build.outputs.metadata }}

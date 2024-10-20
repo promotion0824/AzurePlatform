@@ -1,0 +1,10 @@
+ResourceType: Microsoft.ServiceBus/namespaces
+Title: Dead Letter Messages in Queue or Topic
+metricName: DeadletteredMessages
+metricNamespace: microsoft.servicebus/namespaces
+reducer:
+Threshold: 5
+Severity: 3
+Aggregation: Total
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2671018376/Alert+Dead+Letter+Messages+in+Queue+or+Topic
+template: Dead Letter Messages in Queue or Topic Template.json

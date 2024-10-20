@@ -1,0 +1,19 @@
+name: Docs for Wilbur
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Wilbur/docs/**"
+      - "Wilbur/mkdocs.yml"
+jobs:
+  build:
+    uses: WillowInc/AzurePlatform/.github/workflows/reusable-workflow-docs-build.yml@main
+    secrets:
+      jira_password: ${{ secrets.JIRA_PASSWORD }}
+      client_secret: ${{ secrets.CLIENT_SECRET }}
+      client_id: ${{ secrets.CLIENT_ID }}
+      jira_username: ${{ secrets.JIRA_USERNAME }}
+    with:
+      docs_path: Wilbur
+      backstage_entity_name: "default/component/ops-bot"

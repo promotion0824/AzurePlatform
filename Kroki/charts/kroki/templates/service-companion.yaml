@@ -1,0 +1,24 @@
+{{- range $companion := .Values.companions }}
+{{- with $ -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kroki.fullname" . }}-{{ $companion.name }}
+  labels:
+    {{- include "kroki.labelsWithName" (dict "scope" . "name" $companion.name ) | nindent 4 }}
+    {{- with .Values.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ $companion.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "kroki.selectorLabelsWithName" (dict "scope" . "name" $companion.name ) | nindent 4 }}
+---
+
+{{- end }}
+{{- end }}

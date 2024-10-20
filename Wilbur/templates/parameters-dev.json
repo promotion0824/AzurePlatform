@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "botDisplayName": {
+      "value": "Wilbur-dev"
+    },
+    "botPrefix": {
+      "value": "dev-wil-opsbot"
+    },
+    "msAppId": {
+      "value": "dc4be044-3b3f-4add-a8f3-d89741ee4c89"
+    },
+    "botEndpoint": {
+      "value": "https://opsbot-dev.devservices.willowinc.com/api/messages"
+    },
+    "keyVaultOwner":{
+      "value": "f4452c8f-86aa-44fa-9aad-f90ad64f6f7f"
+    },
+    "applicationInsightsKey": {
+      "value": "39e0ce0f-150f-422e-909d-fbabe809672a"
+    },
+    "podIdentityPrincipalId": {
+      "value": "8d94f4cb-b8f9-4cd1-a814-99128b831393"
+    },
+    "resourceTags":{
+      "value":{
+        "environment": "dev",
+        "company": "willow",
+        "customer": "none",
+        "team": "azurePlatform",
+        "project": "AzurePlatform/OpsBot",
+        "purpose": "Operations bot resources",
+        "managedby": "bicep",
+        "app": "opsbot"
+      }
+    }
+  }
+}

@@ -1,0 +1,184 @@
+{
+    "id": 144,
+    "uid": "",
+    "orgID": 1,
+    "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+    "ruleGroup": "HighFrequency",
+    "title": "Health Checks by Customer Instance - Unhealthy",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "HealthCheckFailures",
+            "queryType": "Azure Monitor",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "azure-monitor-oob",
+            "model": {
+                "azureMonitor": {
+                    "aggregation": "Total",
+                    "allowedTimeGrainsMs": [
+                        60000,
+                        300000,
+                        900000,
+                        1800000,
+                        3600000,
+                        21600000,
+                        43200000,
+                        86400000
+                    ],
+                    "customNamespace": "Azure.ApplicationInsights",
+                    "dimensionFilters": [
+                        {
+                            "dimension": "CustomerInstanceName",
+                            "filters": [],
+                            "operator": "ne"
+                        },
+                        {
+                            "dimension": "AppName",
+                            "filters": [
+                                "NewBuild"
+                            ],
+                            "operator": "ne"
+                        },
+                        {
+                            "dimension": "status",
+                            "filters": [
+                                "Healthy"
+                            ],
+                            "operator": "ne"
+                        }
+                    ],
+                    "metricName": "healthcheck",
+                    "metricNamespace": "microsoft.insights/components",
+                    "region": "ReplaceMe",
+                    "resources": [
+                        {
+                            "metricNamespace": "Microsoft.Insights/components",
+                            "region": "ReplaceMe",
+                            "resourceGroup": "ReplaceMe",
+                            "resourceName": "ReplaceMe",
+                            "subscription": "ReplaceMe"
+                        }
+                    ],
+                    "timeGrain": "auto",
+                    "top": "2000"
+                },
+                "datasource": {
+                    "type": "grafana-azure-monitor-datasource",
+                    "uid": "azure-monitor-oob"
+                },
+                "hide": false,
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "queryType": "Azure Monitor",
+                "refId": "HealthCheckFailures",
+                "subscription": "ReplaceMe"
+            }
+        },
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "Sum"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "HealthCheckFailures",
+                "hide": false,
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "sum",
+                "refId": "A",
+                "settings": {
+                    "mode": "dropNN"
+                },
+                "type": "reduce"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                5
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "C"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "hide": false,
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2024-05-02T17:40:21Z",
+    "noDataState": "NoData",
+    "execErrState": "Error",
+    "for": "5m",
+    "labels": {
+        "destination": "ReplaceMe",
+        "severity": "4"
+    },
+    "annotations": {
+        "__dashboardUid__": "ae00356b-291f-4664-b096-6bd261a77bff",
+        "__panelId__": "24"
+    },
+    "isPaused": false
+}

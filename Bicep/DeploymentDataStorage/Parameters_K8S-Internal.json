@@ -1,0 +1,180 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vaultName": {
+      "value": "K8sInternalDeployKeys"
+    },
+    "vaultAccessPolicies": {
+      "value": [
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "f9624c1d-234a-4527-8fd6-6ca04a8dfa6e",
+          "comments": "azdo-global-spn the SP used by azure devops",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt"],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "f4452c8f-86aa-44fa-9aad-f90ad64f6f7f",
+          "comments": "P&E Platform Engineering group",
+          "permissions": {
+            "keys": ["Encrypt", "Decrypt", "List", "Get"],
+            "secrets": ["Get", "List", "Set"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "27f82a22-b9ec-40d8-b18f-72d44d4e3fae",
+          "comments": "kubecost-pod-id2cb9d473 nonprod-platformapps pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "54ccbc8d-6e60-45f4-88f5-61af21c2f3e9",
+          "comments": "kubecost-pod-id97d8b71b  internal-devservices pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "26d2046a-2711-42fc-b4a8-f73b44667efc",
+          "comments": "kubecost-pod-idec17e89d prod-platformapps-weu pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "a9c65a80-cc70-4e88-b761-e3cd52999f3e",
+          "comments": "kubecost-pod-idaa662cf3 prod-platformapps-eu2 pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "10011dda-9d53-462a-b2c3-d503dea88685",
+          "comments": "kubecost-pod-id53be4d27 prod-platformapps-aue pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "3ca96844-c6b0-453f-ac12-3571b8dc7e6a",
+          "comments": "backstage-pod-id7026a7bf internal-devservicese pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "53f25f35-5eeb-4570-930a-871470040990",
+          "comments": "oauth2proxy-pod-ida26f0a03 internal-devservices pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "66893684-a5d9-4410-a46d-672797110e58",
+          "comments": "oauth2proxy-pod-id8350024b prod-platformapps-aue pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "9957e088-21c8-4d64-b71c-061f944feec8",
+          "comments": "oauth2proxy-pod-idac2e590d prod-platformapps-eu2 pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "b9bb1877-d8e5-4ed6-ae10-8a13b8ee312b",
+          "comments": "oauth2proxy-pod-id40ae76a2 prod-platformapps-weu pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "df455407-c30f-4dfc-be88-b754d5e81470",
+          "comments": "oauth2proxy-pod-id258f4772 nonprod-platformapps pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "4f5ef681-c876-4bb5-9976-20d8aea59399",
+          "comments": "opensource-portal-pod-id187c5aec  internal-devservices pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        },
+        {
+          "tenantId": "d43166d1-c2a1-4f26-a213-f620dba13ab8",
+          "objectId": "d5dbdeb7-7629-438c-8384-519b1dcf4598",
+          "comments": "grafana-pod-iddd027713 internal-devservices pod id",
+          "permissions": {
+            "keys": [],
+            "secrets": ["Get", "List"],
+            "certificates": []
+          }
+        }
+      ]
+    },
+    "storageAccountName": {
+      "value": "k8sintdeploydata"
+    },
+    "tags": {
+      "value": {
+        "environment": "nonprod",
+        "company": "willow",
+        "customer": "none",
+        "team": "azurePlatform",
+        "project": "AzurePlatform/Arm.Clusters/State",
+        "purpose": "Pulumi/Terraform Deployment State",
+        "managedby": "bicep",
+        "app": "release"
+      }
+    }
+  }
+}

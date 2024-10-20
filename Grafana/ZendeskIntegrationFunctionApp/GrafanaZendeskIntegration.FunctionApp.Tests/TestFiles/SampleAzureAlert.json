@@ -1,0 +1,63 @@
+{
+  "schemaId": "azureMonitorCommonAlertSchema",
+  "data": {
+    "essentials": {
+      "alertId": "/subscriptions/3d662540-4bed-4624-8c4a-fde386ae6667/providers/Microsoft.AlertsManagement/alerts/f656a3f7-9c8b-4ede-84cf-c373b4ccf000",
+      "alertRule": "alert-CountDeadLetterc424ca8b",
+      "severity": "Sev0",
+      "signalType": "Metric",
+      "monitorCondition": "Fired",
+      "monitoringService": "Platform",
+      "alertTargetIDs": [
+        "/subscriptions/3d662540-4bed-4624-8c4a-fde386ae6667/resourcegroups/rg-dev-eus-00-wil-in1/providers/microsoft.servicebus/namespaces/sbns-dev-eus-00-wil-in1-95b411bf"
+      ],
+      "configurationItems": [
+        "sbns-dev-eus-00-wil-in1-95b411bf"
+      ],
+      "originAlertId": "3d662540-4bed-4624-8c4a-fde386ae6667_rg-dev-eus-00-wil-in1_Microsoft.Insights_metricAlerts_alert-CountDeadLetterc424ca8b_-2092212961",
+      "firedDateTime": "2024-02-14T05:43:23.2656045Z",
+      "description": "Count dead letter",
+      "essentialsVersion": "1.0",
+      "alertContextVersion": "1.0"
+    },
+    "alertContext": {
+      "properties": {
+        "app": "shared",
+        "customer-code": "wil",
+        "environment": "dev",
+        "owner": "cloudops",
+        "stamp": "00"
+      },
+      "conditionType": "SingleResourceMultipleMetricCriteria",
+      "condition": {
+        "windowSize": "PT5M",
+        "allOf": [
+          {
+            "metricName": "DeadletteredMessages",
+            "metricNamespace": "Microsoft.ServiceBus/Namespaces",
+            "operator": "GreaterThan",
+            "threshold": "0",
+            "timeAggregation": "Average",
+            "dimensions": [
+              {
+                "name": "EntityName",
+                "value": "rule-execution"
+              }
+            ],
+            "metricValue": 0.4,
+            "webTestName": null
+          }
+        ],
+        "windowStartTime": "2024-02-14T05:36:13.3Z",
+        "windowEndTime": "2024-02-14T05:41:13.3Z"
+      }
+    },
+    "customProperties": {
+      "app": "shared",
+      "customer-code": "wil",
+      "environment": "dev",
+      "owner": "cloudops",
+      "stamp": "00"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+name: Deploy WSUP Prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      nonMain:
+        type: boolean
+        description: Deploy from non 'Main' branch
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Bicep/ContainerApp/appsettings.prd.json'
+      - 'Bicep/ContainerApp/*.bicep'
+      - 'Bicep/ContainerApp/prd*'
+  push:
+    branches: [main]
+    paths:
+      - 'Bicep/ContainerApp/appsettings.prd.json'
+      - 'Bicep/ContainerApp/*.bicep'
+      - 'Bicep/ContainerApp/prd*'
+
+env:
+  artifact_location: ContainerApp
+  mgProduct: '/providers/Microsoft.Management/managementGroups/Product'
+  mgWillowTwinDev: '/providers/Microsoft.Management/managementGroups/WillowTwinDev'
+  mgWillowTwinPrd: '/providers/Microsoft.Management/managementGroups/WillowTwinPrd'
+  mgKeyVaultSharedDev: 'kvwildevshared01'
+  mgKeyVaultSharedPrd: 'kvwilprdshared01'
+  mgStorageDev: 'stwildevshared01'
+  mgStoragePrd: 'stwilprdshared01'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upload Bicep Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact_location }}
+          path: Bicep/ContainerApp/
+          retention-days: 1
+
+  generate_cert_prd:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs:
+      - build
+    outputs:
+      encodedCert: ${{ steps.generate-cert.outputs.cert }}
+      certPassword: ${{ steps.generate-cert.outputs.cert-password }}
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+      # For details on multiline outputs, see -> https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#multiline-strings
+      - name: Generate certificate
+        id: generate-cert
+        shell: bash
+        run: |
+          secret=$(az keyvault secret show --name "cf-cert-password" --vault-name ${{ env.mgKeyVaultSharedPrd }} --query "value" -o tsv)
+          az storage blob download -f /tmp/cf-cert.pfx -c certs -n cf-cert.pfx --account-name ${{ env.mgStoragePrd }} --auth-mode login
+          echo "cert-password=$secret" >> "$GITHUB_OUTPUT"
+          cat /tmp/cf-cert.pfx
+          openssl pkcs12 -in /tmp/cf-cert.pfx -out /tmp/cert.pem -passin pass:"$secret" -passout pass:"$secret"
+          {
+            echo 'cert<<EOF'
+            openssl base64 -in /tmp/cert.pem
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+  Deploy_Prd_Regional_Resources_EUS2:
+    if: (github.ref == 'refs/heads/main' || (github.event.inputs.nonMain == 'true'))
+    runs-on: ubuntu-latest
+    environment: Production
+    needs:
+      - build
+      - generate_cert_prd
+    env:
+      ResourceGroup: rg-prd-eus2
+      Location: eastus2
+      Parameters: ./ContainerApp/prd-eus2.bicepparam
+      Template: ./ContainerApp/regional.bicep
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Bicep Prd Regional Resources EUS2
+        uses: WillowInc/AzurePlatform/.github/actions/deploy-bicep@main
+        env:
+          encodedCert: ${{ needs.generate_cert_prd.outputs.encodedCert }}
+          certPassword: ${{ needs.generate_cert_prd.outputs.certPassword }}
+        with:
+          resource_group: ${{ env.ResourceGroup }}
+          location: ${{ env.Location }}
+          parameters: ${{ env.Parameters }}
+          bicep_template: ${{ env.Template }}
+          artifact_location: ${{ env.artifact_location }}

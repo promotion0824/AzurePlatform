@@ -1,0 +1,28 @@
+{
+  "devDependencies": {
+    "detect-secrets": "^1.0.6",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "detect-secrets": "detect-secrets-launcher --baseline .secrets.baseline",
+    "detect-secrets-update": "detect-secrets-launcher scan --baseline .secrets.baseline --exclude-files \"package.*lock.json\"",
+    "detect-secrets-audit": "detect-secrets-launcher audit .secrets.baseline"
+  },
+  "lint-staged": {
+    "*.{yaml,yml}": [
+      "prettier --parser yaml --no-config --single-quote --write",
+      "detect-secrets-launcher --baseline .secrets.baseline"
+    ],
+    "*.json": [
+      "prettier --write",
+      "detect-secrets-launcher --exclude-files \"package.*lock.json\" --baseline .secrets.baseline"
+    ],
+    "*": [
+      "detect-secrets-launcher --baseline .secrets.baseline"
+    ]
+  }
+}

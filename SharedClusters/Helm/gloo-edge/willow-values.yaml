@@ -1,0 +1,127 @@
+settings:
+  disableKubernetesDestinations: true
+  invalidConfigPolicy:
+    invalidRouteResponseBody: Invalid route. Please contact support at support@willowinc.com.
+    invalidRouteResponseCode: 404
+    replaceInvalidRoutes: true
+
+gloo:
+  deployment:
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 500Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+
+discovery:
+  enabled: false
+  deployment:
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    resources:
+      limits:
+        cpu: 500m
+        memory: 400Mi
+      requests:
+        cpu: 20m
+        memory: 90Mi
+
+gateway:
+  validation:
+    allowWarnings: true
+    alwaysAcceptResources: false
+    warnRouteShortCircuiting: true
+
+  deployment:
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 10m
+        memory: 35Mi
+
+  certGenJob:
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 20m
+        memory: 100Mi
+
+gatewayProxies:
+  gatewayProxy:
+    gatewaySettings:
+      customHttpGateway:
+        options:
+          extauth:
+            extauthzServerRef:
+              name: customer-auth-gateway-upstream
+              namespace: cluster-gloo
+            httpService: {}
+            requestBody:
+              maxRequestBytes: 104857600 #100MB
+            requestTimeout: 3s
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    horizontalPodAutoscaler:
+      minReplicas: 1
+      maxReplicas: 4
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 30
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 60
+            - type: Pods
+              value: 2
+              periodSeconds: 15
+          selectPolicy: Max
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 50
+      apiVersion: autoscaling/v2
+    podTemplate:
+      # probes: true # This should be enabled once we have routes on gloo and before doing a gloo upgrade > https://docs.solo.io/gloo-edge/master/operations/production_deployment/#enable-health-checks
+      resources:
+        limits:
+          cpu: 250m
+          memory: 500Mi
+        requests:
+          cpu: 150m
+          memory: 35Mi

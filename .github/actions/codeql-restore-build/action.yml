@@ -1,0 +1,31 @@
+name: codeql-restore-build
+description: Run a standard build test restore
+inputs:
+  path:
+    description: path to run dotnet restore against
+    required: true
+  restore_path:
+    description: path to run dotnet restore against
+    required: true
+  restore_parameters:
+    description: extra parameters to pass to dotnet restore
+    required: false
+    default: ""
+  build_configuration:
+    description: "Dotnet build configuration"
+    required: false
+    default: Release
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        dotnet restore ${{ inputs.restore_path }} ${{ inputs.restore_parameters }}
+      shell: bash
+      name: dotnet restore
+
+    - run: |
+        dotnet build ${{ inputs.path }} --configuration ${{ inputs.build_configuration }} --no-restore
+      shell: bash
+      name: dotnet build
+

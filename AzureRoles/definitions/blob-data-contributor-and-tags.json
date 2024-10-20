@@ -1,0 +1,39 @@
+{
+  "assignableScopes": [
+    "/subscriptions/249312a0-4c83-4d73-b164-18c5e72bf219",
+    "/subscriptions/7dab7b5a-d968-43a5-a50f-9509244c297b",
+    "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+    "/subscriptions/d4746c7a-19cb-47ac-82b5-069b17cb99de",
+    "/subscriptions/5f077d49-cd08-48b4-a26b-59d708d7847b",
+    "/subscriptions/bdd7479b-ce38-47cf-b22f-285337c1e951",
+    "/subscriptions/ca5069fb-5f00-4df3-8491-10ee2768126a",
+    "/subscriptions/f4edc7ff-4396-47be-bf14-90892e463848",
+    "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c"
+  ],
+  "description": "Allows for read, write and delete access to Azure Storage blob containers, data and tags",
+  "name": "StorageBlobDataContributorAndTags",
+  "permissions": [
+    {
+      "actions": [
+        "Microsoft.Storage/storageAccounts/blobServices/containers/delete",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/read",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/write",
+        "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action"
+      ],
+      "notActions": [],
+      "dataActions": [
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/*",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/filter/action",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/delete",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/move/action",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/add/action"
+      ],
+      "notDataActions": []
+    }
+  ],
+  "roleName": "StorageBlobDataContributorAndTags",
+  "roleType": "CustomRole",
+  "type": "Microsoft.Authorization/roleDefinitions"
+}

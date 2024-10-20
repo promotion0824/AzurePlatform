@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "OpsBot.fullname" . }}-job
+  labels:
+    {{- include "OpsBot.labelsJob" . | nindent 4 }}
+spec:
+  concurrencyPolicy: {{ .Values.job.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.job.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.job.successfulJobsHistoryLimit }}
+  schedule: {{ .Values.job.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            aadpodidbinding: {{ .Values.identity.name }}
+            {{- include "OpsBot.selectorLabelsJob" . | nindent 12 }}
+            {{- with .Values.additionalLabels }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          serviceAccountName: {{ include "OpsBot.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.job.podSecurityContext | nindent 12 }}
+          containers:
+            - name: {{ .Chart.Name }}-job
+              securityContext:
+                {{- toYaml .Values.job.securityContext | nindent 16 }}
+              image: "{{ .Values.image.repositoryJob }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              env:
+                - name: ASPNETCORE_ENVIRONMENT
+                  value: {{ .Values.environment }}
+                - name: KeyVault__VaultUri
+                  value: {{ .Values.keyVaultUri }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              resources:
+                {{- toYaml .Values.job.resources | nindent 16 }}
+          restartPolicy: {{ .Values.job.restartPolicy }}
+          {{- with .Values.job.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.job.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.job.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}

@@ -1,0 +1,103 @@
+name: Wilbur-build
+
+on:
+  workflow_call:
+    outputs:
+      chartName:
+        value: ${{ jobs.Wilbur-build.outputs.chartName }}
+      semVer:
+        value: ${{ jobs.Wilbur-build.outputs.semVer }}
+      imageTag:
+        value: ${{ jobs.Wilbur-build.outputs.imageTag }}
+      nugetVer:
+        value: ${{ jobs.Wilbur-build.outputs.nugetVer }}
+      dockerRepository:
+        value: ${{ jobs.Wilbur-build.outputs.dockerRepository }}
+    secrets:
+      CLIENT_ID:
+        required: true
+      TENANT_ID:
+        required: true
+      CLIENT_SECRET:
+        required: true
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Wilbur/**'
+
+jobs:
+  Wilbur-build:
+    runs-on: ubuntu-latest
+    outputs:
+      chartName: ${{ steps.job-outputs.outputs.chartName }}
+      semVer: ${{ steps.job-outputs.outputs.semVer }}
+      imageTag: ${{ steps.job-outputs.outputs.imageTag }}
+      nugetVer: ${{ steps.job-outputs.outputs.nugetVer }}
+      dockerRepository: ${{ steps.job-outputs.outputs.acr }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set version
+        uses: WillowInc/.github/.github/actions/generate-versions@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/dotnet-restore-build-test@main ## main
+        with:
+          path: Wilbur/
+          restore_path: Wilbur/
+          restore_parameters: '--locked-mode'
+          test_path: Wilbur/
+          version: ${{ env.GitVersion_NuGetVersionV2 }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          test_filter: Category!=Manual
+
+      - uses: WillowInc/AzurePlatform/.github/actions/docker-build-push-acr@main ## main
+        name: docker-build-push Api
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+          acr_resource_group: nonprod-platformshared
+          acr_name: nonprodplatformsharedcr
+          image_name: opsbot-api
+          tags: ${{ env.GitVersion_SemVer }}-${{ env.GitVersion_ShortSha }}
+          dockerfile: Wilbur/Willow.OpsBot.Api/Dockerfile
+          context: Wilbur/
+
+      - uses: WillowInc/AzurePlatform/.github/actions/docker-build-push-acr@main ## main
+        name: docker-build-push WorkerService
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ secrets.TENANT_ID }}
+          subscription_id: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+          acr_resource_group: nonprod-platformshared
+          acr_name: nonprodplatformsharedcr
+          image_name: opsbot-worker
+          tags: ${{ env.GitVersion_SemVer }}-${{ env.GitVersion_ShortSha }}
+          dockerfile: Wilbur/Willow.OpsBot.WorkerService/Dockerfile
+          context: Wilbur/
+
+      - uses: WillowInc/AzurePlatform/.github/actions/helm-package@main ## main
+        with:
+          chart_path: Wilbur/chart/
+          chart_name: opsbot
+          version: ${{ env.GitVersion_SemVer }}-${{ env.GitVersion_ShortSha }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set output
+        id: job-outputs
+        run: |
+          echo "nugetVer=${{ env.GitVersion_NuGetVersionV2 }}" >> $GITHUB_OUTPUT
+          echo "semVer=${{ env.GitVersion_SemVer }}" >> $GITHUB_OUTPUT
+          echo "imageTag=${{ env.GitVersion_SemVer }}-${{ env.GitVersion_ShortSha }}" >> $GITHUB_OUTPUT
+          echo "chartName=opsbot" >> $GITHUB_OUTPUT
+          echo "acr='nonprodplatformsharedcr.azurecr.io'" >> $GITHUB_OUTPUT

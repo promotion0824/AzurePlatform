@@ -1,0 +1,322 @@
+{
+  "id": 106,
+  "uid": "c68c5fbc-7092-4014-aaa7-f535cf008447",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "5mFrequency",
+  "title": "FullTelemetryOutage - dev-eus",
+  "condition": "B",
+  "data": [
+    {
+      "refId": "TelemetryCount",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "ConnectorName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Source",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Buildings",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Willow.ConnectorReliabilityMonitor-TelemetryADTModelledCount",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "East US",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "East US",
+              "resourceGroup": "rg-dev-eus",
+              "resourceName": "ain-dev-eus",
+              "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "1000"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "TelemetryCount",
+        "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+      }
+    },
+    {
+      "refId": "EnabledTwins",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Average",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "ConnectorName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Source",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "Buildings",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Willow.ConnectorReliabilityMonitor-EnabledCapabilitiesCount",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "East US",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "East US",
+              "resourceGroup": "rg-dev-eus",
+              "resourceName": "ain-dev-eus",
+              "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+            }
+          ],
+          "timeGrain": "auto",
+          "top": "1000"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "EnabledTwins",
+        "subscription": "48a16780-c719-4528-a0f2-4e7640a9c850"
+      }
+    },
+    {
+      "refId": "NumTwins",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "EnabledTwins",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "last",
+        "refId": "NumTwins",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "NumTelemetry",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "TelemetryCount",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "sum",
+        "refId": "NumTelemetry",
+        "settings": {
+          "mode": "dropNN"
+        },
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "Alert",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "($NumTwins > 0) && ($NumTelemetry == 0)",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "Alert",
+        "type": "math"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 1800,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0, 0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": []
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "name": "Expression",
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "Alert",
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "B",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-04-11T21:46:55Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "annotations": {
+    "summary": "{{ range $k, $v := $labels -}}\n{{ $k }}={{ $v }}\n{{ end }}"
+  },
+  "labels": {
+    "environment": "dev",
+    "buildings": "{{ index $labels \"buildings\" }}"
+  },
+  "isPaused": false
+}

@@ -1,0 +1,636 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 12,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "blue",
+                "value": 75
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "9.5.1",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "PolicyResources\r\n| where type =~ 'Microsoft.PolicyInsights/PolicyStates'\r\n| where properties.policyAssignmentScope startswith \"/subscriptions/\"\r\n| where properties.policyAssignmentName contains \"RequireTags\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| extend\r\n\tresourceId = tostring(properties.resourceId),\r\n\tpolicyAssignmentId = tostring(properties.policyAssignmentId),\r\n\tpolicyAssignmentScope = tostring(properties.policyAssignmentScope),\r\n\tpolicyAssignmentName = tostring(properties.policyAssignmentName),\r\n\tpolicyDefinitionId = tostring(properties.policyDefinitionId),\r\n\tpolicyDefinitionReferenceId = tostring(properties.policyDefinitionReferenceId),\r\n\tstateWeight = iff(complianceState == 'NonCompliant', int(300), iff(complianceState == 'Compliant', int(200), iff(complianceState == 'Conflict', int(100), iff(complianceState == 'Exempt', int(50), int(0)))))\r\n| summarize max(stateWeight) by resourceId, policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| summarize counts = count() by policyAssignmentId, policyAssignmentScope, max_stateWeight, policyAssignmentName\r\n| summarize overallStateWeight = max(max_stateWeight),\r\nnonCompliantCount = sumif(counts, max_stateWeight == 300),\r\ncompliantCount = sumif(counts, max_stateWeight == 200),\r\nconflictCount = sumif(counts, max_stateWeight == 100),\r\nexemptCount = sumif(counts, max_stateWeight == 50) by policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)\r\n| extend compliancePercentage = iff(totalResources == 0, todouble(100), 100 * todouble(compliantCount + exemptCount) / totalResources)\r\n| extend subscriptionId = tostring(split(split(policyAssignmentScope, \"/subscriptions/\")[1], \"/\")[0])\r\n| join kind = leftouter (resourcecontainers | where type == \"microsoft.resources/subscriptions\" | extend SubscriptionName=name) on subscriptionId\r\n| summarize by AvgCompliance=toint(compliancePercentage),  SubscriptionName\r\n| order by AvgCompliance desc"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        },
+        {
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "B",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Tag Policy Compliance By Subscription",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 10
+              },
+              {
+                "color": "purple",
+                "value": 20
+              },
+              {
+                "color": "#EAB839",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 9,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 10
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "PolicyResources\r\n| where type =~ 'Microsoft.PolicyInsights/PolicyStates'\r\n| where properties.policyAssignmentScope startswith \"/subscriptions/\"\r\n| where properties.policyAssignmentName contains \"Inherit\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| extend\r\n\tresourceId = tostring(properties.resourceId),\r\n\tpolicyAssignmentId = tostring(properties.policyAssignmentId),\r\n\tpolicyAssignmentScope = tostring(properties.policyAssignmentScope),\r\n\tpolicyAssignmentName = tostring(properties.policyAssignmentName),\r\n\tpolicyDefinitionId = tostring(properties.policyDefinitionId),\r\n\tpolicyDefinitionReferenceId = tostring(properties.policyDefinitionReferenceId),\r\n\tstateWeight = iff(complianceState == 'NonCompliant', int(300), iff(complianceState == 'Compliant', int(200), iff(complianceState == 'Conflict', int(100), iff(complianceState == 'Exempt', int(50), int(0)))))\r\n| summarize max(stateWeight) by resourceId, policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| summarize counts = count() by policyAssignmentId, policyAssignmentScope, max_stateWeight, policyAssignmentName\r\n| summarize overallStateWeight = max(max_stateWeight),\r\nnonCompliantCount = sumif(counts, max_stateWeight == 300),\r\ncompliantCount = sumif(counts, max_stateWeight == 200),\r\nconflictCount = sumif(counts, max_stateWeight == 100),\r\nexemptCount = sumif(counts, max_stateWeight == 50) by policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| extend Fixable = nonCompliantCount\r\n| extend subscriptionId = tostring(split(split(policyAssignmentScope, \"/subscriptions/\")[1], \"/\")[0])\r\n| join kind = leftouter (resourcecontainers | where type == \"microsoft.resources/subscriptions\" | extend SubscriptionName=name) on subscriptionId\r\n| summarize Fixable=sum(toint(Fixable)) by  SubscriptionName\r\n| where Fixable != 0\r\n| order by Fixable desc"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        },
+        {
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "B",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Issues Fixable By Remediation for Tags",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "blue",
+                "value": 75
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "9.5.1",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "azureResourceGraph": {
+            "query": "PolicyResources\r\n| where type =~ 'Microsoft.PolicyInsights/PolicyStates'\r\n| where properties.policyAssignmentScope startswith \"/subscriptions/\"\r\n| where properties.policyAssignmentName contains \"Backup\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| extend\r\n\tresourceId = tostring(properties.resourceId),\r\n\tpolicyAssignmentId = tostring(properties.policyAssignmentId),\r\n\tpolicyAssignmentScope = tostring(properties.policyAssignmentScope),\r\n\tpolicyAssignmentName = tostring(properties.policyAssignmentName),\r\n\tpolicyDefinitionId = tostring(properties.policyDefinitionId),\r\n\tpolicyDefinitionReferenceId = tostring(properties.policyDefinitionReferenceId),\r\n\tstateWeight = iff(complianceState == 'NonCompliant', int(300), iff(complianceState == 'Compliant', int(200), iff(complianceState == 'Conflict', int(100), iff(complianceState == 'Exempt', int(50), int(0)))))\r\n| summarize max(stateWeight) by resourceId, policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| summarize counts = count() by policyAssignmentId, policyAssignmentScope, max_stateWeight, policyAssignmentName\r\n| summarize overallStateWeight = max(max_stateWeight),\r\nnonCompliantCount = sumif(counts, max_stateWeight == 300),\r\ncompliantCount = sumif(counts, max_stateWeight == 200),\r\nconflictCount = sumif(counts, max_stateWeight == 100),\r\nexemptCount = sumif(counts, max_stateWeight == 50) by policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)\r\n| extend compliancePercentage = iff(totalResources == 0, todouble(100), 100 * todouble(compliantCount + exemptCount) / totalResources)\r\n| extend subscriptionId = tostring(split(split(policyAssignmentScope, \"/subscriptions/\")[1], \"/\")[0])\r\n| join kind = leftouter (resourcecontainers | where type == \"microsoft.resources/subscriptions\" | extend SubscriptionName=name) on subscriptionId\r\n| summarize by AvgCompliance=toint(compliancePercentage),  SubscriptionName\r\n| order by AvgCompliance desc"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Resource Graph",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+            "0be01d84-8432-4558-9aba-ecd204a3ee61",
+            "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+            "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+            "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+            "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+            "249312a0-4c83-4d73-b164-18c5e72bf219",
+            "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+            "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+            "5b797013-f6dc-4235-a157-e4cb98ef8599",
+            "7dab7b5a-d968-43a5-a50f-9509244c297b",
+            "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+            "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+            "bdd7479b-ce38-47cf-b22f-285337c1e951",
+            "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+            "ca5069fb-5f00-4df3-8491-10ee2768126a",
+            "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+            "e878a98a-20ec-4516-a59d-f393429fe07c",
+            "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+            "f4edc7ff-4396-47be-bf14-90892e463848",
+            "f89766c3-f955-42b5-8925-929bd7df83c0"
+          ]
+        },
+        {
+          "azureMonitor": {
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "B",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Backup Policy Compliance By Subscription",
+      "type": "gauge"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 8,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 25
+          },
+          "id": 5,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "nonCompliantCount"
+              }
+            ]
+          },
+          "pluginVersion": "8.2.1",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "azureMonitor": {
+                "timeGrain": "auto"
+              },
+              "azureResourceGraph": {
+                "query": "PolicyResources\r\n| where type =~ 'Microsoft.PolicyInsights/PolicyStates'\r\n| where properties.policyAssignmentScope startswith \"/subscriptions/\"\r\n| where properties.policyAssignmentName !contains \"SecurityCenter\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| extend\r\n\tresourceId = tostring(properties.resourceId),\r\n\tpolicyAssignmentId = tostring(properties.policyAssignmentId),\r\n\tpolicyAssignmentScope = tostring(properties.policyAssignmentScope),\r\n\tpolicyAssignmentName = tostring(properties.policyAssignmentName),\r\n\tpolicyDefinitionId = tostring(properties.policyDefinitionId),\r\n\tpolicyDefinitionReferenceId = tostring(properties.policyDefinitionReferenceId),\r\n\tstateWeight = iff(complianceState == 'NonCompliant', int(300), iff(complianceState == 'Compliant', int(200), iff(complianceState == 'Conflict', int(100), iff(complianceState == 'Exempt', int(50), int(0)))))\r\n| summarize max(stateWeight) by resourceId, policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| summarize counts = count() by policyAssignmentId, policyAssignmentScope, max_stateWeight, policyAssignmentName\r\n| summarize overallStateWeight = max(max_stateWeight),\r\nnonCompliantCount = sumif(counts, max_stateWeight == 300),\r\ncompliantCount = sumif(counts, max_stateWeight == 200),\r\nconflictCount = sumif(counts, max_stateWeight == 100),\r\nexemptCount = sumif(counts, max_stateWeight == 50) by policyAssignmentId, policyAssignmentScope, policyAssignmentName\r\n| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)\r\n| extend compliancePercentage = iff(totalResources == 0, todouble(100), 100 * todouble(compliantCount + exemptCount) / totalResources)\r\n| extend subscriptionId = tostring(split(split(policyAssignmentScope, \"/subscriptions/\")[1], \"/\")[0])\r\n| join kind = leftouter (resourcecontainers | where type == \"microsoft.resources/subscriptions\" | extend SubscriptionName=name) on subscriptionId\r\n| project policyAssignmentName,\r\ncomplianceState = iff(overallStateWeight == 300, 'noncompliant', iff(overallStateWeight == 200, 'compliant', iff(overallStateWeight == 100, 'conflict', iff(overallStateWeight == 50, 'exempt', 'notstarted')))),\r\ntoint(compliancePercentage),\r\ntoint(compliantCount),\r\ntoint(nonCompliantCount),\r\nSubscriptionName\r\n| order by nonCompliantCount desc"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "queryType": "Azure Resource Graph",
+              "refId": "A",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+              "subscriptions": [
+                "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+                "0be01d84-8432-4558-9aba-ecd204a3ee61",
+                "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+                "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+                "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+                "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+                "249312a0-4c83-4d73-b164-18c5e72bf219",
+                "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+                "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+                "5b797013-f6dc-4235-a157-e4cb98ef8599",
+                "7dab7b5a-d968-43a5-a50f-9509244c297b",
+                "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+                "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+                "bdd7479b-ce38-47cf-b22f-285337c1e951",
+                "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+                "ca5069fb-5f00-4df3-8491-10ee2768126a",
+                "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+                "e878a98a-20ec-4516-a59d-f393429fe07c",
+                "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+                "f4edc7ff-4396-47be-bf14-90892e463848",
+                "f89766c3-f955-42b5-8925-929bd7df83c0"
+              ]
+            },
+            {
+              "azureMonitor": {
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "B",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+            }
+          ],
+          "title": "Policy Compliance By Subscription",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 32
+          },
+          "id": 4,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "nonCompliantCount"
+              }
+            ]
+          },
+          "pluginVersion": "8.2.1",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "azureMonitor": {
+                "timeGrain": "auto"
+              },
+              "azureResourceGraph": {
+                "query": "PolicyResources\r\n| where type =~ 'Microsoft.PolicyInsights/PolicyStates'\r\n| where properties.policyAssignmentScope startswith \"/subscriptions/\"\r\n| where properties.policyAssignmentName !contains \"SecurityCenter\"\r\n| extend complianceState = tostring(properties.complianceState)\r\n| extend\r\n\tresourceId = tostring(properties.resourceId),\r\n\tresourceType = tolower(tostring(properties.resourceType)),\r\n\tpolicyAssignmentId = tostring(properties.policyAssignmentId),\r\n\tpolicyDefinitionId = tostring(properties.policyDefinitionId),\r\n\tpolicyDefinitionReferenceId = tostring(properties.policyDefinitionReferenceId),\r\n\tstateWeight = iff(complianceState == 'NonCompliant', int(300), iff(complianceState == 'Compliant', int(200), iff(complianceState == 'Conflict', int(100), iff(complianceState == 'Exempt', int(50), int(0)))))\r\n| summarize max(stateWeight) by resourceId, resourceType\r\n| summarize counts = count() by resourceType, max_stateWeight\r\n| summarize overallStateWeight = max(max_stateWeight),\r\nnonCompliantCount = sumif(counts, max_stateWeight == 300),\r\ncompliantCount = sumif(counts, max_stateWeight == 200),\r\nconflictCount = sumif(counts, max_stateWeight == 100),\r\nexemptCount = sumif(counts, max_stateWeight == 50) by resourceType\r\n| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)\r\n| extend compliancePercentage = iff(totalResources == 0, todouble(100), 100 * todouble(compliantCount + exemptCount) / totalResources)\r\n| project resourceType,\r\noverAllComplianceState = iff(overallStateWeight == 300, 'noncompliant', iff(overallStateWeight == 200, 'compliant', iff(overallStateWeight == 100, 'conflict', iff(overallStateWeight == 50, 'exempt', 'notstarted')))),\r\ncompliancePercentage,\r\ncompliantCount,\r\nnonCompliantCount,\r\nconflictCount,\r\nexemptCount\r\n| order by nonCompliantCount desc"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "queryType": "Azure Resource Graph",
+              "refId": "A",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+              "subscriptions": [
+                "0659c76d-fcbf-4e58-8bce-960b9e0cd100",
+                "0be01d84-8432-4558-9aba-ecd204a3ee61",
+                "0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902",
+                "16c3dd19-5016-4bf8-85e2-8c7e88607b7a",
+                "178b67d7-b6fd-46db-b4a3-b57f8a6b045f",
+                "1bc38ca0-6f7f-4f68-946f-5359d9ace66a",
+                "249312a0-4c83-4d73-b164-18c5e72bf219",
+                "2e254e02-1149-4bb8-8db1-f20511afb1a4",
+                "3ab44a28-5c8d-4f57-9d5e-b4830331e5db",
+                "5b797013-f6dc-4235-a157-e4cb98ef8599",
+                "7dab7b5a-d968-43a5-a50f-9509244c297b",
+                "89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc",
+                "ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e",
+                "bdd7479b-ce38-47cf-b22f-285337c1e951",
+                "c9a0ae53-c468-4612-a318-cfb719c4b2ca",
+                "ca5069fb-5f00-4df3-8491-10ee2768126a",
+                "d4746c7a-19cb-47ac-82b5-069b17cb99de",
+                "e878a98a-20ec-4516-a59d-f393429fe07c",
+                "ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6",
+                "f4edc7ff-4396-47be-bf14-90892e463848",
+                "f89766c3-f955-42b5-8925-929bd7df83c0"
+              ]
+            },
+            {
+              "azureMonitor": {
+                "timeGrain": "auto"
+              },
+              "datasource": {
+                "type": "grafana-azure-monitor-datasource",
+                "uid": "PB92CA166444B34F5"
+              },
+              "hide": false,
+              "queryType": "Azure Monitor",
+              "refId": "B",
+              "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+            }
+          ],
+          "title": "Policy Compliance By Resource",
+          "type": "table"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Details",
+      "type": "row"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Policy Report",
+  "uid": "IYSpYxdnk",
+  "version": 1,
+  "weekStart": ""
+}

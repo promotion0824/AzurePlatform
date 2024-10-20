@@ -1,0 +1,33 @@
+name: deploy-Bicep
+description: Deploy a Bicep template/parameter file
+inputs:
+  resource_group:
+    description: 'Resource group'
+    required: true
+  location:
+    description: 'Azure Location'
+    required: true
+  parameters:
+    description: 'Bicep parameter file'
+    required: true
+  bicep_template:
+    description: 'Bicep template file'
+    required: true
+  artifact_location:
+    description: 'Bicep artifact location'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Download Bicep Files
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.artifact_location }}
+        path: ${{ inputs.artifact_location }}/
+
+    - name: Deploy Bicep to Environment
+      shell: pwsh
+      run: |
+        az group create --resource-group ${{ inputs.resource_group }} --location ${{ inputs.location }}
+        az deployment group create --resource-group ${{ inputs.resource_group }}  --parameters ${{ inputs.parameters }} --template-file ${{ inputs.bicep_template }}

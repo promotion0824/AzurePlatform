@@ -1,0 +1,40 @@
+name: docker-login-acr
+description: Login to an azure container registry via service principal
+inputs:
+  client_id:
+    description: "Azure service principal client id to use"
+    required: true
+  client_secret:
+    description: "Azure service principal client secret to use"
+    required: false
+  tenant_id:
+    description: "Azure service principal tenant id"
+    required: true
+  subscription_id:
+    description: "ACR subscription Id"
+    required: true
+  acr_resource_group:
+    description: "ACR resource group"
+    required: true
+  acr_name:
+    description: "ACR name"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - uses: azure/login@v2
+    if: inputs.client_secret == ''
+    with:
+      client-id: ${{ inputs.client_id }}
+      tenant-id: ${{ inputs.tenant_id}}
+      subscription-id: ${{ inputs.subscription_id }}
+
+  - uses: azure/login@v2
+    if: inputs.client_secret != ''
+    with:
+      creds: '{"clientId":"${{ inputs.client_id }}","clientSecret":"${{ inputs.client_secret }}","subscriptionId":"${{ inputs.subscription_id }}","tenantId":"${{ inputs.tenant_id }}"}'
+
+  - name: Login to acr
+    shell: bash
+    run: az acr login --name ${{ inputs.acr_name }} --resource-group ${{ inputs.acr_resource_group }}

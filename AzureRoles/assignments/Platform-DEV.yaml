@@ -1,0 +1,107 @@
+subscriptionId: 0be01d84-8432-4558-9aba-ecd204a3ee61
+subscriptionName: Platform-DEV
+
+subscriptionAppRoles:
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-eu21-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevplteu21contentsto
+    assignments:
+      - aeb2e6dc-0fda-4180-a0ee-123c0de4e2e5 # wil-dev-plt-eu21-commsvc-func
+      - 95adef52-fc54-47b2-8b0c-83103c616b09 # wil-uat-plt-eu21-portalxl
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-aue1-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevpltaue1contentsto
+    assignments:
+      - 32200aa4-377c-4d6c-b848-0af4065a8c55 # wil-dev-plt-aue1-commsvc-func
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-aue1-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevpltaue1funcsto
+    assignments:
+      - 32200aa4-377c-4d6c-b848-0af4065a8c55 # wil-dev-plt-aue1-commsvc-func
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-eu21-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevplteu21funcsto
+    assignments:
+      - aeb2e6dc-0fda-4180-a0ee-123c0de4e2e5 # wil-dev-plt-eu21-commsvc-func
+
+subscriptionRoles:
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-eu21-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevplteu21contentsto
+    assignments:
+      - *Engineers_Willow
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697/azdo-global-spn
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-aue1-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevpltaue1contentsto
+    assignments:
+      - *Engineers_Willow
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697/azdo-global-spn
+
+  - role: Azure Digital Twins Data Owner
+    scope: *subscription
+    assignments:
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697/azdo-global-spn
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-aue1-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevpltaue1funcsto
+    assignments:
+      - *Engineers_Willow
+
+  - role: Storage Blob Data Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-plt-eu21-app-rsg/providers/Microsoft.Storage/storageAccounts/wildevplteu21funcsto
+    assignments:
+      - *Engineers_Willow
+
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+      - de2a9954-4488-4654-878f-1d1c5128fa2e #https://AzSK_CA_SPNc_20210621050340
+      - f07e9ef5-8981-406f-af2d-871cc6dd18c9 #Azure-Platform-DEV-Reader
+
+  - role: Contributor
+    scope: *subscription
+    assignments:
+      - 7e1e213e-2686-4551-b0ea-6e7c86b97356 #https://VisualStudio/SPN4697de81-16b6-42af-b140-1364ed2a3209
+      - 9968b28a-a759-4375-af6e-408e78e1611a #Azure-Platform-DEV-Contributor
+      - *Engineers_Willow
+
+  - role: Storage Blob Data Contributor
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: User Access Administrator
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-lda-inv-aue1-app-rgs/providers/Microsoft.DigitalTwins/digitalTwinsInstances/wil-dev-lda-inv-aue1-adt
+    assignments:
+      - 020fa497-c5ce-4d1f-abe4-4c309ff767db #XZhang@willowinc.com
+
+  - role: User Access Administrator
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/t3-wil-dev-lda-inv-aue1-app-rgs/providers/Microsoft.DigitalTwins/digitalTwinsInstances/wil-dev-lda-inv-aue1-adt
+    assignments:
+      - fcb471fb-a80e-4f59-9c41-828fee5985e0 #MRobin@willowinc.com
+
+  - role: Owner
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/PowerBI/providers/Microsoft.Synapse/workspaces/connector02synapse
+    assignments:
+      - 47e1233b-eab4-475a-b101-ab6fbd6bcbc7 #MPampena@willowinc.com
+      - 83de8287-5df7-4de8-8045-58adb1df3bc7 #TGottwald@willowinc.com
+
+  - role: Contributor
+    scope: /subscriptions/0be01d84-8432-4558-9aba-ecd204a3ee61/resourceGroups/samsung-smartthings/providers/Microsoft.Web/sites/samsung-smartthings-dev
+    assignments:
+      - ad736231-4c81-451a-a942-34c0da713893 #kpaix@willowinc.com
+
+  - role: Azure Digital Twins Data Owner
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+      - c53e09ef-80bd-4132-836d-bfa0f554d639 #8f393938-4391-4b1f-bfb2-01c460d3b3a8/wil-uat-plt-adt
+
+  - role: Managed Identity Operator
+    scope: *subscription
+    assignments:
+      - a2b9b0bb-9c86-408a-a907-d96fe4275184 #8ce93640-dc45-40fb-ae0c-ec58b376530c / nonprod-platformapps-aks-agentpool

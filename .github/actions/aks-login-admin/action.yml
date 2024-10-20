@@ -1,0 +1,43 @@
+name: aks-login
+description: Connect to an aks cluster with kubelogin
+inputs:
+  client_id:
+    description: "Azure service principal client id to use"
+    required: true
+  client_secret:
+    description: "Azure service principal client secret to use"
+    required: false
+  tenant_id:
+    description: "Azure service principal tenant id"
+    required: true
+  subscription_id:
+    description: "Cluster subscription Id"
+    required: true
+  cluster_resource_group:
+    description: "Cluster resource group"
+    required: true
+  cluster_name:
+    description: "Cluster name"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: azure/login@v2
+      if: inputs.client_secret != ''
+      with:
+        creds: '{"clientId":"${{ inputs.client_id }}","clientSecret":"${{ inputs.client_secret }}","subscriptionId":"${{ inputs.subscription_id }}","tenantId":"${{ inputs.tenant_id }}"}'
+
+    - uses: azure/login@v2
+      if: inputs.client_secret == ''
+      with:
+        client-id: ${{ inputs.client_id }}
+        tenant-id: ${{ inputs.tenant_id}}
+        subscription-id: ${{ inputs.subscription_id }}
+
+    - uses: azure/aks-set-context@v4
+      with:
+        resource-group: ${{ inputs.cluster_resource_group }}
+        cluster-name: ${{ inputs.cluster_name }}
+        admin: "true"
+        use-kubelogin: "false"

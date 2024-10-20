@@ -1,0 +1,22 @@
+subscriptionId: f89766c3-f955-42b5-8925-929bd7df83c0
+subscriptionName: Data-DEV
+subscriptionRoles:
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+      - de2a9954-4488-4654-878f-1d1c5128fa2e #https://AzSK_CA_SPNc_20210621050340
+
+  - role: Contributor
+    scope: *subscription
+    assignments:
+      - c3801d03-798b-449d-bb93-b1852f1af1de #6c3cbbc8-132f-49f1-9bcc-ea767679810f/willowdata-DSE-f89766c3-f955-42b5-8925-929bd7df83c0
+
+  - role: Storage Blob Data Reader
+    scope: /
+    assignments:
+      - 271f4960-38a3-4f4e-9fad-1766b719d3ab #Azure-Data-DEV-Storage-Blob-Data-Reader

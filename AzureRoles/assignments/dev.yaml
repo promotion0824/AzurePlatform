@@ -1,0 +1,85 @@
+subscriptionId: 48a16780-c719-4528-a0f2-4e7640a9c850
+subscriptionName: dev
+
+subscriptionAppRoles:
+  - role: Grafana Admin
+    scope: *subscription
+    assignments: *dhopper
+
+  - role: Grafana Editor
+    scope: *subscription
+    assignments:
+      - *Platform_Engineers
+      - *AzureManagedGrafanaUsers
+
+  - role: Key Vault Secrets Officer
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev/providers/Microsoft.KeyVault/vaults/kvwildevglobal01
+    assignments: c3fe618b-bbf0-410d-8e0b-a3934d599777 # Global Keyvault Admin
+
+  - role: Key Vault Reader
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev/providers/Microsoft.KeyVault/vaults/kvwildevglobal01
+    assignments: *Engineers_Willow
+
+  - role: Contributor
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-wus/providers/Microsoft.Search/searchServices/ragsandboxopenaisearch
+    assignments:
+      - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Cognitive Services OpenAI Contributor
+    scope: *subscription
+    assignments:
+      - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Storage Blob Data Contributor
+    scope: *subscription
+    assignments:
+      - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Cognitive Services Contributor
+    scope: *subscription
+    assignments:
+      - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Cognitive Services Usages Reader
+    scope: *subscription
+    assignments:
+      - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Contributor
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-wus/providers/Microsoft.Storage/storageAccounts/ragsandboxdocstg
+    assignments:
+      - *dhopper
+      - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Azure AI Developer
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-wus/providers/Microsoft.MachineLearningServices/workspaces/ragsandbox
+    assignments:
+        - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Azure AI Inference Deployment Operator
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-wus
+    assignments:
+        - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Owner
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev-wus/providers/Microsoft.MachineLearningServices/workspaces/ragsandboxproject
+    assignments:
+        - *CognitiveServicesContributor-WillowTwin-Dev
+
+  - role: Storage Blob Data Reader
+    assignments:
+      - *dhopper
+      - f4fbc965-9d0c-4d4f-878d-99751dc02a99 #Mark Janos
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourceGroups/rg-dev/providers/Microsoft.Storage/storageAccounts/stwildevshared01
+
+  - role: Owner
+    assignments: *dhopper
+    scope: /subscriptions/48a16780-c719-4528-a0f2-4e7640a9c850/resourcegroups/rg-dev/providers/microsoft.web/sites/fnzendeskconnectordev
+
+  - role: Log Analytics Reader
+    scope: *subscription
+    assignments: *Customer_Technical_Support_Audit_Log_Access
+
+  - role: WsupContributor
+    scope: *subscription
+    assignments: *Wsup_Contributors

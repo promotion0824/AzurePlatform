@@ -1,0 +1,99 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - SharedClusters/Helm/*
+    exclude:
+      - SharedClusters/Helm/backstage.yaml
+      - SharedClusters/Helm/*/backstage.yaml
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - SharedClusters/Helm/*
+    exclude:
+      - SharedClusters/Helm/docs/*
+      - SharedClusters/Helm/mkdocs.yml
+      - SharedClusters/Helm/backstage.yaml
+      - SharedClusters/Helm/*/backstage.yaml
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+  - name: deployFromNonMainBranch
+    type: boolean
+    default: false
+  - name: clusters
+    type: object
+    default:
+      - name: DevServices
+        cluster: internal-devservices-aks
+        resourceGroup: 'internal-devservices'
+        serviceConnection: 'az-k8s-internal'
+        environment: 'nonprod'
+      - name: NonProd
+        cluster: nonprod-platformapps-aks
+        resourceGroup: 'nonprod-platformapps'
+        serviceConnection: 'az-k8s-internal'
+        environment: 'nonprod'
+      - name: ProdAue
+        cluster: prod-platformapps-aue-aks
+        resourceGroup: 'prod-platformapps-aue'
+        serviceConnection: 'az-products-shared'
+        environment: 'production'
+        dependsOn: NonProd
+      - name: ProdEu2
+        cluster: prod-platformapps-eu2-aks
+        resourceGroup: 'prod-platformapps-eu2'
+        serviceConnection: 'az-products-shared'
+        environment: 'production'
+        dependsOn: NonProd
+      - name: ProdWeu
+        cluster: prod-platformapps-weu-aks
+        resourceGroup: 'prod-platformapps-weu'
+        serviceConnection: 'az-products-shared'
+        environment: 'production'
+        dependsOn: NonProd
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - publish: '$(Build.SourcesDirectory)/SharedClusters/Helm'
+            artifact: 'drop.Charts'
+            displayName: '[AzDo] Publish Charts artifact'
+
+  - ${{ each cluster in parameters.clusters }}:
+      - stage: Deploy${{ cluster.name }}
+        condition: and(succeeded(), or(eq(${{ parameters.deployFromNonMainBranch }}, true), eq(variables['Build.SourceBranch'], 'refs/heads/main')))
+        ${{ if ne(cluster.dependsOn, '' ) }}:
+          dependsOn: Deploy${{ cluster.dependsOn }}
+        ${{ if eq(cluster.dependsOn, '' ) }}:
+          dependsOn: Build
+        jobs:
+          - deployment: Helm
+            environment: ${{ cluster.environment }}
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - download: none
+                    - download: current
+                      artifact: 'drop.Charts'
+                      displayName: '[AzDo] Download drop.Charts'
+
+                    - task: AzureCLI@2
+                      inputs:
+                        azureSubscription: ${{ cluster.serviceConnection }}
+                        addSpnToEnvironment: true
+                        scriptType: 'pscore'
+                        scriptLocation: 'inlineScript'
+                        inlineScript: |
+                          az aks get-credentials --name ${{ cluster.cluster }} -g ${{ cluster.resourceGroup }} --admin
+                          $(Pipeline.Workspace)/drop.Charts/Deploy-Charts.ps1 -Cluster ${{ cluster.cluster }} -Verbose
+                      displayName: '[ps][helm] Deploy charts'

@@ -1,0 +1,23 @@
+site_name: Willow DNS Control
+repo_url: https://github.com/willowinc/AzurePlatform
+edit_uri: blob/main/Dns/docs/
+nav:
+  - Home (DNS): index.md
+  - Release (DNS): release.md
+  - Guide (DNS): guide.md
+plugins:
+  - techdocs-core
+  - kroki:
+      ServerURL: https://kroki.devservices.willowinc.com
+      DownloadImages: true
+      FencePrefix: ''
+      FileTypes: # This is not supported without https://github.com/AVATEAM-IT-SYSTEMHAUS/mkdocs-kroki-plugin/pull/15
+        - png
+  - mkdocs-with-confluence:
+        host_url: https://willow.atlassian.net/wiki/rest/api/content
+        space: DOCS
+        parent_page_name: Dns Docs
+        enabled_if_env: MKDOCS_TO_CONFLUENCE
+        verbose: true
+        debug: true
+        dryrun: false

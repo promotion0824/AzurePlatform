@@ -1,0 +1,94 @@
+name: Ephemeral_PR
+
+on:
+  workflow_call:
+    inputs:
+      dependsOn:
+        type: string
+        required: true
+        default: ''
+  workflow_dispatch:
+    inputs:
+      dependsOn:
+        type: string
+        required: true
+        default: ''
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - '.github/workflows/Ephemeral-PR.yml'
+      - '.github/workflows/Ephemeral-Steps.yml'
+      - 'EphemeralEnvironments/**'
+
+env:
+  rootDirectory: EphemeralEnvironments
+  GH_TOKEN: ${{ github.token }}
+  labelName: 'ephemeral'
+  shouldrun: false
+  env_name: ''
+  environment_resource_group_link: ''
+  env.environment_url: ''
+  mobile_environment_url: ''
+  env.sql_server_fqdn: ''
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  CheckEphemeralRequirements:
+    runs-on: ubuntu-latest
+    outputs:
+      shouldrun: ${{ env.shouldrun }}
+      envname: ${{ env.env_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: '[PowerShell] Check PR Body'
+        shell: pwsh
+        run: |
+          $prBody = (gh issue view ${{ github.event.number }} --json body | ConvertFrom-Json).body
+          if (-not [string]::IsNullOrWhiteSpace($prBody) -and $prBody.Contains("- [x] Create Ephemeral Environment")){
+            "shouldrun=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+            Write-Host "PR contained a body indicating ephemeral enviornment should be created"
+          }
+
+      - name: '[PowerShell] Check PR Labels'
+        shell: pwsh
+        run: |
+          $prLabels = (gh issue view ${{ github.event.number }} --json labels | ConvertFrom-Json).labels
+          if ($null -ne ($prLabels | Where-Object {$_.name -eq "ephemeral"})){
+            "shouldrun=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+            Write-Host "PR contained a label indicating ephemeral enviornment should be created"
+          }
+
+      - name: '[Bash] Set variables'
+        shell: bash
+        run: |-
+          echo "env_name=$(echo ${{ github.ref }} | sha1sum | head -c 12)" >> $GITHUB_ENV
+
+      - name: Set output
+        id: job-outputs
+        run: |
+          echo "shouldrun=${{ env.shouldrun }}" >> $GITHUB_OUTPUT
+          echo "envname=${{ env.env_name }}" >> $GITHUB_OUTPUT
+
+  CreateEphemeralEnvironment:
+    if: needs.CheckEphemeralRequirements.outputs.shouldrun == 'true'
+    uses: WillowInc/AzurePlatform/.github/workflows/Ephemeral-Steps.yml@renovate/ephemeral-env-terraform
+    needs: CheckEphemeralRequirements
+    secrets:
+      client_secret: ${{ secrets.CLIENT_SECRET }}
+      B2C_CertificatePassword: ${{ secrets.B2C_CertificatePassword }}
+    with:
+      client_id: ${{ vars.CLIENT_ID }}
+      tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+      subscription_id: ${{ vars.SUBSCRIPTION_ID_K8S_INTERNAL }}
+      cluster_resource_group: nonprod-platformapps
+      cluster_name: nonprod-platformapps-aks
+      name: '${{ needs.CheckEphemeralRequirements.outputs.envname }}'

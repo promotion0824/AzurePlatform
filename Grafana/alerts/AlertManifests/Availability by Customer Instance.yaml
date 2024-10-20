@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: Availability by Customer Instance
+metricName: http.server.request.duration
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 98
+Severity: 3
+Aggregation: Average
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2670756381/Alert%3A+Availability+by+Customer+Instance+App+Role
+template: Availability by Customer Instance Template.json

@@ -1,0 +1,880 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 14,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Stats",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 4
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 1
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role request approved\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| extend  PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| summarize Count=count()",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Approvals",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 2,
+        "y": 1
+      },
+      "id": 13,
+      "options": {
+        "displayLabels": ["value", "name"],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role completed\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| extend  PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| summarize Count=count() by PimType",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Type",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 5,
+        "y": 1
+      },
+      "id": 14,
+      "options": {
+        "displayLabels": ["value", "name"],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role completed\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| mv-apply X = TargetResources to typeof(dynamic) on (\r\n    where X.type in (\"Role\")\r\n    | extend \r\n    rn = iif(X.type == \"Role\", X.displayName,\"\")\r\n    | summarize RoleName = max(rn)\r\n)\r\n| extend  PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| summarize Count=count() by RoleName",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Role",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 8,
+        "y": 1
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "let approvals = AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role request approved\" \r\n| project Approver=Identity, CorrelationId;\r\nAuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role completed\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| extend PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| join kind=leftouter approvals on CorrelationId\r\n| extend SelfApproved= case(Approver != \"\", 0, 100)\r\n| summarize SelfApproved=avg(SelfApproved) by PimType",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Self Approval",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 10
+              },
+              {
+                "color": "#EF843C",
+                "value": 20
+              },
+              {
+                "color": "#E24D42",
+                "value": 30
+              },
+              {
+                "color": "#1F78C1",
+                "value": 40
+              },
+              {
+                "color": "#BA43A9",
+                "value": 50
+              },
+              {
+                "color": "#705DA0",
+                "value": 60
+              },
+              {
+                "color": "#508642",
+                "value": 70
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 10,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role request approved\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| extend  PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| summarize Count=count() by Approver=Identity\r\n| order by Count desc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Most Approvals",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 10
+              },
+              {
+                "color": "#EF843C",
+                "value": 20
+              },
+              {
+                "color": "#E24D42",
+                "value": 30
+              },
+              {
+                "color": "#1F78C1",
+                "value": 40
+              },
+              {
+                "color": "#BA43A9",
+                "value": 50
+              },
+              {
+                "color": "#705DA0",
+                "value": 60
+              },
+              {
+                "color": "#508642",
+                "value": 70
+              },
+              {
+                "color": "#CCA300",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 17,
+        "y": 1
+      },
+      "id": 9,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role completed\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| extend  PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| summarize Count=count() by Requester=Identity\r\n| order by Count desc",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Most Elevations",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 4
+              },
+              {
+                "color": "#EF843C",
+                "value": 14
+              },
+              {
+                "color": "#E24D42",
+                "value": 24
+              },
+              {
+                "color": "#1F78C1",
+                "value": 34
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 5
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role completed (PIM activation)\" \r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"RoleDefinitionOriginId\")\r\n    | extend \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\" , X.value,\"\")\r\n    | summarize RoleId = max(ri)\r\n)\r\n| extend  PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| summarize Count=count()",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Elevations",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 4,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Details",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AzureAdRequest"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 124
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SelfApproved"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 107
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TicketSystem"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SubscriptionName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TicketNumber"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 157
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RoleName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 203
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RequestDescription"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 223
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "\r\nlet subs = datatable(SubscriptionId:string,SubscriptionName:string)\r\n[\r\n'd4746c7a-19cb-47ac-82b5-069b17cb99de', 'Products-Shared',  \r\n'178b67d7-b6fd-46db-b4a3-b57f8a6b045f', 'K8S-INTERNAL',    \r\n'16c3dd19-5016-4bf8-85e2-8c7e88607b7a', 'Data-PRD',  \r\n'ca5069fb-5f00-4df3-8491-10ee2768126a', 'Build-UAT',\r\n'249312a0-4c83-4d73-b164-18c5e72bf219', 'SandboxShared',    \r\n'bdd7479b-ce38-47cf-b22f-285337c1e951', 'Build-PRD', \r\n'5f077d49-cd08-48b4-a26b-59d708d7847b', 'Products-Shared-Environments',     \r\n'f4edc7ff-4396-47be-bf14-90892e463848', 'Platform-UAT',     \r\n'0c69c2fd-b86e-4f3a-9cb6-a72eb9de9902', 'Rail-UAT', \r\n'e878a98a-20ec-4516-a59d-f393429fe07c', 'Platform-PRD',    \r\n'1bc38ca0-6f7f-4f68-946f-5359d9ace66a', 'Rail-PRE', \r\n'0be01d84-8432-4558-9aba-ecd204a3ee61', 'Platform-DEV',     \r\n'3ab44a28-5c8d-4f57-9d5e-b4830331e5db', 'Experience-PRD',   \r\n'ae0c8612-75e8-4b6e-9443-ce2d7cd35d4e', 'Rail-DEMO',\r\n'7dab7b5a-d968-43a5-a50f-9509244c297b', 'K8S-Internal-Environments',\r\n'ee06cff9-d2d7-405a-8ce9-cf82fe78fbf6', 'Rail-PRD',\r\n'c9a0ae53-c468-4612-a318-cfb719c4b2ca', 'Experience-UAT',  \r\n'5b797013-f6dc-4235-a157-e4cb98ef8599', 'Rail-DEV', \r\n'89a48b77-62f9-4bc3-8ddc-cd6db25fb0bc', 'Build-DEV',\r\n'2e254e02-1149-4bb8-8db1-f20511afb1a4', 'Experience-DEV',  \r\n'0659c76d-fcbf-4e58-8bce-960b9e0cd100', 'Mining-POC',\r\n'936e6b7e-33c4-44ac-826c-4364a389b74b', 'Willow-CoreIT',    \r\n'a3a9921b-5f1b-4c4b-a539-4a335fbcc2fe', 'Willow-IT', \r\n'f89766c3-f955-42b5-8925-929bd7df83c0', 'Data-DEV', \r\n'ac560f4a-382e-4d77-98d8-6b4b4e2d2d7c', 'Cyber Security'\r\n];\r\nlet approvals = AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has \"Add member to role request approved\" \r\n| project Approver=Identity, CorrelationId, ApprovalReason=ResultReason, ApprovalUpn=tostring(InitiatedBy.user.userPrincipalName), ApprovalTime=TimeGenerated;\r\nlet removes = AuditLogs \r\n| where $__timeFilter(TimeGenerated)\r\n| where OperationName has 'Remove member from role'\r\n| project CorrelationId, RemoveTime=TimeGenerated;\r\nAuditLogs \r\n| where OperationName has 'Add member to role completed'\r\n| where $__timeFilter(TimeGenerated)\r\n| mv-apply X = AdditionalDetails to typeof(dynamic) on (\r\n    where X.key in (\"TicketNumber\", \"RoleDefinitionOriginId\", \"RoleDefinitionOriginType\", \"TicketSystem\")\r\n    | extend \r\n    tn = iif(X.key == \"TicketNumber\", X.value,\"\"), \r\n    ri = iif(X.key == \"RoleDefinitionOriginId\", X.value,\"\"), \r\n    ro = iif(X.key == \"RoleDefinitionOriginType\", X.value,\"\"), \r\n    ts = iif(X.key == \"TicketSystem\", X.value,\"\")\r\n    | summarize TicketNumber = max(tn), RoleId = max(ri), RoleOriginType = max(ro), TicketSystem = max(ts)\r\n)\r\n| mv-apply X = TargetResources to typeof(dynamic) on (\r\n    where X.type in (\"Role\", \"Group\")\r\n    | extend \r\n    rn = iif(X.type == \"Role\", X.displayName,\"\"), gn = iif(X.type == \"Group\", X.displayName,\"\")\r\n    | summarize RoleName = max(rn), GroupName = max(gn)\r\n)\r\n| join kind=leftouter  approvals on CorrelationId\r\n| join kind=leftouter removes on CorrelationId\r\n| extend PimType = case(RoleId contains \"subscription\", \"AzureRbac\", \"AzureAd\")\r\n| where $__contains(PimType, $Type)\r\n| extend SelfApproved = Approver == \"\"\r\n| parse RoleId with \"/subscriptions/\" SubscriptionId \"/providers/Microsoft.Authorization/roleDefinitions/\" AzureRoleId\r\n| join kind=leftouter subs on SubscriptionId\r\n| project SelfApproved, SubscriptionName, TicketSystem, TicketNumber, RoleName, RequestDescription=ResultDescription, InitiatedBy=Identity, Approver, RoleId, RoleOriginType, GroupName, ActivationTime=TimeGenerated, CorrelationId, PimType\r\n| order by ActivationTime desc\r\n",
+            "resource": "$Workspace"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c"
+        }
+      ],
+      "title": "Approval Log",
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "hide": 2,
+        "name": "Workspace",
+        "query": "/subscriptions/178b67d7-b6fd-46db-b4a3-b57f8a6b045f/resourceGroups/nonprod-platformshared/providers/Microsoft.OperationalInsights/workspaces/nonprodplatformshared-aue-log",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": ["AzureRbac", "AzureAd"],
+          "value": ["AzureRbac", "AzureAd"]
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": true,
+        "name": "Type",
+        "options": [
+          {
+            "selected": true,
+            "text": "AzureAd",
+            "value": "AzureAd"
+          },
+          {
+            "selected": true,
+            "text": "AzureRbac",
+            "value": "AzureRbac"
+          }
+        ],
+        "query": "AzureAd,AzureRbac",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "PIM Details",
+  "uid": "y2Vq8Qxnz",
+  "version": 1,
+  "weekStart": ""
+}

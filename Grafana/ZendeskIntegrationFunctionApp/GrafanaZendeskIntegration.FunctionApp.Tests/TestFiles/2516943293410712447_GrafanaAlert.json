@@ -1,0 +1,63 @@
+{
+  "receiver": "Zendesk Alerts",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "EntityName": "adt-events",
+        "alertname": "Dead Letter Messages in Queue or Topic sbns-dev-eus-00-wil-in1-95b411bf",
+        "app": "shared",
+        "customer-code": "wil",
+        "destination": "ZenDesk",
+        "environment": "dev",
+        "grafana_folder": "Single Tenant",
+        "owner": "cloudops",
+        "region": "eastus",
+        "severity": "2",
+        "stamp": "00",
+        "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2669772820/Alert+Missing+TSG"
+      },
+      "annotations": {},
+      "startsAt": "2024-02-15T00:30:00Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/d679e57d-3972-47e4-95db-fe8386d67182/view?orgId=1",
+      "fingerprint": "683d3500caeb085d",
+      "silenceURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=EntityName%3Dadt-events&matcher=alertname%3DDead+Letter+Messages+in+Queue+or+Topic+sbns-dev-eus-00-wil-in1-95b411bf&matcher=app%3Dshared&matcher=customer-code%3Dwil&matcher=destination%3DZenDesk&matcher=environment%3Ddev&matcher=grafana_folder%3DSingle+Tenant&matcher=owner%3Dcloudops&matcher=region%3Deastus&matcher=severity%3D2&matcher=stamp%3D00&matcher=tsg%3Dhttps%3A%2F%2Fwillow.atlassian.net%2Fwiki%2Fspaces%2FPE%2Fpages%2F2669772820%2FAlert%2BMissing%2BTSG",
+      "dashboardURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1",
+      "panelURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1&viewPanel=7",
+      "values": {
+        "B": 11,
+        "C": 1
+      },
+      "valueString": "[ var='B' labels={EntityName=adt-events} value=11 ], [ var='C' labels={EntityName=adt-events} value=1 ]"
+    }
+  ],
+  "groupLabels": {
+    "alertname": "Dead Letter Messages in Queue or Topic sbns-dev-eus-00-wil-in1-95b411bf",
+    "grafana_folder": "Single Tenant"
+  },
+  "commonLabels": {
+    "EntityName": "adt-events",
+    "alertname": "Dead Letter Messages in Queue or Topic sbns-dev-eus-00-wil-in1-95b411bf",
+    "app": "shared",
+    "customer-code": "wil",
+    "destination": "ZenDesk",
+    "environment": "dev",
+    "grafana_folder": "Single Tenant",
+    "owner": "cloudops",
+    "region": "eastus",
+    "severity": "2",
+    "stamp": "00",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2669772820/Alert+Missing+TSG"
+  },
+  "commonAnnotations": {},
+  "externalURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/",
+  "version": "1",
+  "groupKey": "{}/{destination=\"ZenDesk\"}:{alertname=\"Dead Letter Messages in Queue or Topic sbns-dev-eus-00-wil-in1-95b411bf\", grafana_folder=\"Single Tenant\"}",
+  "truncatedAlerts": 2,
+  "orgId": 1,
+  "title": "[FIRING:1] Dead Letter Messages in Queue or Topic sbns-dev-eus-00-wil-in1-95b411bf Single Tenant (adt-events shared wil ZenDesk dev cloudops eastus 2 00 https://willow.atlassian.net/wiki/spaces/PE/pages/2669772820/Alert+Missing+TSG)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: B=11, C=1\nLabels:\n - alertname = Dead Letter Messages in Queue or Topic sbns-dev-eus-00-wil-in1-95b411bf\n - EntityName = adt-events\n - app = shared\n - customer-code = wil\n - destination = ZenDesk\n - environment = dev\n - grafana_folder = Single Tenant\n - owner = cloudops\n - region = eastus\n - severity = 2\n - stamp = 00\n - tsg = https://willow.atlassian.net/wiki/spaces/PE/pages/2669772820/Alert+Missing+TSG\nAnnotations:\nSource: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/d679e57d-3972-47e4-95db-fe8386d67182/view?orgId=1\nSilence: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=EntityName%3Dadt-events&matcher=alertname%3DDead+Letter+Messages+in+Queue+or+Topic+sbns-dev-eus-00-wil-in1-95b411bf&matcher=app%3Dshared&matcher=customer-code%3Dwil&matcher=destination%3DZenDesk&matcher=environment%3Ddev&matcher=grafana_folder%3DSingle+Tenant&matcher=owner%3DIAD&matcher=region%3Deastus&matcher=severity%3D2&matcher=stamp%3D00&matcher=tsg%3Dhttps%3A%2F%2Fwillow.atlassian.net%2Fwiki%2Fspaces%2FPE%2Fpages%2F2669772820%2FAlert%2BMissing%2BTSG\nDashboard: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1\nPanel: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1&viewPanel=7\n"
+}

@@ -1,0 +1,145 @@
+name: AMG Zendesk Connector
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_dev:
+        description: 'Deploy non-main branch to dev environment'
+        required: true
+        default: false
+        type: boolean
+
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: ['main']
+    paths:
+      - 'Grafana/ZendeskIntegrationFunctionApp/GrafanaZendeskIntegration.FunctionApp/**'
+
+  push:
+    branches: ['main']
+    paths:
+      - 'Grafana/ZendeskIntegrationFunctionApp/GrafanaZendeskIntegration.FunctionApp/**'
+env:
+  AZURE_FUNCTIONAPP_NAME: GrafanaZendeskConnector
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: GrafanaZendeskIntegration.FunctionApp/published
+  CONFIGURATION: Release
+  WORKING_DIRECTORY: Grafana/ZendeskIntegrationFunctionApp/GrafanaZendeskIntegration.FunctionApp
+  SEED_MAPPING_SCRIPT_PATH: Grafana/ZendeskIntegrationFunctionApp/SeedData/SeedGrafanaZendeskMappingsTable.ps1
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  issues: read
+  checks: write
+
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set version
+        uses: WillowInc/.github/.github/actions/generate-versions@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/dotnet-restore-build-test@main ## main
+        with:
+          path: Grafana/ZendeskIntegrationFunctionApp
+          restore_path: Grafana/ZendeskIntegrationFunctionApp
+          restore_parameters: '--locked-mode'
+          test_path: Grafana/ZendeskIntegrationFunctionApp/GrafanaZendeskIntegration.FunctionApp.Tests
+          version: ${{ env.GitVersion_SemVer }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          test_filter: TestCategory!=Integration
+          coverage_thresholds: '40 80'
+
+      - name: Publish
+        run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: functionapp
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+  deployDev:
+    if: github.ref == 'refs/heads/main' || github.event.inputs.deploy_dev
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      RESOURCE_GROUP: rg-dev
+      FUNCTIONAPP_NAME: fnzendeskconnectordev
+      APPSETTINGS_FILE: appsettings.dev.json
+
+    environment: NonProd
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: functionapp
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+      - name: OIDC Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_DEV }}
+
+      - name: Azure Monitor
+        shell: pwsh
+        run: |
+          [String]$instrumentationKey = (az monitor app-insights component show --app ain-dev-eus --resource-group rg-dev-eus --query  "instrumentationKey" --output tsv)
+          az functionapp config appsettings set --name ${{ env.FUNCTIONAPP_NAME }} --resource-group ${{ env.RESOURCE_GROUP}} --settings APPINSIGHTS_INSTRUMENTATIONKEY=$instrumentationKey APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=$instrumentationKey ApplicationInsightsAgent_EXTENSION_VERSION=~2
+
+      - name: Deploy to Azure Function App
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          publish-profile: ${{ secrets.ZENDESKCONNECTORPUBLISHPROFILE }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+  deployProd:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: deployDev
+    env:
+      RESOURCE_GROUP: rg-prd
+      FUNCTIONAPP_NAME: fnzendeskconnectorprd
+      APPSETTINGS_FILE: appsettings.prd.json
+
+    environment: Production
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: functionapp
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+      - name: OIDC Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: Azure Monitor
+        shell: pwsh
+        run: |
+          [String]$instrumentationKey = (az monitor app-insights component show --app ain-prd-eus2 --resource-group rg-prd-eus2 --query  "instrumentationKey" --output tsv)
+          az functionapp config appsettings set --name ${{ env.FUNCTIONAPP_NAME }} --resource-group ${{ env.RESOURCE_GROUP}} --settings APPINSIGHTS_INSTRUMENTATIONKEY=$instrumentationKey APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=$instrumentationKey ApplicationInsightsAgent_EXTENSION_VERSION=~2
+
+      - name: Deploy to Azure Function App
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          publish-profile: ${{ secrets.ZENDESKCONNECTORPUBLISHPROFILE }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}

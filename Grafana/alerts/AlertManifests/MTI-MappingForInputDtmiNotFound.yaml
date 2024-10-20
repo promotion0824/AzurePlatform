@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: MTI Mapping For Input Dtmi Not Found
+metricName: Mti-MappingForInputDtmiNotFound
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 0
+Severity: 3
+Aggregation: Count
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2762702870/Alert%3A+MTI-MappingForInputDtmiNotFound
+template: Mti-MappingForInputDtmiNotFound.json

@@ -1,0 +1,10 @@
+ResourceType: Microsoft.Insights/components
+Title: MTI Relationships Failed
+metricName: Mti-Relationships
+metricNamespace: microsoft.insights/components
+reducer:
+Threshold: 0
+Severity: 3
+Aggregation: Count
+tsg: https://willow.atlassian.net/wiki/spaces/PE/pages/2762702849/Alert%3A+MTI+Relationships+Failed
+template: MTI-RelationshipsFailed.json

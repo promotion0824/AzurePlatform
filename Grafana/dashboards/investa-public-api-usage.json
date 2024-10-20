@@ -1,0 +1,457 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "This dashboard shows Public API usage from the Investa Sites",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 31,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 23,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "requests\r\n| where $__timeFilter(timestamp) and url has \"publicapi\" and url has \"$InvestaSiteId\"\r\n                                and name has \"POST LiveData/SendLiveData\"\r\n| summarize avg(duration) by bin(timestamp, 1m), name\r\n| order by timestamp asc\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-plt-aue2-app-rsg/providers/microsoft.insights/components/wil-prd-plt-aue2-ain",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "resourceGroup": "t3-wil-prd-plt-aue2-app-rsg",
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "e878a98a-20ec-4516-a59d-f393429fe07c"
+          ]
+        }
+      ],
+      "title": "Response Times - Post LiveData -> $InvestaSiteId",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 23,
+        "x": 0,
+        "y": 7
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "requests\r\n| where $__timeFilter(timestamp) and url has \"publicapi\" and url has \"$InvestaSiteId\"\r\n                                //and name has \"POST LiveData/SendLiveData\"\r\n| summarize avg(duration) by bin(timestamp, 1m), name\r\n| order by timestamp asc",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-plt-aue2-app-rsg/providers/microsoft.insights/components/wil-prd-plt-aue2-ain",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "resourceGroup": "t3-wil-prd-plt-aue2-app-rsg",
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "e878a98a-20ec-4516-a59d-f393429fe07c"
+          ]
+        }
+      ],
+      "title": "Response Times - All Public API Calls -> $InvestaSiteId ",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "PB92CA166444B34F5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "totalCount"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 23,
+        "x": 0,
+        "y": 15
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.1",
+      "targets": [
+        {
+          "azureLogAnalytics": {
+            "query": "requests\r\n| where $__timeFilter(timestamp)\r\n| where url has \"publicapi\" and url has \"$InvestaSiteId\"\r\n                                and success == \"True\" //set to False for failed\r\n| summarize totalCount=sum(itemCount) by bin(timestamp, 1m)\r\n| order by timestamp asc\r\n\r\n",
+            "resource": "/subscriptions/e878a98a-20ec-4516-a59d-f393429fe07c/resourceGroups/t3-wil-prd-plt-aue2-app-rsg/providers/microsoft.insights/components/wil-prd-plt-aue2-ain",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "dimensionFilters": [],
+            "resourceGroup": "t3-wil-prd-plt-aue2-app-rsg",
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "PB92CA166444B34F5"
+          },
+          "queryType": "Azure Log Analytics",
+          "refId": "A",
+          "subscription": "e878a98a-20ec-4516-a59d-f393429fe07c",
+          "subscriptions": [
+            "e878a98a-20ec-4516-a59d-f393429fe07c"
+          ]
+        }
+      ],
+      "title": "Count - All Successful Public API Calls -> $InvestaSiteId",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "Public API",
+    "Performance & Availability"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "60 Martin Place",
+          "value": "404bd33c-a697-4027-b6a6-677e30a53d07"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Select Investa Site ID",
+        "multi": false,
+        "name": "InvestaSiteId",
+        "options": [
+          {
+            "selected": false,
+            "text": "126 Philip Street",
+            "value": "a6b78f54-9875-47bc-9612-aa991cc464f3"
+          },
+          {
+            "selected": false,
+            "text": "135 King Street",
+            "value": "952b3038-25c2-44e2-8204-666995d047d1"
+          },
+          {
+            "selected": false,
+            "text": "151 Clarence St",
+            "value": "e719ac18-192b-4174-91db-b3a624f1f1a4"
+          },
+          {
+            "selected": false,
+            "text": "201 Kent Street",
+            "value": "993a3866-d5e4-4239-b2a4-7ce4cb1e4dc9"
+          },
+          {
+            "selected": false,
+            "text": "259 Queen St",
+            "value": "76ceaffe-c94b-4329-8d40-94249606235d"
+          },
+          {
+            "selected": false,
+            "text": "347 Kent Street",
+            "value": "8e24da1d-3257-46be-af91-81a2e31a4417"
+          },
+          {
+            "selected": false,
+            "text": "420 George Street",
+            "value": "d227f436-a3e1-4775-ac05-6b8b1c121aac"
+          },
+          {
+            "selected": false,
+            "text": "567 Collins St",
+            "value": "934638e3-4bd7-4749-bd52-bd6e47d0fbb2"
+          },
+          {
+            "selected": true,
+            "text": "60 Martin Place",
+            "value": "404bd33c-a697-4027-b6a6-677e30a53d07"
+          }
+        ],
+        "query": "a6b78f54-9875-47bc-9612-aa991cc464f3,952b3038-25c2-44e2-8204-666995d047d1,e719ac18-192b-4174-91db-b3a624f1f1a4,993a3866-d5e4-4239-b2a4-7ce4cb1e4dc9,76ceaffe-c94b-4329-8d40-94249606235d,8e24da1d-3257-46be-af91-81a2e31a4417,d227f436-a3e1-4775-ac05-6b8b1c121aac,934638e3-4bd7-4749-bd52-bd6e47d0fbb2,404bd33c-a697-4027-b6a6-677e30a53d07",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1m",
+      "5m"
+    ]
+  },
+  "timezone": "",
+  "title": "Investa - Public API Usage",
+  "uid": "pqwNC9b7k",
+  "version": 1,
+  "weekStart": ""
+}

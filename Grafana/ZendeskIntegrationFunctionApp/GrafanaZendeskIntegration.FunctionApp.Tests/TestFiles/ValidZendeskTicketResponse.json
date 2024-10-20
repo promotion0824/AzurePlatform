@@ -1,0 +1,148 @@
+{
+  "ticket": {
+    "url": "https://willowinc.zendesk.com/api/v2/tickets/32629.json",
+    "id": 32629,
+    "external_id": null,
+    "via": {
+      "channel": "api",
+      "source": {
+        "from": {},
+        "to": {},
+        "rel": null
+      }
+    },
+    "created_at": "2024-05-31T22:52:45Z",
+    "updated_at": "2024-06-05T17:02:49Z",
+    "generated_timestamp": 1717606969,
+    "type": "incident",
+    "subject": "Server Request Duration by Customer Instance App Role ain-prd-weu ",
+    "raw_subject": "Server Request Duration by Customer Instance App Role ain-prd-weu ",
+    "description": "\n\nIncident Information\nKey Value\nTitle Alert: Server Request Duration by Customer Instance App Role ain-prd-weu Folder Single Tenant Status: firing\nalertname Server Request Duration by Customer Instance App Role ain-prd-weu\ncustomercode shared\nenvironment prd\nowner cloudops\nregion westeurope\nseverity Low\nstamp management\n\n\n\n\nLinks\nGrafana Dashboard https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/ae00356b-291f-4664-b096-6bd261a77bff?orgId=1\nGrafana Panel https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/ae00356b-291f-4664-b096-6bd261a77bff?orgId=1&viewPanel=4\nTroubleshooting Guide https://willow.atlassian.net/wiki/spaces/PE/pages/2724921345/Alert+Server+Request+Duration+by+Customer+Instance+App+Role",
+    "priority": "normal",
+    "status": "open",
+    "recipient": null,
+    "requester_id": 8194384282639,
+    "submitter_id": 8194384282639,
+    "assignee_id": null,
+    "organization_id": 360849219632,
+    "group_id": 7350842174095,
+    "collaborator_ids": [],
+    "follower_ids": [],
+    "email_cc_ids": [],
+    "forum_topic_id": null,
+    "problem_id": null,
+    "has_incidents": false,
+    "is_public": false,
+    "due_at": null,
+    "tags": ["3_-_low", "cloud_ops", "no", "prd", "willow"],
+    "custom_fields": [
+      {
+        "id": 7231972707215,
+        "value": "3_-_low"
+      },
+      {
+        "id": 360029547271,
+        "value": "willow"
+      },
+      {
+        "id": 5412476201231,
+        "value": null
+      },
+      {
+        "id": 4413864107161,
+        "value": null
+      },
+      {
+        "id": 900007747226,
+        "value": "no"
+      },
+      {
+        "id": 360029506971,
+        "value": null
+      },
+      {
+        "id": 360029506771,
+        "value": "cloud_ops"
+      },
+      {
+        "id": 9249847581199,
+        "value": "https://willow.atlassian.net/wiki/spaces/PE/pages/2724921345/Alert+Server+Request+Duration+by+Customer+Instance+App+Role"
+      },
+      {
+        "id": 8855585604367,
+        "value": "301"
+      },
+      {
+        "id": 9249848448911,
+        "value": "https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/ae00356b-291f-4664-b096-6bd261a77bff?orgId=1"
+      },
+      {
+        "id": 9249847891343,
+        "value": "https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/ae00356b-291f-4664-b096-6bd261a77bff?orgId=1&viewPanel=4"
+      },
+      {
+        "id": 8001260747407,
+        "value": "prd"
+      }
+    ],
+    "satisfaction_rating": { "score": "unoffered" },
+    "sharing_agreement_ids": [],
+    "custom_status_id": 7007266,
+    "fields": [
+      {
+        "id": 7231972707215,
+        "value": "3_-_low"
+      },
+      {
+        "id": 360029547271,
+        "value": "willow"
+      },
+      {
+        "id": 5412476201231,
+        "value": null
+      },
+      {
+        "id": 4413864107161,
+        "value": null
+      },
+      {
+        "id": 900007747226,
+        "value": "no"
+      },
+      {
+        "id": 360029506971,
+        "value": null
+      },
+      {
+        "id": 360029506771,
+        "value": "cloud_ops"
+      },
+      {
+        "id": 9249847581199,
+        "value": "https://willow.atlassian.net/wiki/spaces/PE/pages/2724921345/Alert+Server+Request+Duration+by+Customer+Instance+App+Role"
+      },
+      {
+        "id": 8855585604367,
+        "value": "301"
+      },
+      {
+        "id": 9249848448911,
+        "value": "https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/ae00356b-291f-4664-b096-6bd261a77bff?orgId=1"
+      },
+      {
+        "id": 9249847891343,
+        "value": "https://grafana-prd-eus-c4chfqh8ewb9ezab.eus.grafana.azure.com/d/ae00356b-291f-4664-b096-6bd261a77bff?orgId=1&viewPanel=4"
+      },
+      {
+        "id": 8001260747407,
+        "value": "prd"
+      }
+    ],
+    "followup_ids": [],
+    "ticket_form_id": 360000625472,
+    "brand_id": 360003359131,
+    "allow_channelback": false,
+    "allow_attachments": true,
+    "from_messaging_channel": false
+  }
+}

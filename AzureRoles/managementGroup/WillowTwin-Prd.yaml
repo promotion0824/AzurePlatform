@@ -1,0 +1,51 @@
+managementGroupName: WillowTwinPrd
+variables:
+  identities:
+    - &grafana-pod d5dbdeb7-7629-438c-8384-519b1dcf4598
+    - &grafanaAMG f1dda508-d34e-4234-99ba-917017c14667
+    - &Platform_Engineers 28ddc189-5f7c-4a25-9c69-8e5d6830b92c
+    - &CognitiveServicesContributor-WillowTwin-Prod 6dd5d003-20b5-45ec-b2d1-469cbe9ebdcb
+    - &Wilbur a2934358-23ce-4c0b-abaf-2f18d14b6cd6
+    - &pipeline-deployer-spn aa21adab-abbe-4e3b-9589-0b74d8880676
+    - &Azure-WillowTwin-Readers 6a8437c5-2652-4b3b-b88b-4bc1b93592c9
+    - &WillowTwin-PlatformEngineers 7a6ce841-907e-41b4-8bed-bef1a489f6f4
+    - &Dynamic_Group_Global_Customer_Technical_Support 5f654bbf-a748-450d-9fea-55121300aa34
+    - &dhopper 1a380890-5a41-41b3-ad5c-e280d5f6bb66
+    - &cost-export-pod-ide6b37b90 a1d55701-c95e-45c8-896a-053229ace49d
+  scopes:
+    - &managementGroupScope /providers/Microsoft.Management/managementGroups/WillowTwinPrd
+managementGroupRoles:
+  - assignments:
+      - *grafana-pod
+      - *grafanaAMG
+      - *Azure-WillowTwin-Readers
+      - *cost-export-pod-ide6b37b90
+    scope: *managementGroupScope
+    role: Reader
+  - assignments: *Platform_Engineers
+    scope: *managementGroupScope
+    role: Tag Contributor
+  - assignments: *CognitiveServicesContributor-WillowTwin-Prod
+    scope: *managementGroupScope
+    role: Cognitive Services Contributor
+  - assignments: *Wilbur
+    scope: *managementGroupScope
+    role: SqlFirewallAdmin
+  - assignments: *pipeline-deployer-spn
+    scope: *managementGroupScope
+    role: Contributor
+  - assignments: *pipeline-deployer-spn
+    scope: *managementGroupScope
+    role: RoleAssignmentManagement
+  - assignments: *WillowTwin-PlatformEngineers
+    scope: *managementGroupScope
+    role: Owner
+  - assignments: *Dynamic_Group_Global_Customer_Technical_Support
+    scope: *managementGroupScope
+    role: Monitoring Reader
+  - assignments: *pipeline-deployer-spn
+    scope: *managementGroupScope
+    role: Azure Digital Twins Data Owner
+  - assignments: *dhopper
+    scope: *managementGroupScope
+    role: Resource Policy Contributor

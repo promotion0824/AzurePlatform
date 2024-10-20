@@ -1,0 +1,11 @@
+{
+  "uid": "e2f97f4b-0cfd-46f1-94b8-ddf30474fe55",
+  "name": "Zendesk Alerts",
+  "type": "webhook",
+  "settings": {
+    "httpMethod": "POST",
+    "maxAlerts": "1",
+    "url": "{{zendeskWebhookUrl}}"
+  },
+  "disableResolveMessage": true
+}

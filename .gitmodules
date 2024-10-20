@@ -1,0 +1,4 @@
+[submodule "OpensourcePortal/opensource-portal"]
+	path = OpensourcePortal/opensource-portal
+	url = https://github.com/Microsoft/opensource-portal
+      branch = main

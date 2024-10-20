@@ -1,0 +1,59 @@
+{
+  "receiver": "Zendesk Alerts",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "EntityName": "adt-events",
+        "alertname": "Test Alert, please ignore/delete",
+        "app": "shared",
+        "customer-code": "wil",
+        "destination": "ZenDesk",
+        "environment": "dev",
+        "grafana_folder": "Single Tenant",
+        "region": "eastus",
+        "severity": "2",
+        "stamp": "01"
+      },
+      "annotations": {},
+      "startsAt": "2024-02-07T18:02:00Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/c09b9962-92b3-4880-8620-8f7e40c629ae/view?orgId=1",
+      "fingerprint": "93511a13a45edfcc",
+      "silenceURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=EntityName%3Dadt-events&matcher=alertname%3DDead+Letter+Messages+in+Queue+or+Topic+sbns-dev-eus-01-wil-in1-bd31f3df&matcher=app%3Dshared&matcher=customer-code%3Dwil&matcher=destination%3DZenDesk&matcher=environment%3Ddev&matcher=grafana_folder%3DSingle+Tenant&matcher=region%3Deastus&matcher=severity%3D2&matcher=stamp%3D01",
+      "dashboardURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1",
+      "panelURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1&viewPanel=7",
+      "values": {
+        "B": 6,
+        "C": 1
+      },
+      "valueString": "[ var='B' labels={EntityName=adt-events} value=6 ], [ var='C' labels={EntityName=adt-events} value=1 ]"
+    }
+  ],
+  "groupLabels": {
+    "alertname": "Test Alert, please ignore/delete",
+    "grafana_folder": "Single Tenant"
+  },
+  "commonLabels": {
+    "EntityName": "adt-events",
+    "alertname": "Test Alert, please ignore/delete",
+    "app": "shared",
+    "customer-code": "wil",
+    "destination": "ZenDesk",
+    "environment": "dev",
+    "grafana_folder": "Single Tenant",
+    "region": "eastus",
+    "severity": "2",
+    "stamp": "01"
+  },
+  "commonAnnotations": {},
+  "externalURL": "https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/",
+  "version": "1",
+  "groupKey": "{}/{destination=\"ZenDesk\"}:{alertname=\"Test Alert, please ignore/delete\", grafana_folder=\"Single Tenant\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1] Test Alert, please ignore/delete Single Tenant (adt-events shared wil ZenDesk dev eastus 2 01)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: B=6, C=1\nLabels:\n - alertname = Test Alert, please ignore/delete\n - EntityName = adt-events\n - app = shared\n - customer-code = wil\n - destination = ZenDesk\n - environment = dev\n - grafana_folder = Single Tenant\n - region = eastus\n - severity = 2\n - stamp = 01\nAnnotations:\nSource: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/grafana/c09b9962-92b3-4880-8620-8f7e40c629ae/view?orgId=1\nSilence: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/alerting/silence/new?alertmanager=grafana&matcher=EntityName%3Dadt-events&matcher=alertname%3DDead+Letter+Messages+in+Queue+or+Topic+sbns-dev-eus-01-wil-in1-bd31f3df&matcher=app%3Dshared&matcher=customer-code%3Dwil&matcher=destination%3DZenDesk&matcher=environment%3Ddev&matcher=grafana_folder%3DSingle+Tenant&matcher=region%3Deastus&matcher=severity%3D2&matcher=stamp%3D01\nDashboard: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1\nPanel: https://grafana-dev-eus-cwazajhmdzhrhbdt.eus2.grafana.azure.com/d/ae479efb-c6d8-42b4-9926-6edac5303391?orgId=1&viewPanel=7\n"
+}

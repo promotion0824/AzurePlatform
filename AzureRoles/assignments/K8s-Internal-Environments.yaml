@@ -1,0 +1,57 @@
+subscriptionId: 7dab7b5a-d968-43a5-a50f-9509244c297b
+subscriptionName: K8S-Internal-Environments
+
+subscriptionRoles:
+  - role: User Access Administrator
+    scope: *subscription
+    assignments:
+      - d2a5eb03-9df1-4aff-8276-2e9587812ed4 #https://mspim.onmicrosoft.com/
+
+  - role: Owner
+    scope: *subscription
+    assignments:
+      - *Platform_Engineers
+      - 63124610-8a2e-4856-b637-650101e1e6c6 #WillowCloud@willowinc.com
+
+  - role: Reader
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: Storage Blob Data Contributor
+    scope: *subscription
+    assignments:
+      - *Platform_Engineers
+      - f9624c1d-234a-4527-8fd6-6ca04a8dfa6e #6264f887-c77c-41f4-9178-5c600132f697
+
+  - role: DiagnosticsExplorer
+    scope: *subscription
+    assignments:
+      - e39a4759-1135-4022-b198-d621448fc3b2 #P&E Willow Twin Marketplace
+      - fba7b4b7-d78a-4116-b610-1203e146ba44 #P&E Willow Twin Platform
+      - ffdca6d6-cc64-4be1-b717-ecf67571fd68 # Willow AppSec Team
+
+  - role: EnvironmentDeployer
+    scope: *subscription
+    assignments:
+      - 248d0404-3643-4ee2-8dbe-c659396384b9 # willow-Env-Deployers-nonprod
+
+  - role: Azure Digital Twins Data Reader
+    scope: *subscription
+    assignments:
+      - *Engineers_Willow
+
+  - role: Managed Identity Operator
+    scope: *subscription
+    assignments:
+      - a2b9b0bb-9c86-408a-a907-d96fe4275184 #8ce93640-dc45-40fb-ae0c-ec58b376530c / nonprod-platformapps-aks-agentpool
+
+  - role: Storage Blob Data Reader
+    scope: /subscriptions/7dab7b5a-d968-43a5-a50f-9509244c297b/resourceGroups/deployment-data/providers/Microsoft.Storage/storageAccounts/k8sintenvdeploydata/blobServices/default/containers/pulumi
+    assignments:
+      - fba7b4b7-d78a-4116-b610-1203e146ba44 #P&E Willow Twin Platform
+
+  - role: Azure Service Bus Data Receiver
+    scope: *subscription
+    assignments:
+      - 27f82a22-b9ec-40d8-b18f-72d44d4e3fae #e55ff0ac-3ec1-4321-af8d-1a659f342ca8

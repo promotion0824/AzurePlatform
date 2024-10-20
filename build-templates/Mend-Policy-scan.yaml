@@ -1,0 +1,30 @@
+parameters:
+  - name: serviceName
+    type: string
+  - name: solutionLocation
+    type: string
+  - name: whitesourceApiKey
+    type: string
+    default: ''
+  - name: projectId
+    type: string
+    default: ''
+steps:
+  - script: 'curl -LJOs https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar'
+    displayName: '[Mend][curl]  Download the latest Unified Agent'
+    workingDirectory: ${{ parameters.solutionLocation }}
+
+  - script: 'java -jar wss-unified-agent.jar -scanComment "BuildId: $(Build.BuildId)" -c $(Build.SourcesDirectory)/${{ parameters.solutionLocation }}/wss-unified-agent.config -apiKey ${{ parameters.whitesourceApiKey }} -project ${{ parameters.serviceName }}'
+    displayName: '[Mend][java] Run Unified Agent Scan'
+    workingDirectory: ${{ parameters.solutionLocation }}
+
+  - task: PowerShell@2
+    inputs:
+      filePath: $(Build.SourcesDirectory)/build-templates/Find-PolicyFailures.ps1
+      arguments: > # Use this to avoid newline characters in multiline string
+        -ProjectName "${{ parameters.serviceName }}"
+        -SystemAccessToken $(GithubIntegrationPat)
+        -ProjectId ${{parameters.projectId}}
+        -Verbose
+      workingDirectory: '${{ parameters.solutionLocation }}'
+    displayName: '[Mend][PowerShell] Check for Mend Policy Violations'

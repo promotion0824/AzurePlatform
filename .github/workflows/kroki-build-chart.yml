@@ -1,0 +1,43 @@
+name: kroki-build
+
+on:
+  workflow_call:
+    outputs:
+      nugetVer:
+        value: ${{ jobs.build-chart.outputs.nugetVer }}
+      semVer:
+        value: ${{ steps.build-chart.outputs.semVer }}
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
+    paths:
+      - 'Kroki/**'
+
+jobs:
+  build-chart:
+    outputs:
+      nugetVer: ${{ steps.job-outputs.outputs.nugetVer }}
+      semVer: ${{ steps.job-outputs.outputs.semVer }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version
+        id: version-info
+        uses: WillowInc/.github/.github/actions/generate-versions@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: WillowInc/AzurePlatform/.github/actions/helm-package@main ## main
+        with:
+          chart_path: Kroki/
+          chart_name: kroki
+          version: ${{ steps.version-info.outputs.semVer }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: job-outputs
+        name: Set Job Outputs
+        run: |
+          echo "::set-output name=nugetVer::${{ steps.version-info.outputs.nugetVer }}"
+          echo "::set-output name=semVer::${{ steps.version-info.outputs.semVer }}"

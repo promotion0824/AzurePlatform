@@ -1,0 +1,129 @@
+gatewayProxies:
+  gatewayProxy:
+    disabled: false
+    gatewaySettings:
+      customHttpGateway:
+        virtualServiceExpressions:
+          expressions:
+            - {
+                key: domain,
+                operator: In,
+                values:
+                  [
+                    app-aue.nonprod.willowinc.com,
+                    app-eu2.nonprod.willowinc.com,
+                  ],
+              }
+        options:
+          extauth:
+            extauthzServerRef:
+              name: customer-auth-gateway-nonprod-upstream
+              namespace: cluster-gloo
+            httpService: {}
+            requestBody:
+              maxRequestBytes: 104857600 #100MB
+            requestTimeout: 3s
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    horizontalPodAutoscaler:
+      minReplicas: 1
+      maxReplicas: 4
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 30
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 60
+            - type: Pods
+              value: 2
+              periodSeconds: 15
+          selectPolicy: Max
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 50
+      apiVersion: autoscaling/v2
+    podTemplate:
+      # probes: true # This should be enabled once we have routes on gloo and before doing a gloo upgrade > https://docs.solo.io/gloo-edge/master/operations/production_deployment/#enable-health-checks
+      resources:
+        limits:
+          cpu: 250m
+          memory: 500Mi
+        requests:
+          cpu: 150m
+          memory: 35Mi
+  devGatewayProxy: # Dev Gateway
+    disabled: false
+    gatewaySettings:
+      customHttpGateway:
+        virtualServiceExpressions:
+          expressions:
+            - {
+                key: domain,
+                operator: In,
+                values: [app-aue.dev.willowinc.com, app-eu2.dev.willowinc.com],
+              }
+        options:
+          extauth:
+            extauthzServerRef:
+              name: customer-auth-gateway-dev-upstream
+              namespace: cluster-gloo
+            httpService: {}
+            requestBody:
+              maxRequestBytes: 104857600 #100MB
+            requestTimeout: 3s
+    kubeResourceOverride:
+      metadata:
+        labels:
+          willowinc.com/team: azurePlatform
+          willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+    horizontalPodAutoscaler:
+      minReplicas: 1
+      maxReplicas: 4
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 30
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 60
+            - type: Pods
+              value: 2
+              periodSeconds: 15
+          selectPolicy: Max
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 50
+      apiVersion: autoscaling/v2
+    podTemplate:
+      # probes: true # This should be enabled once we have routes on gloo and before doing a gloo upgrade > https://docs.solo.io/gloo-edge/master/operations/production_deployment/#enable-health-checks
+      resources:
+        limits:
+          cpu: 250m
+          memory: 500Mi
+        requests:
+          cpu: 150m
+          memory: 35Mi

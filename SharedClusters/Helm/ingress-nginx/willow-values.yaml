@@ -1,0 +1,42 @@
+controller:
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 85
+    behavior:
+      scaleDown:
+        stabilizationWindowSeconds: 300
+        policies:
+          - type: Pods
+            value: 1
+            periodSeconds: 180
+      scaleUp:
+        stabilizationWindowSeconds: 300
+        policies:
+          - type: Pods
+            value: 2
+            periodSeconds: 60
+  podSecurityContext:
+    runAsNonRoot: true
+    fsGroup: 1000
+    runAsUser: 1000
+  resources:
+    limits:
+      cpu: 200m
+      memory: 300Mi
+    requests:
+      cpu: 20m
+      memory: 250Mi
+
+  image:
+    allowPrivilegeEscalation: true
+  podLabels:
+    willowinc.com/team: azurePlatform
+    willowinc.com/project: willowdev_AzurePlatform_AzurePlatform_Helm.Clusters
+
+defaultBackend:
+  enabled: false

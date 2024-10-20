@@ -1,0 +1,137 @@
+subscriptionId: fd259995-1de7-4ae8-8431-0d150dcca6f4
+subscriptionName: prd
+
+subscriptionAppRoles:
+  - role: Grafana Admin
+    scope: *subscription
+    assignments: *dhopper
+
+  - role: Grafana Viewer
+    scope: *subscription
+    assignments:
+      - *Platform_Engineers
+      - *AzureManagedGrafanaUsers
+
+  - role: Key Vault Secrets Officer
+    scope: /subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd/providers/Microsoft.KeyVault/vaults/kvwilprdglobal01
+    assignments: c3fe618b-bbf0-410d-8e0b-a3934d599777 # Global Keyvault Admin
+
+  - role: Key Vault Reader
+    scope: /subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd/providers/Microsoft.KeyVault/vaults/kvwilprdglobal01
+    assignments: *Engineers_Willow
+
+  - role: Storage Blob Data Reader
+    assignments:
+      - *dhopper
+      - f4fbc965-9d0c-4d4f-878d-99751dc02a99 #Mark Janos
+    scope: /subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd/providers/Microsoft.Storage/storageAccounts/stwilprdshared01
+
+  - role: Storage Table Data Reader
+    assignments:
+      - *dhopper
+      - f4fbc965-9d0c-4d4f-878d-99751dc02a99 #Mark Janos
+    scope: /subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourceGroups/rg-prd/providers/Microsoft.Storage/storageAccounts/stwilprdshared01
+
+  - role: Owner
+    assignments: *dhopper
+    scope: /subscriptions/fd259995-1de7-4ae8-8431-0d150dcca6f4/resourcegroups/rg-prd/providers/microsoft.web/sites/fnzendeskconnectorprd
+
+  - role: Log Analytics Reader
+    scope: *subscription
+    assignments: *Customer_Technical_Support_Audit_Log_Access
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-aue-01-inv-in1-admin
+  #   scope: /subscriptions/30778047-59e1-4183-aa92-f0c21e221215/resourceGroups/rg-prd-aue-01-inv-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-aue-01-inv-uat-admin
+  #   scope: /subscriptions/30778047-59e1-4183-aa92-f0c21e221215/resourceGroups/rg-prd-aue-01-inv-uat
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-aue-02-jhg-in1-admin
+  #   scope: /subscriptions/fec406ed-b645-4085-9432-38a2d228d484/resourceGroups/rg-prd-aue-02-jhg-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-01-wil-ppe-admin
+  #   scope: /subscriptions/ef877648-1585-420f-9708-d6a6c37899fb/resourceGroups/rg-prd-eus2-01-wil-ppe
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-03-ddk-in1-admin
+  #   scope: /subscriptions/08ad1514-ad4d-437e-840c-9b01ca41e834/resourceGroups/rg-prd-eus2-03-ddk-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-04-wmt-uat-admin
+  #   scope: /subscriptions/6fc61788-9334-4777-933b-a30c244bd46a/resourceGroups/rg-prd-eus2-04-wmt-uat
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-05-wmt-in1-admin
+  #   scope: /subscriptions/7ec2c608-7942-4f73-a593-cc446c42d9de/resourceGroups/rg-prd-eus2-05-wmt-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-06-dur-in1-admin
+  #   scope: /subscriptions/75652d1a-1ca9-43ad-a0a3-268cc6d16ce2/resourceGroups/rg-prd-eus2-06-dur-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-07-tur-in1-admin
+  #   scope: /subscriptions/29113d3a-f4af-4791-b7b3-fd5c8b353f38/resourceGroups/rg-prd-eus2-07-tur-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-08-msft-in1-admin
+  #   scope: /subscriptions/a1d91f70-083d-4673-94c0-3e110cb22637/resourceGroups/rg-prd-eus2-08-msft-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-09-san-in1-admin
+  #   scope: /subscriptions/e9a440d7-8d24-4a87-8b68-bdc7b2b6bff6/resourceGroups/rg-prd-eus2-09-san-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-10-hwp-in1-admin
+  #   scope: /subscriptions/eda1170e-4eff-492f-ae71-e1444ecb7f4b/resourceGroups/rg-prd-eus2-10-hwp-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-10-hwp-uat-admin
+  #   scope: /subscriptions/eda1170e-4eff-492f-ae71-e1444ecb7f4b/resourceGroups/rg-prd-eus2-10-hwp-uat
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-11-brk-in1-admin
+  #   scope: /subscriptions/0bece55b-fdbc-4166-bf0f-1e8acf2ce8c3/resourceGroups/rg-prd-eus2-11-brk-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-12-dfw-in1-admin
+  #   scope: /subscriptions/aa62fdad-c619-4642-9920-e5bf2214cdd8/resourceGroups/rg-prd-eus2-12-dfw-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-12-dfw-uat-admin
+  #   scope: /subscriptions/aa62fdad-c619-4642-9920-e5bf2214cdd8/resourceGroups/rg-prd-eus2-12-dfw-uat
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-13-bp-in1-admin
+  #   scope: /subscriptions/3fb669b2-4001-493d-9c4b-239fd840ecb9/resourceGroups/rg-prd-eus2-13-bp-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-14-wck-in1-admin
+  #   scope: /subscriptions/192ffab7-c64e-4f35-9e1d-7d2ed0fbf6f1/resourceGroups/rg-prd-eus2-14-wck-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-15-wmr-in1-admin
+  #   scope: /subscriptions/d45624d2-b973-4d02-bc6f-99721e8cc311/resourceGroups/rg-prd-eus2-15-wmr-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-15-wmr-uat-admin
+  #   scope: /subscriptions/d45624d2-b973-4d02-bc6f-99721e8cc311/resourceGroups/rg-prd-eus2-15-wmr-uat
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-16-jpmc-in1-admin
+  #   scope: /subscriptions/52d36e42-7a4f-4798-ba4b-d828ee99ba69/resourceGroups/rg-prd-eus2-16-jpmc-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-eus2-17-nau-in1-admin
+  #   scope: /subscriptions/8abe8cc8-96c9-4c30-8953-8dd6ef6cdc14/resourceGroups/rg-prd-eus2-17-nau-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-weu-01-axa-in1-admin
+  #   scope: /subscriptions/553f62fa-8dd2-4937-aa70-457fd3537578/resourceGroups/rg-prd-weu-01-axa-in1
+
+  # - role: Storage Queue Data Reader
+  #   assignments: *prd-weu-02-bnp-nuv-admin
+  #   scope: /subscriptions/a0f47fc5-9468-4995-8c4c-749bab2ea244/resourceGroups/rg-prd-weu-02-bnp-nuv

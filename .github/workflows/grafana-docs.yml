@@ -1,0 +1,20 @@
+name: Docs for Grafana
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "Grafana/docs/**"
+      - "Grafana/mkdocs.yml"
+jobs:
+  build:
+    uses: WillowInc/AzurePlatform/.github/workflows/reusable-workflow-docs-build.yml@main
+    secrets:
+      jira_password: ${{ secrets.JIRA_PASSWORD }}
+      client_secret: ${{ secrets.CLIENT_SECRET }}
+      client_id: ${{ vars.CLIENT_ID }}
+      jira_username: ${{ secrets.JIRA_USERNAME }}
+    with:
+      docs_path: Grafana
+      backstage_entity_name: "default/component/grafana"

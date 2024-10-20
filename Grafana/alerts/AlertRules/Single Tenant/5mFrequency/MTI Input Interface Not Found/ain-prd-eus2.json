@@ -1,0 +1,164 @@
+{
+  "id": 110,
+  "uid": "",
+  "orgID": 1,
+  "folderUID": "bf7f0ff6-890d-45d6-b61f-5381f644f328",
+  "ruleGroup": "5mFrequency",
+  "title": "MTI Input Interface Not Found ain-prd-eus2",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "Azure Monitor",
+      "relativeTimeRange": {
+        "from": 3600,
+        "to": 0
+      },
+      "datasourceUid": "azure-monitor-oob",
+      "model": {
+        "azureMonitor": {
+          "aggregation": "Count",
+          "allowedTimeGrainsMs": [
+            60000, 300000, 900000, 1800000, 3600000, 21600000, 43200000,
+            86400000
+          ],
+          "customNamespace": "Azure.ApplicationInsights",
+          "dimensionFilters": [
+            {
+              "dimension": "FullCustomerInstanceName",
+              "filters": [],
+              "operator": "eq"
+            },
+            {
+              "dimension": "InterfaceType",
+              "filters": [],
+              "operator": "eq"
+            }
+          ],
+          "metricName": "Mti-InputInterfaceNotFound",
+          "metricNamespace": "microsoft.insights/components",
+          "region": "eastus2",
+          "resources": [
+            {
+              "metricNamespace": "Microsoft.Insights/components",
+              "region": "eastus2",
+              "resourceGroup": "rg-prd-eus2",
+              "resourceName": "ain-prd-eus2",
+              "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+            }
+          ],
+          "timeGrain": "auto"
+        },
+        "datasource": {
+          "type": "grafana-azure-monitor-datasource",
+          "uid": "azure-monitor-oob"
+        },
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "queryType": "Azure Monitor",
+        "refId": "A",
+        "subscription": "fd259995-1de7-4ae8-8431-0d150dcca6f4"
+      }
+    },
+    {
+      "refId": "B",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 3600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["B"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "A",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "reducer": "last",
+        "refId": "B",
+        "type": "reduce"
+      }
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {
+        "from": 3600,
+        "to": 0
+      },
+      "datasourceUid": "__expr__",
+      "model": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [0],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["C"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "datasource": {
+          "type": "__expr__",
+          "uid": "__expr__"
+        },
+        "expression": "B",
+        "hide": false,
+        "intervalMs": 1000,
+        "maxDataPoints": 43200,
+        "refId": "C",
+        "type": "threshold"
+      }
+    }
+  ],
+  "updated": "2024-04-29T21:52:57Z",
+  "noDataState": "NoData",
+  "execErrState": "Error",
+  "for": "5m",
+  "labels": {
+    "destination": "ZenDesk",
+    "severity": "3",
+    "region": "eastus2",
+    "tsg": "https://willow.atlassian.net/wiki/spaces/PE/pages/2762702880/Alert%3A+MTI-InputInterfaceNotFound",
+    "application": "shared",
+    "customer-code": "shared",
+    "environment": "prd",
+    "managedby": "bicep",
+    "owner": "cloudops",
+    "project": "https://github.com/WillowInc/Infrastructure-and-Application-Deployment/tree/main/ManagementSubInfrastructure",
+    "stamp": "management"
+  },
+  "isPaused": false
+}

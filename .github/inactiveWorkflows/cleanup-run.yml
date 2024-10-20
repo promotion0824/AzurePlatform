@@ -1,0 +1,56 @@
+name: Cleanup-run
+
+on:
+  schedule:
+    - cron: '15 */4 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'Cleanup/**'
+
+jobs:
+  build:
+    uses: WillowInc/AzurePlatform/.github/workflows/cleanup-build.yml@main
+
+  run:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: Ephemeral
+    steps:
+      - uses: WillowInc/AzurePlatform/.github/actions/aks-login@main
+        with:
+          client_id: ${{ vars.CLIENT_ID }}
+          client_secret: ${{ secrets.CLIENT_SECRET }}
+          tenant_id: ${{ vars.TENANT_ID_WILLOWINC }}
+          subscription_id: 178b67d7-b6fd-46db-b4a3-b57f8a6b045f
+          cluster_resource_group: nonprod-platformapps
+          cluster_name: nonprod-platformapps-aks
+
+      - name: Download Cleanup resource artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Cleanup-resource
+
+      - name: Write key file
+        env:
+          AUTH: ${{ secrets.KEY_PEM }}
+        run: |
+          echo "$AUTH" > ${HOME}/key.pem
+          echo ${HOME}
+
+      - name: Write cert file
+        env:
+          AUTH: ${{ secrets.CERT_PEM }}
+        run: |
+          echo "$AUTH" > ${HOME}/cert.pem
+          echo ${HOME}
+
+      - name: Run Cleanup
+        run: dotnet /home/runner/work/AzurePlatform/AzurePlatform/Willow.Cleanup.Job.dll
+        env:
+          B2C__TENANTID: ${{ vars.B2C_TENANTID }}
+          B2C__CLIENTID: ${{ vars.B2C_MANAGEMENTCLIENTID }}
+          B2C__CERTIFICATEPATH: '/home/runner/key.pem'
+          B2C__CERTIFICATEPASSWORD: ' '
+          B2C__APPOBJECTID: ${{ vars.B2C_APPID }}
